@@ -1,0 +1,22 @@
+version: '3.2'
+
+services:
+
+  mingaby:
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    networks:
+      - mingasby
+    ports:
+      - 443:443
+
+networks:
+  mingasby:
+    driver: bridge
+    attachable: true
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.0.0/24
