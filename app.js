@@ -12,6 +12,7 @@ var questionsRouter = require("./routes/questions");
 var questionsForEntityRouter = require("./routes/questionsForEntityRouter");
 var cylindersRouter = require("./routes/cylindersRouter");
 var feedbackRouter = require("./routes/feedbackRouter");
+var telemetriaRouter = require("./routes/telemetriaRouter");
 const cors = require("cors");
 const fs = require("fs");
 const options = {
@@ -23,9 +24,13 @@ const options = {
 };
 
 var app = express();
-var port = process.env.PORT || "9000";
-var http_port = process.env.PORT || 8080;
-var http = require("http");
+//for site
+var port = process.env.PORT || 3000;
+
+//for me
+// var port = process.env.PORT || 9000;
+// var http_port = process.env.PORT || 8080;
+// var http = require("http");
 const https = require("https").createServer(options, app);
 
 app.use(cors());
@@ -48,6 +53,7 @@ app.use("/questions", questionsRouter);
 app.use("/question-for-entity", questionsForEntityRouter);
 app.use("/cylinders", cylindersRouter);
 app.use("/feedback", feedbackRouter);
+app.use("/telemetria", telemetriaRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
