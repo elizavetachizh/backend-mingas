@@ -15,13 +15,13 @@ var feedbackRouter = require("./routes/feedbackRouter");
 var telemetriaRouter = require("./routes/telemetriaRouter");
 const cors = require("cors");
 const fs = require("fs");
-const options = {
-  key: fs.readFileSync("./ssl/privkey.pem"),
-  cert: fs.readFileSync("./ssl/cert.pem"),
-  ca: fs.readFileSync("./ssl/chain.pem"),
-  requestCert: true,
-  rejectUnauthorized: false,
-};
+// const options = {
+//   key: fs.readFileSync("./ssl/privkey.pem"),
+//   cert: fs.readFileSync("./ssl/cert.pem"),
+//   ca: fs.readFileSync("./ssl/chain.pem"),
+//   requestCert: true,
+//   rejectUnauthorized: false,
+// };
 
 var app = express();
 //for site
@@ -31,7 +31,7 @@ var port = process.env.PORT || 3000;
 // var port = process.env.PORT || 9000;
 // var http_port = process.env.PORT || 8080;
 // var http = require("http");
-const https = require("https").createServer(options, app);
+// const https = require("https").createServer(options, app);
 
 app.use(cors());
 // view engine setup
@@ -44,8 +44,9 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-
+ app.use('/public',express.static(path.join(__dirname, "public")));
+//  app.use('/public',express.static(path.join(__dirname, "public")));
+// app.use('/static', express.static('public'))
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/appeal", appealRouter);
@@ -88,7 +89,7 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
-https.listen(port, () => {
+app.listen(port, () => {
   console.log(`server start on port ${port}`);
 });
 // http
