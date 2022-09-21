@@ -44,7 +44,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
- app.use('/public',express.static(path.join(__dirname, "public")));
+app.use("/public", express.static(path.join(__dirname, "public")));
 //  app.use('/public',express.static(path.join(__dirname, "public")));
 // app.use('/static', express.static('public'))
 app.use("/", indexRouter);
@@ -60,26 +60,27 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 // error handler
-app.get('*', function(req, res, next) {
-  var schema = req.headers["x-forwarded-proto"];
-  console.log(schema)
-//http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#x-forwarded-proto
-  if (req.get('x-forwarded-proto') !== "https") {
-    res.set('x-forwarded-proto', 'https');
-    res.redirect('https://' + req.get('host') + req.url);
-  } else {
-    next();
-  }
-});
+// app.get('*', function(req, res, next) {
+//   var schema = req.headers["x-forwarded-proto"];
+//   console.log(schema)
+// //http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#x-forwarded-proto
+//   if (req.get('x-forwarded-proto') !== "https") {
+//     res.set('x-forwarded-proto', 'https');
+//     res.redirect(301, 'https://' + req.get('host') + req.url);
+//   } else {
+//     next();
+//   }
+// });
 app.use(function (err, req, res, next) {
-  console.log(req.headers);
+  // }
   // var schema = req.headers["x-forwarded-proto"];
-  // console.log(schema)
-  // if (req.headers["x-forwarded-proto"] === "http") {
-  //   return res.redirect(301, "https://mingas.by:9000");
+  // console.log(schema);
+  // //http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/TerminologyandKeyConcepts.html#x-forwarded-proto
+  // if (req.get("x-forwarded-proto") !== "https") {
+  //   res.set("x-forwarded-proto", "https");
+  //   res.redirect(301, "https://" + req.get("host") + req.url);
   // } else {
-  //   return next();
-
+  //   next();
   // }
   // set locals, only providing error in development
   res.locals.message = err.message;
