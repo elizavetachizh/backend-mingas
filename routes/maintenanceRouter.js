@@ -1,14 +1,14 @@
 var express = require("express");
 var router = express.Router();
 const nodemailer = require("nodemailer");
-const inlineBase64 = require("nodemailer-plugin-inline-base64");
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send(req.body);
-  console.log(req.body)
+  console.log(req.body);
 });
+
 router.post("/", (req, res) => {
-  const transporter = nodemailer.createTransport({
+  const transporterRepair = nodemailer.createTransport({
     secure: true,
     host: "ms2.g-cloud.by",
     port: 465,
@@ -21,43 +21,29 @@ router.post("/", (req, res) => {
       rejectUnauthorized: false,
     },
   });
-  const file = req.body.file;
-  res.send(req.body);
-  var maillist = [
-    "kc@mingas.by",
-    "ssta@mingas.by",
-    "chizhem@mingas.by",
-  ];
-  const mailOptions = {
+  const mailOptionsRepair = {
     from: req.body.email, // sender address
-    // to: maillist, //for site
-    to: "elizavetka.chizh@gmail.com", // for me
-    subject: "Предоставление показаний счётчика газа", // Subject line
+     to: "elizavetka.chizh@gmail.com", //for me
+    //  to: "sz@mingas.by", // for site
+    subject: "Заявка на Техническое обслуживание", // Subject line
     text: req.body.name,
     html: `
         <div style="padding:10px;border-style: ridge">
-        <p>От ${req.body.name}</p>
-        <h3>Сообщение:</h3>
+        <p>Тема: Техническое обслуживание</p>
+        <p>От: ${req.body.name} ${req.body.email}</p>
+        <p>Сообщение:</p>
         <ul>
             <li>ФИО: ${req.body.name}</li>
             <li>Email: ${req.body.email}</li>
             <li>Контактный телефон: ${req.body.phone}</li>
+            <li>Номер договора: ${req.body.text}</li>
             <li>Адрес: ${req.body.address}</li>
-            <li>Желаемое время для связи: ${req.body.time}</li>
-            <li>Лицевой счёт: ${req.body.text}</li>
-            <img src="cid:uniq-name"/>
+            <li>Тип оборудования: ${req.body.time}</li>
+            <li>Желаемая дата выполнения работы: ${req.body.date}</li>
         </ul>
         `,
-    attachments: [
-      {
-        filename: "Вложение",
-        path: `${file.length ? file : ""}`,
-        cid: "uniq-name", //same cid value as in the html img src
-      },
-    ],
   };
-  transporter.use("compile", inlineBase64({ cidPrefix: "somePrefix_" }));
-  transporter.sendMail(mailOptions, function (error, info) {
+  transporterRepair.sendMail(mailOptionsRepair, function (error, info) {
     if (error) {
       res.json({
         status: false,

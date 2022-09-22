@@ -10,7 +10,7 @@ services:
     networks:
       - mingasby
     ports:
-      - 443:443
+      - 443:3000
 
 networks:
   mingasby:

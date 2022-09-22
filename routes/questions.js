@@ -10,11 +10,12 @@ router.get("/", function (req, res, next) {
 
 router.post("/", (req, res) => {
   const transporterQuestions = nodemailer.createTransport({
-    service: "gmail",
     secure: true,
+    host: "ms2.g-cloud.by",
+    port: 465,
     auth: {
-      user: "elizavetka.chizh@gmail.com",
-      pass: "jugbujpdqhvpmdyh",
+      user: "chizhem@mingas.by",
+      pass: "JlUqVN5tv98T",
     },
     tls: {
       // do not fail on invalid certs
@@ -25,6 +26,7 @@ router.post("/", (req, res) => {
   const document = req.body.document;
   const mailOptionsFormQuestion = {
     from: req.body.email, // sender address
+    //to: "odik.obrashenia@gmail.com", //for site
     to: "elizavetka.chizh@gmail.com", // list of receivers
     subject: "Обращение физ. лиц", // Subject line
     text: req.body.name,

@@ -9,20 +9,27 @@ router.get("/", function (req, res, next) {
 
 router.post("/", (req, res) => {
   const transporterFeedback = nodemailer.createTransport({
-    service: "gmail",
     secure: true,
+    host: "ms2.g-cloud.by",
+    port: 465,
     auth: {
-      user: "elizavetka.chizh@gmail.com",
-      pass: "jugbujpdqhvpmdyh",
+      user: "chizhem@mingas.by",
+      pass: "JlUqVN5tv98T",
     },
     tls: {
       // do not fail on invalid certs
       rejectUnauthorized: false,
     },
   });
+  var maillist = [
+    "seug@mingas.by",
+    "ssta@mingas.by",
+    "chizhem@mingas.by",
+  ];
   const mailOptionsFormQuestionForEntity = {
     from: req.body.email, // sender address
-    to: "chizhem@mingas.by", // list of receivers
+    // to: maillist, // for site
+    to: "elizavetka.chizh@gmail.com", // for me
     subject: "Заявка на получение доступа к телеметрии", // Subject line
     text: req.body.name,
     html: `

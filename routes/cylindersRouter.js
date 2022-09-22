@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 const nodemailer = require("nodemailer");
-const inlineBase64 = require("nodemailer-plugin-inline-base64");
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send(req.body);
@@ -10,11 +9,12 @@ router.get("/", function (req, res, next) {
 
 router.post("/", (req, res) => {
   const transporterQuestionsForEntity = nodemailer.createTransport({
-    service: "gmail",
     secure: true,
+    host: "ms2.g-cloud.by",
+    port: 465,
     auth: {
-      user: "elizavetka.chizh@gmail.com",
-      pass: "jugbujpdqhvpmdyh",
+      user: "chizhem@mingas.by",
+      pass: "JlUqVN5tv98T",
     },
     tls: {
       // do not fail on invalid certs
@@ -23,7 +23,8 @@ router.post("/", (req, res) => {
   });
   const mailOptionsFormQuestionForEntity = {
     from: req.body.email, // sender address
-    to: "chizhem@mingas.by", // list of receivers
+    //to: "kc@mingas.by", //for site
+    to: "chizhem@mingas.by", // for me
     subject: "Заявка на заказ баллонов СУГ 50 литров", // Subject line
     text: req.body.name,
     html: `
