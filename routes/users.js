@@ -50,8 +50,7 @@ router.post("/", (req, res) => {
         `,
     attachments: [
       {
-        filename: "Вложение",
-        path: `${file.length ? file : ""}`,
+        href: `${file}`,
         cid: "uniq-name", //same cid value as in the html img src
       },
     ],

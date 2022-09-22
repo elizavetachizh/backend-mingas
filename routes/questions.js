@@ -22,7 +22,6 @@ router.post("/", (req, res) => {
       rejectUnauthorized: false,
     },
   });
-  const file = req.body.file;
   const document = req.body.document;
   const mailOptionsFormQuestion = {
     from: req.body.email, // sender address
@@ -38,7 +37,7 @@ router.post("/", (req, res) => {
             <li>Email: ${req.body.email}</li>
             <li>Контактный телефон: ${req.body.phone}</li>
             <li>Адрес: ${req.body.address}</li>
-                   <li>Тема обращения: ${req.body.text}</li>
+            <li>Тема обращения: ${req.body.text}</li>
         </ul>
            <p>Сообщение: ${req.body.message}</p> 
         `,
@@ -50,10 +49,6 @@ router.post("/", (req, res) => {
       },
     ],
   };
-  transporterQuestions.use(
-    "compile",
-    inlineBase64({ cidPrefix: "somePrefix_" })
-  );
   transporterQuestions.sendMail(
     mailOptionsFormQuestion,
     function (error, info) {

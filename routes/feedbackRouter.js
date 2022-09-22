@@ -28,7 +28,7 @@ router.post("/", (req, res) => {
     "chizhem@mingas.by",
     // "elizavetka.chizh@gmail.com",
   ];
-  const file = req.body.file;
+  const document = req.body.document;
   const mailOptionsFormQuestionForEntity = {
     from: req.body.email, // sender address
     to: "elizavetka.chizh@gmail.com", //for me
@@ -50,15 +50,11 @@ router.post("/", (req, res) => {
     attachments: [
       {
         // define custom content type for the attachment
-        href: `${file}`,
+        href: `${document}`,
         encoding: "base64",
       },
     ],
   };
-  transporterFeedback.use(
-    "compile",
-    inlineBase64({ cidPrefix: "somePrefix_" })
-  );
   transporterFeedback.sendMail(
     mailOptionsFormQuestionForEntity,
     function (error, info) {
