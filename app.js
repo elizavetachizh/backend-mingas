@@ -17,12 +17,12 @@ var verificationRouter = require("./routes/verificationRouter");
 
 const cors = require("cors");
 const fs = require("fs");
-const options = {
-  key: fs.readFileSync("./ssl/private.key"),
-  cert: fs.readFileSync("./ssl/certificate.crt"),
-  requestCert: true,
-  rejectUnauthorized: false,
-};
+// const options = {
+//   key: fs.readFileSync("./ssl/private.key"),
+//   cert: fs.readFileSync("./ssl/certificate.crt"),
+//   requestCert: true,
+//   rejectUnauthorized: false,
+// };
 
 var app = express();
 //for site
@@ -32,7 +32,7 @@ var port = process.env.PORT || 3000;
 // var port = process.env.PORT || 9000;
 // var http_port = process.env.PORT || 8080;
 // var http = require("http");
- const https = require("https").createServer(options, app);
+//  const https = require("https").createServer(options, app);
 
 app.use(cors());
 // view engine setup
@@ -75,7 +75,7 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-https.listen(port, () => {
+app.listen(port, () => {
   console.log(`server start on port ${port}`);
 });
 
