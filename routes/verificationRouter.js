@@ -21,10 +21,15 @@ router.post("/", (req, res) => {
       rejectUnauthorized: false,
     },
   });
+  var maillist = [
+    "kc@mingas.by",
+    "chizhem@mingas.by",
+    "elizavetka.chizh@gmail.com",
+  ];
   const mailOptionsRepair = {
     from: req.body.email, // sender address
    // to: "chizhem@mingas.by", //for me
-     to: "kc@mingas.by", // for site
+     to: maillist, // for site
     subject: "Заявка на снятие счётчика в поверку", // Subject line
     text: req.body.name,
     html: `
