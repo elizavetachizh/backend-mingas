@@ -30,8 +30,8 @@ router.post("/", (req, res) => {
   ];
   const mailOptions = {
     from: req.body.email, // sender address
-    // to: maillist, //for site
-    to: "elizavetka.chizh@gmail.com", // for me
+    to: maillist, //for site
+    //to: "elizavetka.chizh@gmail.com", // for me
     subject: "Предоставление показаний счётчика газа", // Subject line
     text: req.body.name,
     html: `

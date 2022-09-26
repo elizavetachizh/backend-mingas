@@ -27,9 +27,9 @@ router.post("/", (req, res) => {
     "chizhem@mingas.by",
   ];
   const mailOptionsFormQuestionForEntity = {
-    from: req.body.email, // sender address
-    // to: maillist, // for site
-    to: "elizavetka.chizh@gmail.com", // for me
+   // from: req.body.email, // sender address
+     to: maillist, // for site
+    //to: "elizavetka.chizh@gmail.com", // for me
     subject: "Заявка на получение доступа к телеметрии", // Subject line
     text: req.body.name,
     html: `

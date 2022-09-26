@@ -23,8 +23,8 @@ router.post("/", (req, res) => {
   });
   const mailOptionsFormQuestionForEntity = {
     from: req.body.email, // sender address
-    //to: "kc@mingas.by", //for site
-    to: "chizhem@mingas.by", // for me
+    to: "kc@mingas.by", //for site
+    // to: "chizhem@mingas.by", // for me
     subject: "Заявка на заказ баллонов СУГ 50 литров", // Subject line
     text: req.body.name,
     html: `

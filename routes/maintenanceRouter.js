@@ -23,8 +23,8 @@ router.post("/", (req, res) => {
   });
   const mailOptionsRepair = {
     from: req.body.email, // sender address
-     to: "elizavetka.chizh@gmail.com", //for me
-    //  to: "sz@mingas.by", // for site
+     //to: "elizavetka.chizh@gmail.com", //for me
+      to: "sz@mingas.by", // for site
     subject: "Заявка на Техническое обслуживание", // Subject line
     text: req.body.name,
     html: `

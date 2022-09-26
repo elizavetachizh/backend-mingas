@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 const nodemailer = require("nodemailer");
-const inlineBase64 = require("nodemailer-plugin-inline-base64");
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send(req.body);
@@ -23,10 +22,11 @@ router.post("/", (req, res) => {
     },
   });
   const document = req.body.document;
+  const file = req.body.file;
   const mailOptionsFormQuestion = {
     from: req.body.email, // sender address
-    //to: "odik.obrashenia@gmail.com", //for site
-    to: "elizavetka.chizh@gmail.com", // list of receivers
+    to: "odik.obrashenia@gmail.com", //for site
+   // to: "elizavetka.chizh@gmail.com", // list of receivers
     subject: "Обращение физ. лиц", // Subject line
     text: req.body.name,
     html: `
@@ -45,6 +45,10 @@ router.post("/", (req, res) => {
       {
         // define custom content type for the attachment
         href: `${document}`,
+      },
+      {
+        // define custom content type for the attachment
+        href: `${file}`,
         encoding: "base64",
       },
     ],

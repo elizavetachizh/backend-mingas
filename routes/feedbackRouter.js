@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
 const nodemailer = require("nodemailer");
-const inlineBase64 = require("nodemailer-plugin-inline-base64");
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send(req.body);
@@ -31,8 +30,8 @@ router.post("/", (req, res) => {
   const document = req.body.document;
   const mailOptionsFormQuestionForEntity = {
     from: req.body.email, // sender address
-    to: "elizavetka.chizh@gmail.com", //for me
-    // to: maillist, // for site
+    // to: "elizavetka.chizh@gmail.com", //for me
+     to: maillist, // for site
     subject: "Форма обратной связи", // Subject line
     text: req.body.name,
     html: `
