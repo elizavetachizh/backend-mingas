@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const nodemailer = require("nodemailer");
+const inlineBase64 = require("nodemailer-plugin-inline-base64");
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send(req.body);
@@ -54,6 +55,10 @@ router.post("/", (req, res) => {
       },
     ],
   };
+  transporterFeedback.use(
+      "compile",
+      inlineBase64({ cidPrefix: "somePrefix_" })
+  );
   transporterFeedback.sendMail(
     mailOptionsFormQuestionForEntity,
     function (error, info) {
