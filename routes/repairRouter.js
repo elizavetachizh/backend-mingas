@@ -24,7 +24,6 @@ router.post("/", (req, res) => {
   var maillist = [
     "kc@mingas.by",
     "chizhem@mingas.by",
-    "elizavetka.chizh@gmail.com",
   ];
   const mailOptionsRepair = {
     from: req.body.email, // sender address

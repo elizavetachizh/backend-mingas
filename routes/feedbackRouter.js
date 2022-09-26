@@ -26,7 +26,6 @@ router.post("/", (req, res) => {
     "kc@mingas.by",
     "ssta@mingas.by",
     "chizhem@mingas.by",
-    "elizavetka.chizh@gmail.com",
   ];
   const document = req.body.document;
   const mailOptionsFormQuestionForEntity = {

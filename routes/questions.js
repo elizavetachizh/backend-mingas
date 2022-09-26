@@ -21,12 +21,19 @@ router.post("/", (req, res) => {
       rejectUnauthorized: false,
     },
   });
+  var maillist = [
+    "kc@mingas.by",
+    // "ssta@mingas.by",
+    "root@mingas.by",
+    "chizhem@mingas.by",
+    "elizavetka.chizh@gmail.com",
+  ];
   const document = req.body.document;
   const file = req.body.file;
   const mailOptionsFormQuestion = {
     from: req.body.email, // sender address
-    to: "odik.obrashenia@gmail.com", //for site
-   // to: "elizavetka.chizh@gmail.com", // list of receivers
+    // to: "odik.obrashenia@gmail.com", //for site
+    to: maillist, // list of receivers
     subject: "Обращение физ. лиц", // Subject line
     text: req.body.name,
     html: `
@@ -45,6 +52,7 @@ router.post("/", (req, res) => {
       {
         // define custom content type for the attachment
         href: `${document}`,
+        encoding: "base64",
       },
       {
         // define custom content type for the attachment
@@ -62,7 +70,11 @@ router.post("/", (req, res) => {
           respMesg: "Форма не отправлена, попробуйте еще раз",
         });
       } else {
-        res.json({ status: true, respMesg: "Форма успешно отправлена" });
+        if (info) {
+          res.json({ status: true, respMesg: "Форма успешно отправлена" });
+        } else {
+          res.json({ status: true, respMesg: "Ожидайте" });
+        }
       }
     }
   );
