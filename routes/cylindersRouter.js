@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
   const mailOptionsFormQuestionForEntity = {
     from: req.body.email, // sender address
     to: "kc@mingas.by", //for site
-    // to: "chizhem@mingas.by", // for me
+     //to: "chizhem@mingas.by", // for me
     subject: "Заявка на заказ баллонов СУГ 50 литров", // Subject line
     text: req.body.name,
     html: `
@@ -45,9 +45,14 @@ router.post("/", (req, res) => {
     mailOptionsFormQuestionForEntity,
     function (error, info) {
       if (error) {
-        res.json({ status: true, respMesg: "Форма успешно отправлена" });
+        res.json({ status: true, respMesg: "Завяка не отправлена, попробуйте еще раз!" });
       } else {
-        res.json({ status: true, respMesg: "Форма успешно отправлена" });
+        if (info) {
+          console.log(info)
+          res.json({ status: true, respMesg: "Форма успешно отправлена, спасибо за вашу заявку!" });
+        } else {
+          res.json({ status: false, respMesg: "Ваша заявка обрабатывается, немного подождите!" });
+        }
       }
     }
   );

@@ -5,7 +5,6 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var appealRouter = require("./routes/appeal");
 var questionsRouter = require("./routes/questions");
 var questionsForEntityRouter = require("./routes/questionsForEntityRouter");
 var cylindersRouter = require("./routes/cylindersRouter");
@@ -28,12 +27,6 @@ var app = express();
 //for site
 var port = process.env.PORT || 3000;
 
-//for me
-// var port = process.env.PORT || 9000;
-// var http_port = process.env.PORT || 8080;
-// var http = require("http");
-//  const https = require("https").createServer(options, app);
-
 app.use(cors());
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -50,7 +43,6 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 // app.use('/static', express.static('public'))
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("/appeal", appealRouter);
 app.use("/questions", questionsRouter);
 app.use("/question-for-entity", questionsForEntityRouter);
 app.use("/cylinders", cylindersRouter);

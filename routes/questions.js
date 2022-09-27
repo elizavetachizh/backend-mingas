@@ -71,9 +71,16 @@ router.post("/", (req, res) => {
         });
       } else {
         if (info) {
-          res.json({ status: true, respMesg: "Форма успешно отправлена" });
+          console.log(info);
+          res.json({
+            status: true,
+            respMesg: "Форма успешно отправлена, спасибо за вашу заявку!",
+          });
         } else {
-          res.json({ status: true, respMesg: "Ожидайте" });
+          res.json({
+            status: false,
+            respMesg: "Ваша заявка обрабатывается, немного подождите!",
+          });
         }
       }
     }

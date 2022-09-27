@@ -1,0 +1,56 @@
+h5{
+    margin-top: 5rem;
+    color:#000;
+}
+p.subtitle{
+    color: #000;
+}
+.first_calc{
+    color: #000;
+}
+button{
+    margin-bottom: 2rem;
+}
+#out, #out1{
+   margin-top: 100px;
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+    font-size: 35px;
+}
+hr{
+    margin: 5rem;
+}
+
+.input-field > label{
+    color: #000;
+}
+.carousel.carousel-slider{
+    height: 900px;
+}
+.input-field{
+    color: #000!important;
+}
+::placeholder {
+    color:black;
+}
+.tabs .tab a.active{
+    color: #0d47a1!important;
+}
+.tabs .tab a:focus, .tabs .tab a:focus.active {
+    background-color: rgba(15, 109, 165, 0.2)!important;
+}
+.tabs .tab a {
+    color: rgba(136, 140, 142, 0.7)!important;
+}
+.tabs .indicator {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #0c76e8!important;
+    will-change: left, right;
+}
+.description,.description1{
+    display: none;
+    text-align: justify;
+}

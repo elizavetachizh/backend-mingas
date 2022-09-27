@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Калькулятор стоимости услуг</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <ul id="tabs-swipe-demo" class="tabs tabs-fixed-width">
+                <li class="tab col s3"><a href="#test1">Стоимость строительства газопровода-ввода</a></li>
+                <li class="tab col s3"><a class="active" href="#test2">Стоимость строительства внутридомового газопровода</a></li>
+            </ul>
+            <div id="test1" class="col s12">
+                <div class="center-align">
+                    <h5>Стоимость строительства газопровода-ввода</h5>
+                    <p class="subtitle">Заполните поля для расчета</p>
+                    <form class="col s12 ">
+                        <div class="row">
+                        <div class="input-field col s12">
+                            <select name="select" id="select">
+                              <option value="" disabled selected>Выберите место строительства</option>
+                              <option value="1">Минск</option>
+                              <option value="2">Минский район</option>
+                            </select>
+                            <label>Место строительство</label>
+                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12 ">
+                                <input placeholder="Указывается ориентировочная длина от трубы по улице до дома" id="first_calc" type="number" class="validate">
+                                <label for="first_calc">Длина газопровода-ввода, м</label>
+                            </div>  
+                        </div>
+                        <button class="btn btn-primary blue darken-3"  type="submit">Рассчитать</button>
+                    </form>    
+                </div>
+                <div class="out">
+                    <p id="out"></p>
+                    <p class="description"><b>*</b>- Стоимость строительства газопровода-ввода является ориентировочной и включает в себя стоимость строительно-монтажных работ по прокладке газопровода, исполнительной съемки и врезки построенного газопровода в действующий газопровод. В стоимость не включены работы по благоустройству (восстановление дорожного покрытия, тротуаров, газонов и пр.) Более точная стоимость строительства формируется на основании проектно-сметной документации и после проведения процедуры переговоров.</p>
+                </div>
+            </div>
+            <div id="test2" class="col s12">
+                <div class="center-align">
+                    <h5>Стоимость строительства внутридомового газопровода</h5>
+                    <p class="subtitle">Заполните поля для расчета</p>
+                    <form class="col s12 ">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select name="selected" id="selected">
+                                  <option value="" disabled selected>Выберите место строительства</option>
+                                  <option value="1">Минск</option>
+                                  <option value="2">Минский район</option>
+                                </select>
+                                <label>Место строительство</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select name="selectPlace" id="selectPlace">
+                                  <option value="" disabled selected>Расположение котельной</option>
+                                  <option value="1">Цоколь/подвал</option>
+                                  <option value="2">Этаж</option>
+                                </select>
+                                <label>Расположение котельной</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select name="selectPa" id="selectPa">
+                                    <option value="" disabled selected>Выберите давление в точке подключения</option>
+                                    <option value="1">0,2 (среднее)</option>
+                                    <option value="2">0,0013 (низкое)</option>
+                                </select>
+                                <label>Давление в точке подключения из технических условий</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12 ">
+                                <input placeholder="Количество устанавливаемого в доме газоиспользующего оборудования (котел, плита, духовой шкаф и т.п.)" id="equipment" type="number" class="validate">
+                                <label for="equipment">Количество приборов</label>
+                            </div>  
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12 ">
+                                <input placeholder="Ориентировочная длина от крана на газопроводе-вводе до приборов по дому" id="qty" type="number" class="validate">
+                                <label for="qty">Длина газопровода, м</label>
+                            </div>  
+                        </div>
+                        <button class="btn btn-primary2 blue darken-3"  type="submit">Рассчитать</button>
+                    </form>    
+                </div>
+                <div class="out">
+                    <p id="out1"></p>
+                    <p class="description1"><b>*</b>- Стоимость строительства является ориентировочной. Более точная стоимость строительства формируется на основании проектно-сметной документации и после проведения процедуры переговоров.</p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="index.js"></script>    
+</body>
+</html>

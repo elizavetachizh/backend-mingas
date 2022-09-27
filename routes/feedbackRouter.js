@@ -22,16 +22,12 @@ router.post("/", (req, res) => {
       rejectUnauthorized: false,
     },
   });
-  var maillist = [
-    "kc@mingas.by",
-    "ssta@mingas.by",
-    "chizhem@mingas.by",
-  ];
+  var maillist = ["kc@mingas.by", "ssta@mingas.by", "chizhem@mingas.by"];
   const document = req.body.document;
   const mailOptionsFormQuestionForEntity = {
     from: req.body.email, // sender address
     // to: "elizavetka.chizh@gmail.com", //for me
-     to: maillist, // for site
+    to: maillist, // for site
     subject: "Форма обратной связи", // Subject line
     text: req.body.name,
     html: `
@@ -55,8 +51,8 @@ router.post("/", (req, res) => {
     ],
   };
   transporterFeedback.use(
-      "compile",
-      inlineBase64({ cidPrefix: "somePrefix_" })
+    "compile",
+    inlineBase64({ cidPrefix: "somePrefix_" })
   );
   transporterFeedback.sendMail(
     mailOptionsFormQuestionForEntity,
@@ -67,7 +63,18 @@ router.post("/", (req, res) => {
           respMesg: "Форма не отправлена, попробуйте еще раз",
         });
       } else {
-        res.json({ status: true, respMesg: "Форма успешно отправлена" });
+        if (info) {
+          console.log(info);
+          res.json({
+            status: true,
+            respMesg: "Форма успешно отправлена, спасибо за вашу заявку!",
+          });
+        } else {
+          res.json({
+            status: false,
+            respMesg: "Ваша заявка обрабатывается, немного подождите!",
+          });
+        }
       }
     }
   );
