@@ -26,7 +26,6 @@ router.post("/", (req, res) => {
     // "ssta@mingas.by",
     "root@mingas.by",
     "chizhem@mingas.by",
-    "elizavetka.chizh@gmail.com",
   ];
   const document = req.body.document;
   const file = req.body.file;
