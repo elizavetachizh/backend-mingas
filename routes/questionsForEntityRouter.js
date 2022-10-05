@@ -22,17 +22,12 @@ router.post("/", (req, res) => {
       rejectUnauthorized: false,
     },
   });
-  var maillist = [
-    "kc@mingas.by",
-    "chizhem@mingas.by",
-      "root@mingas.by"
-  ];
-  const file = req.body.file;
-  const document = req.body.document;
+  var maillist = ["kc@mingas.by", "chizhem@mingas.by", "root@mingas.by"];
+  const info = req.body.information;
   const mailOptionsFormQuestionForEntity = {
     from: req.body.email, // sender address
-     to: maillist, //for site
-    //to: "chizhem@mingas.by", // for me
+    to: maillist, //for site
+    // to: "chizhem@mingas.by", // for me
     subject: "Обращение юр. лиц", // Subject line
     text: req.body.name,
     html: `
@@ -51,7 +46,7 @@ router.post("/", (req, res) => {
     attachments: [
       {
         // define custom content type for the attachment
-        href: `${document}`,
+        href: `${info}`,
         encoding: "base64",
       },
     ],
@@ -70,10 +65,16 @@ router.post("/", (req, res) => {
         });
       } else {
         if (info) {
-          console.log(info)
-          res.json({ status: true, respMesg: "Форма успешно отправлена, спасибо за вашу заявку!" });
+          console.log(info);
+          res.json({
+            status: true,
+            respMesg: "Форма успешно отправлена, спасибо за вашу заявку!",
+          });
         } else {
-          res.json({ status: false, respMesg: "Ваша заявка обрабатывается, немного подождите!" });
+          res.json({
+            status: false,
+            respMesg: "Ваша заявка обрабатывается, немного подождите!",
+          });
         }
       }
     }

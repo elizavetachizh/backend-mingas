@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const nodemailer = require("nodemailer");
+const inlineBase64 = require("nodemailer-plugin-inline-base64");
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send(req.body);
@@ -27,8 +28,7 @@ router.post("/", (req, res) => {
     "root@mingas.by",
     "chizhem@mingas.by",
   ];
-  const document = req.body.document;
-  const file = req.body.file;
+  const info = req.body.information;
   const mailOptionsFormQuestion = {
     from: req.body.email, // sender address
     // to: "odik.obrashenia@gmail.com", //for site
@@ -47,19 +47,24 @@ router.post("/", (req, res) => {
         </ul>
            <p>Сообщение: ${req.body.message}</p> 
         `,
+
     attachments: [
       {
         // define custom content type for the attachment
-        href: `${document}`,
+        href: `${info[0]}`,
         encoding: "base64",
       },
-      {
-        // define custom content type for the attachment
-        href: `${file}`,
-        encoding: "base64",
-      },
+      // {
+      //   // define custom content type for the attachment
+      //   href: `${info[1]}`,
+      //   encoding: "base64",
+      // },
     ],
   };
+  transporterQuestions.use(
+    "compile",
+    inlineBase64({ cidPrefix: "somePrefix_" })
+  );
   transporterQuestions.sendMail(
     mailOptionsFormQuestion,
     function (error, info) {
