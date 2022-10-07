@@ -51,7 +51,7 @@ router.post("/", (req, res) => {
     attachments: [
       {
         // define custom content type for the attachment
-        href: `${info[0]}`,
+        href: `${info}`,
         encoding: "base64",
       },
       // {
