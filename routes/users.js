@@ -43,7 +43,6 @@ router.post("/", (req, res) => {
             <li>Email: ${req.body.email}</li>
             <li>Контактный телефон: ${req.body.phone}</li>
             <li>Адрес: ${req.body.address}</li>
-            <li>Желаемое время для связи: ${req.body.time}</li>
             <li>Лицевой счёт: ${req.body.text}</li>
             <img src="cid:uniq-name"/>
         </ul>
