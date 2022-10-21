@@ -4,7 +4,6 @@ const nodemailer = require("nodemailer");
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send(req.body);
-  console.log(req.body);
 });
 
 router.post("/", (req, res) => {
@@ -21,10 +20,7 @@ router.post("/", (req, res) => {
       rejectUnauthorized: false,
     },
   });
-  var maillist = [
-    "kc@mingas.by",
-    "chizhem@mingas.by",
-  ];
+  var maillist = ["kc@mingas.by", "chizhem@mingas.by"];
   const mailOptionsRepair = {
     from: req.body.email, // sender address
    // to: "chizhem@mingas.by", //for me
@@ -35,7 +31,7 @@ router.post("/", (req, res) => {
         <div style="padding:10px;border-style: ridge">
         <p>Тема: Заявка на снятие счётчика в поверку</p>
         <p>От: ${req.body.name} ${req.body.email}</p>
-        <p>Сообщение:</p>
+        <h4>Сообщение:</h4>
         <ul>
             <li>ФИО: ${req.body.name}</li>
             <li>Email: ${req.body.email}</li>
@@ -50,15 +46,15 @@ router.post("/", (req, res) => {
     if (error) {
       res.json({
         status: false,
-        respMesg: "Форма не отправлена, попробуйте еще раз",
+        respMesg: "Завяка не отправлена, попробуйте еще раз!",
       });
-    } else {
-      if (info) {
-        console.log(info)
-        res.json({ status: true, respMesg: "Форма успешно отправлена, спасибо за вашу заявку!" });
-      } else {
-        res.json({ status: false, respMesg: "Ваша заявка обрабатывается, немного подождите!" });
-      }
+    }
+    if (info) {
+      console.log(info);
+      res.json({
+        status: true,
+        respMesg: "Форма успешно отправлена, спасибо за вашу заявку!",
+      });
     }
   });
 });

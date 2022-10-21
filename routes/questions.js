@@ -5,7 +5,6 @@ const inlineBase64 = require("nodemailer-plugin-inline-base64");
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send(req.body);
-  console.log(req.body);
 });
 
 router.post("/", (req, res) => {
@@ -37,7 +36,7 @@ router.post("/", (req, res) => {
     text: req.body.name,
     html: `
         <div style="padding:10px;border-style: ridge">
-        <p>Обращение от: ${req.body.name}</p>
+        <p>Обращение от: ${req.body.name} / ${req.body.email}</p>
         <ul>
             <li>ФИО: ${req.body.name}</li>
             <li>Email: ${req.body.email}</li>
@@ -71,21 +70,15 @@ router.post("/", (req, res) => {
       if (error) {
         res.json({
           status: false,
-          respMesg: "Форма не отправлена, попробуйте еще раз",
+          respMesg: "Завяка не отправлена, попробуйте еще раз!",
         });
-      } else {
-        if (info) {
-          console.log(info);
-          res.json({
-            status: true,
-            respMesg: "Форма успешно отправлена, спасибо за вашу заявку!",
-          });
-        } else {
-          res.json({
-            status: false,
-            respMesg: "Ваша заявка обрабатывается, немного подождите!",
-          });
-        }
+      }
+      if (info) {
+        console.log(info);
+        res.json({
+          status: true,
+          respMesg: "Форма успешно отправлена, спасибо за вашу заявку!",
+        });
       }
     }
   );

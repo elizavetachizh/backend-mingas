@@ -4,7 +4,6 @@ const nodemailer = require("nodemailer");
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send(req.body);
-  console.log(req.body);
 });
 
 router.post("/", (req, res) => {
@@ -29,9 +28,9 @@ router.post("/", (req, res) => {
     text: req.body.name,
     html: `
         <div style="padding:10px;border-style: ridge">
+        <p>Тема: Заказ баллонов СУГ 50 литров</p>
         <p>От ${req.body.name}</p>
-        <p>Тема: заказ баллонов СУГ 50 литров</p>
-        <p>Сообщение</p>
+        <h4>Сообщение:</h4>
         <ul>
             <li>ФИО: ${req.body.name}</li>
             <li>Номер абонента: ${req.body.text}</li>
@@ -45,14 +44,17 @@ router.post("/", (req, res) => {
     mailOptionsFormQuestionForEntity,
     function (error, info) {
       if (error) {
-        res.json({ status: true, respMesg: "Завяка не отправлена, попробуйте еще раз!" });
-      } else {
-        if (info) {
-          console.log(info)
-          res.json({ status: true, respMesg: "Форма успешно отправлена, спасибо за вашу заявку!" });
-        } else {
-          res.json({ status: false, respMesg: "Ваша заявка обрабатывается, немного подождите!" });
-        }
+        res.json({
+          status: false,
+          respMesg: "Завяка не отправлена, попробуйте еще раз!",
+        });
+      }
+      if (info) {
+        console.log(info);
+        res.json({
+          status: true,
+          respMesg: "Форма успешно отправлена, спасибо за вашу заявку!",
+        });
       }
     }
   );

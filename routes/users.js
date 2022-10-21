@@ -2,10 +2,10 @@ var express = require("express");
 var router = express.Router();
 const nodemailer = require("nodemailer");
 const inlineBase64 = require("nodemailer-plugin-inline-base64");
+
 /* GET users listing. */
 router.get("/", function (req, res, next) {
   res.send(req.body);
-  console.log(req.body)
 });
 router.post("/", (req, res) => {
   const transporter = nodemailer.createTransport({
@@ -24,8 +24,8 @@ router.post("/", (req, res) => {
   const file = req.body.file;
   res.send(req.body);
   var maillist = [
-    "kc@mingas.by",
-    "ssta@mingas.by",
+    // "kc@mingas.by",
+    // "ssta@mingas.by",
     "chizhem@mingas.by",
   ];
   const mailOptions = {
@@ -36,15 +36,16 @@ router.post("/", (req, res) => {
     text: req.body.name,
     html: `
         <div style="padding:10px;border-style: ridge">
+          <p>Тема: Предоставление показаний счётчика газа</p>
         <p>От ${req.body.name}</p>
-        <h3>Сообщение:</h3>
+        <h4>Сообщение:</h4>
         <ul>
             <li>ФИО: ${req.body.name}</li>
             <li>Email: ${req.body.email}</li>
             <li>Контактный телефон: ${req.body.phone}</li>
             <li>Адрес: ${req.body.address}</li>
             <li>Лицевой счёт: ${req.body.text}</li>
-            <img src="cid:uniq-name"/>
+            <img src="cid:uniq-name" alt="image"/>
         </ul>
         `,
     attachments: [
@@ -57,17 +58,10 @@ router.post("/", (req, res) => {
   transporter.use("compile", inlineBase64({ cidPrefix: "somePrefix_" }));
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      res.json({
-        status: false,
-        respMesg: "Форма не отправлена, попробуйте еще раз",
-      });
-    } else {
-      if (info) {
-        console.log(info)
-        res.json({ status: true, respMesg: "Форма успешно отправлена, спасибо за вашу заявку!" });
-      } else {
-        res.json({ status: false, respMesg: "Ваша заявка обрабатывается, немного подождите!" });
-      }
+      res.json({ status: false, respMesg: "Завяка не отправлена, попробуйте еще раз!" });
+    }
+    if (info) {
+      res.json({ status: true, respMesg: "Форма успешно отправлена, спасибо за вашу заявку!" });
     }
   });
 });
