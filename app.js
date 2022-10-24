@@ -15,18 +15,11 @@ var maintenanceRouter = require("./routes/maintenanceRouter");
 var verificationRouter = require("./routes/verificationRouter");
 
 const cors = require("cors");
-const fs = require("fs");
-// const options = {
-//   key: fs.readFileSync("./ssl/private.key"),
-//   cert: fs.readFileSync("./ssl/certificate.crt"),
-//   requestCert: true,
-//   rejectUnauthorized: false,
-// };
 
 var app = express();
 //for site
 var port = process.env.PORT || 3000;
-
+var bodyParser = require("body-parser");
 app.use(cors());
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -39,8 +32,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use("/public", express.static(path.join(__dirname, "public")));
-//  app.use('/public',express.static(path.join(__dirname, "public")));
-// app.use('/static', express.static('public'))
+
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/questions", questionsRouter);
@@ -56,6 +48,15 @@ app.use("/verification", verificationRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
+
+app.use(bodyParser.json({ limit: "100mb" }));
+app.use(
+  bodyParser.urlencoded({
+    limit: "100mb",
+    extended: true,
+    parameterLimit: 300000,
+  })
+);
 
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
