@@ -48,12 +48,12 @@ app.use("/verification", verificationRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
-app.use(bodyParser.json({ limit: "400mb" }));
+app.use(bodyParser.json({ limit: "500mb" }));
 app.use(
   bodyParser.urlencoded({
-    limit: "400mb",
+    limit: "500mb",
     extended: true,
-    parameterLimit: 300000,
+    parameterLimit: 400000,
   })
 );
 

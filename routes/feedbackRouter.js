@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
     },
   });
   var maillist = ["kc@mingas.by", "ssta@mingas.by", "chizhem@mingas.by"];
-  const document = req.body.document;
+  const info = req.body.information;
   const mailOptionsFormQuestionForEntity = {
     from: req.body.email, // sender address
     // to: "elizavetka.chizh@gmail.com", //for me
@@ -36,7 +36,6 @@ router.post("/", (req, res) => {
             <li>ФИО: ${req.body.name}</li>
             <li>Email: ${req.body.email}</li>
             <li>Контактный телефон: ${req.body.phone}</li>
-            <li>Адрес электронной почты: ${req.body.email}</li>
             <li>Тема обращения: ${req.body.text}</li>
         </ul>
          <p>Текст сообщения: ${req.body.message}</p>  
@@ -44,7 +43,7 @@ router.post("/", (req, res) => {
     attachments: [
       {
         // define custom content type for the attachment
-        href: `${document}`,
+        href: `${info}`,
         encoding: "base64",
       },
     ],
@@ -59,7 +58,7 @@ router.post("/", (req, res) => {
       if (error) {
         res.json({
           status: false,
-          respMesg: "Завяка не отправлена, попробуйте еще раз!",
+          respMesg: "Форма не отправлена, попробуйте еще раз!",
         });
       }
       if (info) {
