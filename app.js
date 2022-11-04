@@ -48,14 +48,8 @@ app.use("/verification", verificationRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
-app.use(bodyParser.json({ limit: "500mb" }));
-app.use(
-  bodyParser.urlencoded({
-    limit: "500mb",
-    extended: true,
-    parameterLimit: 400000,
-  })
-);
+
+app.use(bodyParser.json({ limit: "40000kb" }));
 
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
