@@ -53,11 +53,6 @@ router.post("/", (req, res) => {
         href: `${info}`,
         encoding: "base64",
       },
-      // {
-      //   // define custom content type for the attachment
-      //   href: `${info[1]}`,
-      //   encoding: "base64",
-      // },
     ],
   };
   transporterQuestions.use(
@@ -68,7 +63,8 @@ router.post("/", (req, res) => {
     mailOptionsFormQuestion,
     function (error, info) {
       if (error) {
-        res.json({
+        console.log(error);
+        res.status(400).json({
           status: false,
           respMesg: "Завяка не отправлена, попробуйте еще раз!",
         });

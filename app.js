@@ -19,7 +19,9 @@ const cors = require("cors");
 var app = express();
 //for site
 var port = process.env.PORT || 3000;
-var bodyParser = require("body-parser");
+app.use(express.json({ limit: 10000000 }));
+app.use(express.urlencoded({ extended: false, limit: 10000000 }));
+// var bodyParser = require("body-parser");
 app.use(cors());
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -29,7 +31,7 @@ app.set("view engine", "jade");
 // });
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use("/public", express.static(path.join(__dirname, "public")));
 
@@ -48,8 +50,6 @@ app.use("/verification", verificationRouter);
 app.use(function (req, res, next) {
   next(createError(404));
 });
-
-app.use(bodyParser.json({ limit: "40000kb" }));
 
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
