@@ -13,7 +13,7 @@ var telemetriaRouter = require("./routes/telemetriaRouter");
 var repairRouter = require("./routes/repairRouter");
 var maintenanceRouter = require("./routes/maintenanceRouter");
 var verificationRouter = require("./routes/verificationRouter");
-
+const adminRouter = require('./routes/admin/index')
 const cors = require("cors");
 
 var app = express();
@@ -45,6 +45,7 @@ app.use("/telemetria", telemetriaRouter);
 app.use("/repair", repairRouter);
 app.use("/maintenance", maintenanceRouter);
 app.use("/verification", verificationRouter);
+app.use("/admin", adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

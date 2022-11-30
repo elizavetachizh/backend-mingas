@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "set PORT=80&&node app.js",
-    "watch": "set PORT=80&&set NODE_OPTIONS=--max-old-space-size=8192&&nodemon app.js"
+    "watch": "set PORT=80&&nodemon app.js"
   },
   "dependencies": {
     "body-parser": "^1.20.1",
