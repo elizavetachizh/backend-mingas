@@ -1,18 +1,27 @@
 <h2 class="page-title">Edit product</h2>
-<a href="/admin_products" class="btn btn-primary">Назад ко всем продуктам</a>
+<a href="/admin/admin_article" class="btn btn-primary">Назад ко всем статьям</a>
 <br><br>
 
-<form method="post" action="/admin_article/edit-article/<%= id %>" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_article/edit-article/<%= id %>" enctype="multipart/form-data">
 
     <div class="form-group">
         <label for="">content</label>
-        <input type="text" class="form-control" name="content" value="<%= content %>" placeholder="content">
+       <textarea type="text" class="form-control"  id="ta" name="content" placeholder="content"><%= content %></textarea>
     </div>
 
      <div class="form-group">
                <label for="">Измените ссылку на картинку </label>
               <input type="text" class="form-control" name="image" id="img" value="<%= image %>">
           </div>
+
+            <div class="form-group">
+                  <label for="">button</label>
+                  <input type="text" class="form-control" name="button" value="<%= button %>" placeholder="button">
+              </div>
+                <div class="form-group">
+                      <label for="">link</label>
+                      <input type="text" class="form-control" name="link" value="<%= link %>" placeholder="link">
+                  </div>
 
     <button class="btn btn-default">Submit</button>
 </form>

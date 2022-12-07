@@ -3,6 +3,8 @@
     <% articles.forEach(function(article){ %>
             <div class="col-xs-12 col-md-4 p">
                   <h3><%= article.content %></h3>
+                   <p><%= article.button %></p>
+                    <p><%= article.link %></p>
                   <img class="pimage" src="/public/images/<%= article.image %>" alt="">
             </div>
         <% }); %>

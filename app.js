@@ -41,6 +41,8 @@ const adminServicesRouter = require("./routes/admin/admin_services");
 const adminDescriptionRouter = require("./routes/admin/admin_descriptionServices");
 const DescriptionRouter = require("./routes/admin/descriptionGet");
 const ServicesRouter = require("./routes/admin/services");
+const adminMainPostsRouter = require("./routes/admin/admin_mainPosts");
+const mainPostsRouter = require("./routes/admin/mainPost");
 
 const cors = require("cors");
 
@@ -136,8 +138,8 @@ app.use(
 // Express Messages middleware
 app.use(require("connect-flash")());
 app.use(function (req, res, next) {
-    res.locals.messages = require("express-messages")(req, res);
-    next();
+  res.locals.messages = require("express-messages")(req, res);
+  next();
 });
 
 // Passport Config
@@ -147,8 +149,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get("*", function (req, res, next) {
-    res.locals.user = req.user || null;
-    next();
+  res.locals.user = req.user || null;
+  next();
 });
 
 app.use("/", indexRouter);
@@ -177,9 +179,10 @@ app.use("/admin/management", managementRouter);
 app.use("/admin/departament", departamentRouter);
 app.use("/admin/admin_services", adminServicesRouter);
 app.use("/admin/admin_description", adminDescriptionRouter);
+app.use("/admin/admin_mainpost", adminMainPostsRouter);
 app.use("/admin/description", DescriptionRouter);
 app.use("/admin/services", ServicesRouter);
-
+app.use("/admin/mainposts", mainPostsRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

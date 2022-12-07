@@ -1,0 +1,20 @@
+<h2 class="page-title">Edit product</h2>
+<a href="/admin/admin_mainpost" class="btn btn-primary">Назад ко всем статьям</a>
+<br><br>
+
+<form method="post" action="/admin/admin_mainpost/edit-mainpost/<%= id %>" enctype="multipart/form-data">
+
+
+     <div class="form-group">
+               <label for="">name</label>
+              <input type="text" class="form-control" name="name" value="<%= name %>">
+          </div>
+
+            <div class="form-group">
+                  <label for="">description</label>
+                  <textarea type="text" class="form-control" id="ta" name="description" placeholder="description"><%= description %></textarea>
+              </div>
+
+    <button class="btn btn-default">Submit</button>
+</form>
+

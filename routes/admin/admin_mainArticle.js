@@ -3,6 +3,7 @@ const router = express.Router();
 const { isAdmin } = require("../../config/auth");
 var alert = require("alert");
 const mainArticle = require("../../models/mainArticles");
+const mainPosts = require("../../models/mainPosts");
 router.get("/", isAdmin, function (req, res) {
   var count;
   mainArticle.count(function (err, c) {
@@ -20,11 +21,19 @@ router.get("/", isAdmin, function (req, res) {
  * GET add product
  */
 router.get("/add-article", isAdmin, function (req, res) {
-  var content = "";
+  var article = "";
   var image = "";
-  res.render("admin/add_article", {
-    content: content,
-    image: image,
+  var button = "";
+  var link = "";
+  var href = "";
+  mainPosts.find(function (err, post) {
+    res.render("admin/add_article", {
+      content: content,
+      image: image,
+      button: button,
+      link: link,
+      href: post,
+    });
   });
 });
 
@@ -34,29 +43,45 @@ router.post("/add-article", (req, res) => {
 
   var content = req.body.content;
   var image = req.body.image;
+  var button = req.body.button;
+  var link = req.body.link;
+  var href = req.body.href;
 
   var errors = req.validationErrors();
   console.log(content);
   if (errors) {
     console.log(errors);
-    res.render("admin/add_article", {
-      errors: errors,
-      content: content,
-      image: image,
+    mainPosts.find(function (err, post) {
+      res.render("admin/add_article", {
+        errors: errors,
+        content: content,
+        image: image,
+        button: button,
+        link: link,
+        href: post,
+      });
     });
   } else {
     mainArticle.findOne(
-      { content: content, image: image },
+      { content: content, image: image, href: href },
       function (err, article) {
         if (article) {
-          res.render("admin/add_article", {
-            content: content,
-            image: image,
+          mainPosts.find(function (err, post) {
+            res.render("admin/add_article", {
+              content: content,
+              image: image,
+              button: button,
+              link: link,
+              href: post,
+            });
           });
         } else {
           var article = new mainArticle({
             content: content,
             image: image,
+            button: button,
+            link: link,
+            href: href,
           });
           console.log(article);
           article.save(function (err) {
@@ -64,7 +89,7 @@ router.post("/add-article", (req, res) => {
               return console.log(err);
             }
             req.flash("success", "Пост добавлен");
-            res.redirect("/admin_article");
+            res.redirect("/admin/admin_article");
           });
         }
       }
@@ -80,19 +105,24 @@ router.get("/edit-article/:id", isAdmin, function (req, res) {
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
 
-  mainArticle.findById(req.params.id, function (err, article) {
-    console.log(article);
-    if (err) {
-      console.log(err);
-      res.render("admin/admin_article");
-    } else {
-      res.render("admin/edit_article", {
-        errors: errors,
-        content: article.content,
-        image: article.image,
-        id: article._id,
-      });
-    }
+  mainPosts.find(function (err, post) {
+    mainArticle.findById(req.params.id, function (err, article) {
+      console.log(article);
+      if (err) {
+        console.log(err);
+        res.render("admin/admin_article");
+      } else {
+        res.render("admin/edit_article", {
+          errors: errors,
+          content: article.content,
+          image: article.image,
+          button: article.button,
+          link: article.link,
+          id: article._id,
+          href: post,
+        });
+      }
+    });
   });
 });
 
@@ -105,15 +135,18 @@ router.post("/edit-article/:id", function (req, res) {
   var content = req.body.content;
   var image = req.body.image;
   var id = req.params.id;
+  var button = req.body.button;
+  var link = req.body.link;
+  var href = req.body.href;
 
-  var errors = req.validationErrors();
+  errors = req.validationErrors();
 
   if (errors) {
     req.session.errors = errors;
     res.redirect("/admin_article/edit-article/" + id);
   } else {
     mainArticle.findOne(
-      { content: content, image: image },
+      { content: content, image: image, href: href },
       function (err, article) {
         if (err) {
           console.log(err);
@@ -127,6 +160,9 @@ router.post("/edit-article/:id", function (req, res) {
 
             article.content = content;
             article.image = image;
+            article.button = button;
+            article.link = link;
+            article.href = href;
 
             article.save(function (err) {
               if (err) return console.log(err);
@@ -152,7 +188,7 @@ router.get("/delete-article/:id", isAdmin, function (req, res) {
     if (err) return console.log(err);
 
     req.flash("success", "Page deleted!");
-    res.redirect("/admin_article");
+    res.redirect("/admin/admin_article");
   });
 });
 

@@ -8,6 +8,15 @@ var mainArticlesSchema = mongoose.Schema({
   image: {
     type: String,
   },
+  button: {
+    type: String,
+  },
+  link: {
+    type: String,
+  },
+  hrefPost: {
+    type: String,
+  },
 });
 
 const mainArticle = mongoose.model("mainArticle", mainArticlesSchema);

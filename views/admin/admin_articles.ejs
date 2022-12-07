@@ -1,6 +1,6 @@
 
 <h2 class="page-title">Статьи</h2>
-<a href="/admin_article/add-article" class="btn btn-primary">Добавить новую статью</a>
+<a href="/admin/admin_article/add-article" class="btn btn-primary">Добавить новую статью</a>
 <br><br>
 <% if (count > 0) { %>
 <table class="table table-striped sorting">
@@ -9,8 +9,10 @@
       <tr class="home">
 
                   <th>ID</th>
-                  <th>Content</th>
+                  <th>content</th>
                   <th>Image</th>
+                   <th>Button</th>
+                   <th>Link</th>
                   <th>Edit</th>
                   <th>Delete</th>
               </tr>
@@ -28,8 +30,10 @@
                     <img class='img' id="noimage" src="<%= article.image %>">
                     <% }%>
                 </td>
-                <td><a href="/admin_article/edit-article/<%= article._id %>">Edit</a></td>
-                <td><a class="confirmDeletion" href="/admin_article/delete-article/<%= article._id %>">Delete</a></td>
+                    <td><%= article.button %></td>
+                        <td><%= article.link %></td>
+                <td><a href="/admin/admin_article/edit-article/<%= article._id %>">Edit</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_article/delete-article/<%= article._id %>">Delete</a></td>
             </tr>
             <% }); %>
         </tbody>
