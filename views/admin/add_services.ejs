@@ -1,4 +1,4 @@
-<form method="post" action="/admin_services/add-services/" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_services/add-services/" enctype="multipart/form-data">
 
     <div class="form-group">
         <label for="">image</label>
@@ -10,18 +10,10 @@
             <input type="text" class="form-control" name="name" value="<%= name %>" placeholder="name">
         </div>
 
-                 <div class="form-group">
-                                    <label for="">description</label>
-
-
-                                       <input type="checkbox" name="description" value="<%= description %>"><%= description %></input>
-
-
-
-                                </div>
-
-
-        </div>
+    <div class="form-group">
+        <label for="">description</label>
+        <input type="text" class="form-control" name="description" value="<%= description %>" placeholder="description">
+    </div>
 
     <button class="btn btn-default">Добавить</button>
 

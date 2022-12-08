@@ -21,11 +21,11 @@ router.get("/", isAdmin, function (req, res) {
  * GET add product
  */
 router.get("/add-article", isAdmin, function (req, res) {
-  var article = "";
+  var content = "";
   var image = "";
   var button = "";
   var link = "";
-  var href = "";
+
   mainPosts.find(function (err, post) {
     res.render("admin/add_article", {
       content: content,
@@ -48,7 +48,6 @@ router.post("/add-article", (req, res) => {
   var href = req.body.href;
 
   var errors = req.validationErrors();
-  console.log(content);
   if (errors) {
     console.log(errors);
     mainPosts.find(function (err, post) {
@@ -63,7 +62,7 @@ router.post("/add-article", (req, res) => {
     });
   } else {
     mainArticle.findOne(
-      { content: content, image: image, href: href },
+      { content: content, image: image },
       function (err, article) {
         if (article) {
           mainPosts.find(function (err, post) {
@@ -83,7 +82,6 @@ router.post("/add-article", (req, res) => {
             link: link,
             href: href,
           });
-          console.log(article);
           article.save(function (err) {
             if (err) {
               return console.log(err);
@@ -107,7 +105,6 @@ router.get("/edit-article/:id", isAdmin, function (req, res) {
 
   mainPosts.find(function (err, post) {
     mainArticle.findById(req.params.id, function (err, article) {
-      console.log(article);
       if (err) {
         console.log(err);
         res.render("admin/admin_article");
@@ -146,14 +143,13 @@ router.post("/edit-article/:id", function (req, res) {
     res.redirect("/admin_article/edit-article/" + id);
   } else {
     mainArticle.findOne(
-      { content: content, image: image, href: href },
+      { content: content, image: image, link: link, href: href },
       function (err, article) {
         if (err) {
           console.log(err);
         }
         if (article) {
-          console.log("post3", article);
-          res.redirect("/admin_article");
+          res.redirect("/admin/admin_article");
         } else {
           mainArticle.findById(id, function (err, article) {
             if (err) return console.log(err);
@@ -169,9 +165,8 @@ router.post("/edit-article/:id", function (req, res) {
 
               req.flash("success", "пост отредактирован!");
               alert("Пост отредактирован");
-              res.redirect("/admin_article/edit-article/" + id);
+              res.redirect("/admin/admin_article/edit-article/" + id);
             });
-            console.log(article);
           });
         }
       }

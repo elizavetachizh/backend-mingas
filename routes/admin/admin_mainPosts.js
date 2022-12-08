@@ -58,7 +58,6 @@ router.post("/add-mainpost", (req, res) => {
             name: name,
             description: description,
           });
-          console.log(posts);
           posts.save(function (err) {
             if (err) {
               return console.log(err);
@@ -81,7 +80,6 @@ router.get("/edit-mainpost/:id", isAdmin, function (req, res) {
   req.session.errors = null;
 
   mainPosts.findById(req.params.id, function (err, posts) {
-    console.log(posts);
     if (err) {
       console.log(err);
       res.render("admin/admin_mainpost");
@@ -120,12 +118,10 @@ router.post("/edit-mainpost/:id", function (req, res) {
           console.log(err);
         }
         if (posts) {
-          console.log("post3", posts);
           res.redirect("/admin/admin_mainpost");
         } else {
           mainPosts.findById(id, function (err, posts) {
             if (err) return console.log(err);
-
             posts.name = name;
             posts.description = description;
 
@@ -136,7 +132,6 @@ router.post("/edit-mainpost/:id", function (req, res) {
               alert("Пост отредактирован");
               res.redirect("/admin_mainpost/edit-mainpost/" + id);
             });
-            console.log(posts);
           });
         }
       }

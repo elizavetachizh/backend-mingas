@@ -38,7 +38,6 @@ router.get("/add-departament", isAdmin, function (req, res) {
       schedule: schedule,
       contacts: contacts,
     });
-    // console.log("nameMen", management);
     management.map((el) => console.log("nameMen", el.fullName));
   });
 });
@@ -65,7 +64,6 @@ router.post("/add-departament", (req, res) => {
         contacts: contacts,
         nameMen: nameMen,
       });
-
     });
   } else {
     Departament.findOne(
@@ -88,7 +86,6 @@ router.post("/add-departament", (req, res) => {
               contacts: contacts,
               nameMen: management,
             });
-
           });
         } else {
           var departament = new Departament({
@@ -106,7 +103,6 @@ router.post("/add-departament", (req, res) => {
             req.flash("success", "departament добавлен");
             res.redirect("/admin_departament");
           });
-
         }
       }
     );
@@ -137,8 +133,6 @@ router.get("/edit-departament/:id", isAdmin, function (req, res) {
           nameMen: management,
         });
       }
-      // console.log("dep", departament);
-      // console.log("man", management);
     });
   });
 });

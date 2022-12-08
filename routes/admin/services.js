@@ -14,10 +14,6 @@ router.get("/", function (req, res) {
         console.log(err);
       }
       res.send(services);
-      // console.log(services);
-      // services.map((el) => {
-      //   el.description.forEach((el) => console.log(el));
-      // });
     });
 });
 module.exports = router;

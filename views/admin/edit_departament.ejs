@@ -1,8 +1,8 @@
 <h2 class="page-title">Редактировани данных человека</h2>
-<a href="/admin_departament" class="btn btn-primary">Назад</a>
+<a href="/admin/admin_departament" class="btn btn-primary">Назад</a>
 <br><br>
 
-<form method="post" action="/admin_departament/edit-departament/<%= id %>" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_departament/edit-departament/<%= id %>" enctype="multipart/form-data">
     <div class="form-group">
            <label for="">name</label>
            <input type="text" class="form-control" name="name" value="<%= name %>" placeholder="name">
@@ -39,5 +39,5 @@
                        </ul>
                                                      </div>
 
-    <button class="btn btn-default">Submit</button>
+    <button class="btn btn-default">Сохранить</button>
 </form>

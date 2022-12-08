@@ -1,6 +1,6 @@
 
 <h2 class="page-title">Управление</h2>
-<a href="/admin_description/add-description" class="btn btn-primary">Добавить новое описание</a>
+<a href="/admin/admin_description/add-description" class="btn btn-primary">Добавить новое описание</a>
 <br><br>
 
 <table class="table table-striped sorting">
@@ -9,8 +9,8 @@
       <tr class="home">
                   <th>nameDescription</th>
                   <th>inform</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
+                  <th>edit</th>
+                  <th>delete</th>
               </tr>
     </thead>
      <tbody>
@@ -19,8 +19,8 @@
                 <td><%= el.nameDescription %></td>
                 <td><%= el.inform %></td>
 
-                <td><a href="/admin_description/edit-description/<%= el._id %>">Edit</a></td>
-                <td><a class="confirmDeletion" href="/admin_description/delete-description/<%= el._id %>">Delete</a></td>
+                <td><a href="/admin/admin_description/edit-description/<%= el._id %>">edit</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_description/delete-description/<%= el._id %>">delete</a></td>
             </tr>
             <% }); %>
         </tbody>

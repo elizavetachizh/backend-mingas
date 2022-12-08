@@ -8,10 +8,6 @@ router.get("/", function (req, res) {
     count = c;
   });
   Posts.find(function (err, posts) {
-    // res.render("posts", {
-    //   posts: posts,
-    //   count: count,
-    // });
     res.send(posts);
   });
 });

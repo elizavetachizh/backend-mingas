@@ -9,12 +9,13 @@
       <tr class="home">
 
                   <th>ID</th>
-                  <th>content</th>
-                  <th>Image</th>
-                   <th>Button</th>
-                   <th>Link</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
+                  <th>Содержание</th>
+                  <th>Изображение</th>
+                   <th>Инфо. кнопка</th>
+                   <th>Ссылка</th>
+                   <th>Ссылка на пост</th>
+                  <th>edit</th>
+                  <th>delete</th>
               </tr>
     </thead>
      <tbody>
@@ -32,8 +33,9 @@
                 </td>
                     <td><%= article.button %></td>
                         <td><%= article.link %></td>
-                <td><a href="/admin/admin_article/edit-article/<%= article._id %>">Edit</a></td>
-                <td><a class="confirmDeletion" href="/admin/admin_article/delete-article/<%= article._id %>">Delete</a></td>
+                             <td><%= article.href %></td>
+                <td><a href="/admin/admin_article/edit-article/<%= article._id %>">edit</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_article/delete-article/<%= article._id %>">delete</a></td>
             </tr>
             <% }); %>
         </tbody>

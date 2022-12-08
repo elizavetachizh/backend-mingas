@@ -24,3 +24,7 @@ img.img {
 ul.list-without-dots {
   list-style-type: none; /* Remove bullets */
 }
+
+th.th-image {
+  width: 300px !important;
+}

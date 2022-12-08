@@ -1,6 +1,6 @@
 $(function () {
   if ($("textarea#ta").length) {
-    CKEDITOR.replace("ta");
+    CKeditOR.replace("ta");
   }
 
   $("a.confirmDeletion").on("click", function () {

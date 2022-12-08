@@ -1,19 +1,19 @@
-<h2 class="page-title">Посты</h2>
-<a href="/admin_departament/add-departament" class="btn btn-primary">Добавить новый departament</a>
+<h2 class="page-title">Подразделения МИНГАЗ</h2>
+<a href="/admin/admin_departament/add-departament" class="btn btn-primary">Добавить новое подразделение</a>
 <br><br>
 <% if (count > 0) { %>
 <table class="table table-striped sorting">
 
     <thead>
       <tr class="home">
-                  <th>name</th>
-                  <th>chief</th>
-                  <th>description</th>
-                  <th>schedule</th>
-                  <th>contacts</th>
-                  <th>nameMen</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
+                  <th>Название</th>
+                  <th>ФИО начальника</th>
+                  <th>Описание отдела</th>
+                  <th>График</th>
+                  <th>Контакты</th>
+                  <th>Руководство</th>
+                  <th>edit</th>
+                  <th>delete</th>
               </tr>
     </thead>
      <tbody>
@@ -25,12 +25,12 @@
                  <td><%= el.schedule %></td>
                  <td><%= el.contacts %></td>
                 <td><%= el.nameMen %></td>
-                <td><a href="/admin_departament/edit-departament/<%= el._id %>">Edit</a></td>
-                <td><a class="confirmDeletion" href="/admin_departament/delete-departament/<%= el._id %>">Delete</a></td>
+                <td><a href="/admin/admin_departament/edit-departament/<%= el._id %>">edit</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_departament/delete-departament/<%= el._id %>">delete</a></td>
             </tr>
             <% }); %>
         </tbody>
 </table>
 <% } else {%>
-<h3 class="text-center">Нет ни одного созданного departament</h3>
+<h3 class="text-center">Нет ни одного созданного подразделения</h3>
 <% }%>

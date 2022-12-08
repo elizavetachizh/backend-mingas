@@ -1,8 +1,8 @@
-<h2 class="page-title">Edit product</h2>
-<a href="/admin_services" class="btn btn-primary">Назад ко всем услугам</a>
+<h2 class="page-title">edit product</h2>
+<a href="/admin/admin_services" class="btn btn-primary">Назад ко всем услугам</a>
 <br><br>
 
-<form method="post" action="/admin_services/edit-services/<%= id %>" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_services/edit-services/<%= id %>" enctype="multipart/form-data">
 
     <div class="form-group">
         <label for="">name</label>
@@ -20,7 +20,7 @@
         <input type="text" class="form-control" name="description" value="<%= description %>" placeholder="description">
     </div>
 
-    <button class="btn btn-default">Submit</button>
+    <button class="btn btn-default">Сохранить</button>
 </form>
 
 

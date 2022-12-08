@@ -1,0 +1,20 @@
+<h2 class="page-title">edit product</h2>
+<a href="/admin/admin_separations" class="btn btn-primary">Назад ко всем услугам</a>
+<br><br>
+
+<form method="post" action="/admin/admin_separations/edit-separations/<%= id %>" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="">separation</label>
+        <input type="text" class="form-control" name="separation" value="<%= separation %>" placeholder="separation">
+    </div>
+
+    <div class="form-group">
+        <label for="">documents</label>
+        <input type="text" class="form-control" name="documents" value="<%= documents %>" placeholder="documents">
+    </div>
+
+    <button class="btn btn-default">Сохранить</button>
+</form>
+
+

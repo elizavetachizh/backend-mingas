@@ -1,7 +1,6 @@
 const Management = require("../../models/management");
 const { isAdmin } = require("../../config/auth");
 const express = require("express");
-const fs = require("fs-extra");
 const alert = require("alert");
 
 const Departament = require("../../models/departaments");
@@ -49,10 +48,8 @@ router.post("/add-men", (req, res) => {
   var fullName = req.body.fullName;
   var position = req.body.position;
   var department = req.body.department;
-  // console.log("params", req.params);
-  // console.log("body", req.body);
   var errors = req.validationErrors();
-  // console.log(department);
+
   if (errors) {
     console.log(errors);
     Departament.find(function (err, departaments) {
@@ -147,7 +144,7 @@ router.post("/edit-men/:id", function (req, res) {
   if (errors) {
     req.session.errors = errors;
     console.log(errors);
-    res.redirect("/admin_management/edit-men/" + id);
+    res.redirect("/admin/admin_management/edit-men/" + id);
   } else {
     Management.findOne(
       { fullName: fullName, _id: { $ne: id } },
@@ -157,7 +154,7 @@ router.post("/edit-men/:id", function (req, res) {
         }
         if (men) {
           // console.log("men2", men);
-          res.redirect("/admin_management/edit-men/" + id);
+          res.redirect("/admin/admin_management/edit-men/" + id);
         } else {
           Management.findById(id, function (err, men) {
             if (err) return console.log(err);
@@ -172,7 +169,7 @@ router.post("/edit-men/:id", function (req, res) {
 
               req.flash("success", "продукция отредактировна!");
               alert("Пост отредактирован");
-              res.redirect("/admin_management/edit-men/" + id);
+              res.redirect("/admin/admin_management/edit-men/" + id);
             });
             // console.log("men", men);
           });

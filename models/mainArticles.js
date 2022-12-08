@@ -14,7 +14,7 @@ var mainArticlesSchema = mongoose.Schema({
   link: {
     type: String,
   },
-  hrefPost: {
+  href: {
     type: String,
   },
 });

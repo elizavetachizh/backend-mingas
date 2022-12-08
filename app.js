@@ -43,6 +43,10 @@ const DescriptionRouter = require("./routes/admin/descriptionGet");
 const ServicesRouter = require("./routes/admin/services");
 const adminMainPostsRouter = require("./routes/admin/admin_mainPosts");
 const mainPostsRouter = require("./routes/admin/mainPost");
+const adminDocumentsRouter = require("./routes/admin/admin_regulatoryDoc");
+const documentsRouter = require("./routes/admin/regulatoryDoc");
+const adminSeparationsRouter = require("./routes/admin/admin_separationDocs");
+const documentsSeparationsRouter = require("./routes/admin/documents");
 
 const cors = require("cors");
 
@@ -183,6 +187,10 @@ app.use("/admin/admin_mainpost", adminMainPostsRouter);
 app.use("/admin/description", DescriptionRouter);
 app.use("/admin/services", ServicesRouter);
 app.use("/admin/mainposts", mainPostsRouter);
+app.use("/admin/admin_documents", adminDocumentsRouter);
+app.use("/admin/documents", documentsRouter);
+app.use("/admin/admin_separations", adminSeparationsRouter);
+app.use("/admin/documents_separation", documentsSeparationsRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

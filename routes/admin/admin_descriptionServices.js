@@ -4,7 +4,7 @@ const Description = require("../../models/descriptionServices");
 const { isAdmin } = require("../../config/auth");
 const alert = require("alert");
 
-router.get("/", function (req, res) {
+router.get("/", isAdmin, function (req, res) {
   Description.find(function (err, description) {
     if (err) {
       console.log(err);
@@ -20,7 +20,7 @@ router.get("/", function (req, res) {
 /*
  * GET add product
  */
-router.get("/add-description", function (req, res) {
+router.get("/add-description", isAdmin,function (req, res) {
   var inform = "";
   var nameDescription = "";
   res.render("admin/add_description", {
@@ -66,7 +66,7 @@ router.post("/add-description", function (req, res) {
             if (err) {
               return console.log(err);
             }
-            res.redirect("/admin_description");
+            res.redirect("/admin/admin_description");
           });
         }
       }
@@ -84,9 +84,9 @@ router.get("/edit-description/:id", isAdmin, function (req, res) {
   Description.findById(req.params.id, function (err, description) {
     if (err) {
       console.log(err);
-      res.render("admin/admin_description");
+      res.render("/admin/admin_description");
     } else {
-      res.render("admin/edit_description", {
+      res.render("/admin/edit_description", {
         errors: errors,
         nameDescription: description.nameDescription,
         inform: description.inform,
@@ -113,7 +113,7 @@ router.post("/edit-description/:id", function (req, res) {
   if (errors) {
     req.session.errors = errors;
     console.log(errors);
-    res.redirect("/admin_description/edit-description/" + id);
+    res.redirect("/admin/admin_description/edit-description/" + id);
   } else {
     Description.findOne(
       { nameDescription: nameDescription, inform: inform, _id: { $ne: id } },
@@ -122,8 +122,7 @@ router.post("/edit-description/:id", function (req, res) {
           console.log(err);
         }
         if (description) {
-          console.log("men2", description);
-          res.redirect("/admin_description/edit-description/" + id);
+          res.redirect("/admin/admin_description/edit-description/" + id);
         } else {
           Description.findById(id, function (err, description) {
             if (err) return console.log(err);
@@ -136,9 +135,8 @@ router.post("/edit-description/:id", function (req, res) {
 
               req.flash("success", "продукция отредактировна!");
               alert("Пост отредактирован");
-              res.redirect("/admin_description/edit-description/" + id);
+              res.redirect("/admin/admin_description/edit-description/" + id);
             });
-            console.log("men", description);
           });
         }
       }

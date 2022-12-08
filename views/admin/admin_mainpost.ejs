@@ -11,8 +11,8 @@
                   <th>ID</th>
                   <th>name</th>
                   <th>description</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
+                  <th>edit</th>
+                  <th>delete</th>
               </tr>
     </thead>
      <tbody>
@@ -23,8 +23,8 @@
 
                     <td><%= post.description %></td>
 
-                <td><a href="/admin/admin_mainpost/edit-mainpost/<%= post._id %>">Edit</a></td>
-                <td><a class="confirmDeletion" href="/admin/admin_mainpost/delete-mainpost/<%= post._id %>">Delete</a></td>
+                <td><a href="/admin/admin_mainpost/edit-mainpost/<%= post._id %>">edit</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_mainpost/delete-mainpost/<%= post._id %>">delete</a></td>
             </tr>
             <% }); %>
         </tbody>

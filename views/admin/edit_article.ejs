@@ -1,4 +1,4 @@
-<h2 class="page-title">Edit product</h2>
+<h2 class="page-title">edit product</h2>
 <a href="/admin/admin_article" class="btn btn-primary">Назад ко всем статьям</a>
 <br><br>
 
@@ -6,7 +6,7 @@
 
     <div class="form-group">
         <label for="">content</label>
-       <textarea type="text" class="form-control"  id="ta" name="content" placeholder="content"><%= content %></textarea>
+       <textarea type="text" class="form-control" name="content" placeholder="content"><%= content %></textarea>
     </div>
 
      <div class="form-group">
@@ -23,6 +23,20 @@
                       <input type="text" class="form-control" name="link" value="<%= link %>" placeholder="link">
                   </div>
 
-    <button class="btn btn-default">Submit</button>
+
+    <div class="form-group">
+        <label for="">href</label>
+        <select name="href" class="form-control">
+            <% href.forEach(function(el){ %>
+                <option value="<%= el._id %>"
+                <% if (el.name == el) { %>
+                selected="selected"
+                <% } %>
+                ><%= el.name %></option>
+            <% }); %>
+        </select>
+    </div>
+
+    <button class="btn btn-default">Сохранить</button>
 </form>
 

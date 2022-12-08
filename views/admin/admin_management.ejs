@@ -11,8 +11,8 @@
                   <th>position</th>
                          <th>departaments</th>
                   <th>Image</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
+                  <th>edit</th>
+                  <th>delete</th>
               </tr>
     </thead>
      <tbody>
@@ -36,8 +36,8 @@
                     <img class='img' id="noimage" src="<%= men.image %>">
                     <% }%>
                 </td>
-                <td><a href="/admin/admin_management/edit-men/<%= men._id %>">Edit</a></td>
-                <td><a class="confirmDeletion" href="/admin/admin_management/delete-men/<%= men._id %>">Delete</a></td>
+                <td><a href="/admin/admin_management/edit-men/<%= men._id %>">edit</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_management/delete-men/<%= men._id %>">delete</a></td>
             </tr>
             <% }); %>
         </tbody>

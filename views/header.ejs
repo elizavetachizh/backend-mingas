@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
-        <link rel="stylesheet" href="/css/styles.css" />
+        <link rel="stylesheet" href="/public/css/styles.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     </head>
      <body>
@@ -17,27 +17,18 @@
  <ul class="nav nav-pills">
    <% if (user) { %>
      <% if (user && user.admin == 1) { %>
-     <li class="nav-item"><a href="/admin/admin_page/add_page" class="nav-link">Панель администрирования Страницы</a></li>
         <li class="nav-item"><a href="/admin/admin_posts" class="nav-link">Посты</a></li>
              <li class="nav-item"><a href="/admin/admin_departament" class="nav-link">Отделы</a></li>
              <li class="nav-item"><a href="/admin/admin_management" class="nav-link">Руководоство</a></li>
-                          <li class="nav-item"><a href="/admin/admin_tenders" class="nav-link">Тендеры</a></li>
-                           <li class="nav-item"><a href="/admin/admin_article" class="nav-link">Статьи</a></li>
-                             <li class="nav-item"><a href="/admin/admin_mainpost" class="nav-link">Информация для статей</a></li>
-                               <li class="nav-item"><a href="/admin/admin_description" class="nav-link">Информация услуг</a></li>
-                                   <li class="nav-item"><a href="/admin/admin_services" class="nav-link">Услуги</a></li>
+               <li class="nav-item"><a href="/admin/admin_tenders" class="nav-link">Тендеры</a></li>
+               <li class="nav-item"><a href="/admin/admin_article" class="nav-link">Статьи</a></li>
+               <li class="nav-item"><a href="/admin/admin_mainpost" class="nav-link">Информация для статей</a></li>
+               <li class="nav-item"><a href="/admin/admin_description" class="nav-link">Информация услуг</a></li>
+               <li class="nav-item"><a href="/admin/admin_services" class="nav-link">Услуги</a></li>
+               <li class="nav-item"><a href="/admin/admin_documents" class="nav-link">Документы</a></li>
+             <li class="nav-item"><a href="/admin/admin_separations" class="nav-link">Наименование документов</a></li>
       <% }%>
- <% if (user && user.admin !== 1) { %>
-  <% pages.forEach(function(page){ %>
-    <li class="nav-item"><a  class="nav-link" href="/page/<%= page.slug %>"><%= page.title %></a></li>
-  <% }); %>
-  <% }%>
   <% } %>
-             <li class="nav-item"><a href="/admin/posts" class="nav-link">Посты</a></li>
-                       <li class="nav-item"><a href="/admin/tenders" class="nav-link">Тендеры</a></li>
-                             <li class="nav-item"><a href="/admin/articles" class="nav-link">Статьи</a></li>
-                                    <li class="nav-item"><a href="/admin/management" class="nav-link">Руководство</a></li>
-<li class="nav-item"><a href="/admin/departament" class="nav-link">Отделы</a></li>
            <% if (user) { %>
            <li  class="nav-item"> <a  class="nav-link" href="/admin/users/logout">Добро пожаловать, <%= user.username %> ( Выйти )</a></li>
           <% } else {%>

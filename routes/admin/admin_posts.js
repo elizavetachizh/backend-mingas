@@ -68,7 +68,7 @@ router.post("/add-post", (req, res) => {
             return console.log(err);
           }
           req.flash("success", "Пост добавлен");
-          res.redirect("/admin_posts");
+          res.redirect("/admin/admin_posts");
         });
       }
     });
@@ -111,12 +111,12 @@ router.post("/edit-post/:id", function (req, res) {
   var content = req.body.content;
   var image = req.body.image;
   var id = req.params.id;
-  // console.log("link", link);
+
   var errors = req.validationErrors();
 
   if (errors) {
     req.session.errors = errors;
-    res.redirect("/admin_posts/edit-post/" + id);
+    res.redirect("/admin/admin_posts/edit-post/" + id);
   } else {
     Posts.findOne(
       { link: link, content: content, image: image },
@@ -126,8 +126,7 @@ router.post("/edit-post/:id", function (req, res) {
           console.log(err);
         }
         if (post) {
-          // console.log("post3", post);
-          res.redirect("/admin_posts");
+          res.redirect("/admin/admin_posts");
         } else {
           Posts.findById(id, function (err, post) {
             if (err) return console.log(err);
@@ -136,17 +135,13 @@ router.post("/edit-post/:id", function (req, res) {
             post.content = content;
             post.image = image;
 
-            // console.log("post", post);
-            // console.log("link111", link);
-
             post.save(function (err) {
               if (err) return console.log(err);
 
               req.flash("success", "пост отредактирован!");
               alert("Пост отредактирован");
-              res.redirect("/admin_posts/edit-post/" + id);
+              res.redirect("/admin/admin_posts/edit-post/" + id);
             });
-            // console.log(post);
           });
         }
       }
@@ -163,7 +158,7 @@ router.get("/delete-post/:id", isAdmin, function (req, res) {
     if (err) return console.log(err);
 
     req.flash("success", "Page deleted!");
-    res.redirect("/admin_posts/");
+    res.redirect("/admin/admin_posts/");
   });
 });
 
