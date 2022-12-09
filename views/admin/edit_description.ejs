@@ -16,4 +16,11 @@
     </div>
 
     <button class="btn btn-default">Сохранить</button>
+    <% if (errors) {%>
+        <% errors.forEach(function(error) { %>
+            <div class="alert alert-danger">
+                <%= error.msg %>
+            </div>
+        <% });%>
+    <% }%>
 </form>

@@ -43,6 +43,8 @@ router.get("/add-departament", isAdmin, function (req, res) {
 });
 
 router.post("/add-departament", (req, res) => {
+  req.checkBody("name", "Название должно быть заполненым").notEmpty();
+  req.checkBody("nameMen", "Описание должно быть заполненым").notEmpty();
   var name = req.body.name;
   var chief = req.body.chief;
   var description = req.body.description;
