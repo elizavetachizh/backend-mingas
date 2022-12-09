@@ -20,10 +20,11 @@ router.post("/", (req, res) => {
       rejectUnauthorized: false,
     },
   });
+  var maillist = ["kc@mingas.by", "chizhem@mingas.by"];
   const mailOptionsFormQuestionForEntity = {
     from: req.body.email, // sender address
-    to: "kc@mingas.by", //for site
-     //to: "chizhem@mingas.by", // for me
+     to: maillist, //for site
+    // to: "chizhem@mingas.by", // for me
     subject: "Заявка на заказ баллонов СУГ 50 литров", // Subject line
     text: req.body.name,
     html: `
@@ -33,6 +34,7 @@ router.post("/", (req, res) => {
         <h4>Сообщение:</h4>
         <ul>
             <li>ФИО: ${req.body.name}</li>
+               <li>Email: ${req.body.email}</li>
             <li>Номер абонента: ${req.body.text}</li>
             <li>Адрес: ${req.body.address}</li>
             <li>Номер телефона: ${req.body.phone}</li>
