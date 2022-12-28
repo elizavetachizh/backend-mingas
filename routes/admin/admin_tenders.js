@@ -54,7 +54,7 @@ router.post("/add-tender", (req, res) => {
             return console.log(err);
           }
           req.flash("success", "Пост добавлен");
-          res.redirect("/admin_tenders");
+          res.redirect("/admin/admin_tenders");
         });
       }
     });
@@ -104,7 +104,7 @@ router.post("/edit-tender/:id", function (req, res) {
       }
       if (tender) {
         // console.log("tender", tender);
-        res.redirect("/admin_tenders");
+        res.redirect("/admin/admin_tenders");
       } else {
         Tenders.findById(id, function (err, tender) {
           if (err) return console.log(err);
@@ -115,7 +115,7 @@ router.post("/edit-tender/:id", function (req, res) {
 
             req.flash("success", "пост отредактирован!");
             alert("Пост отредактирован");
-            res.redirect("/admin_tenders/edit-tender/" + id);
+            res.redirect("/admin/admin_tenders/edit-tender/" + id);
           });
           // console.log(tender);
         });
@@ -133,7 +133,7 @@ router.get("/delete-tender/:id", isAdmin, function (req, res) {
     if (err) return console.log(err);
 
     req.flash("success", "Page deleted!");
-    res.redirect("/admin_tenders/");
+    res.redirect("/admin/admin_tenders/");
   });
 });
 

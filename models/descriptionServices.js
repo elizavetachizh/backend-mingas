@@ -8,10 +8,11 @@ var DescriptionSchema = mongoose.Schema({
   inform: {
     type: String,
   },
-  services:{
+
+  services: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Services'
-  }
+    ref: "Services",
+  },
 });
 
 const Description = mongoose.model("Description", DescriptionSchema);

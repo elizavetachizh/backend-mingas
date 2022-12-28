@@ -8,6 +8,9 @@ var ServicesSchema = mongoose.Schema({
   name: {
     type: String,
   },
+  type: {
+    type: String,
+  },
   description: [
     {
       type: mongoose.Schema.Types.ObjectId,

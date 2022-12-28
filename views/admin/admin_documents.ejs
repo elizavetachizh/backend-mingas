@@ -6,7 +6,9 @@
 
     <thead>
       <tr class="home">
+          <th>id</th>
                   <th>name</th>
+          <th>type</th>
                   <th>link</th>
                   <th>separation</th>
                   <th>edit</th>
@@ -16,7 +18,9 @@
      <tbody>
             <% documents.forEach(function(document){ %>
             <tr>
+                <td><%= document.id %></td>
                 <td><%= document.name %></td>
+                <td><%= document.type %></td>
                  <td><%= document.link %></td>
                  <td><%= document.separation %></td>
                 <td><a href="/admin/admin_documents/edit-documents/<%= document._id %>">edit</a></td>

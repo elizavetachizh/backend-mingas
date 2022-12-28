@@ -3,6 +3,7 @@ const router = express.Router();
 const Services = require("../../models/services");
 const { isAdmin } = require("../../config/auth");
 const alert = require("alert");
+const fs = require("fs-extra");
 
 router.get("/", isAdmin, function (req, res) {
   var count;
@@ -26,11 +27,11 @@ router.get("/", isAdmin, function (req, res) {
 /*
  * GET add product
  */
-router.get("/add-services",  isAdmin, function (req, res) {
+router.get("/add-services", isAdmin, function (req, res) {
   var id = req.params._id;
   var name = "";
-  var image = "";
   const description = [];
+  var type = "";
   Services.find({ _id: { $ne: id } })
     .populate("description")
     .exec(function (err, services) {
@@ -38,7 +39,7 @@ router.get("/add-services",  isAdmin, function (req, res) {
       res.render("admin/add_services", {
         services: services,
         name: name,
-        image: image,
+        type: type,
         description: description,
       });
     });
@@ -46,40 +47,52 @@ router.get("/add-services",  isAdmin, function (req, res) {
 
 router.post("/add-services", function (req, res) {
   req.checkBody("name", "Название должно быть заполненым").notEmpty();
-  req.checkBody("image", "Картинка должна быть загружена").notEmpty();
 
-  const image = req.body.image;
+  var imageFile =
+    typeof req.files?.image !== "undefined" ? req.files.image.name : "";
   const name = req.body.name;
   const description = req.body.description.split(",");
   var errors = req.validationErrors();
-
+  const type = req.body.type;
   if (errors) {
     console.log(errors);
     res.render("admin/add_services", {
       errors: errors,
       description: description,
       name: name,
-      image: image,
+      image: imageFile,
+      type: type,
     });
   } else {
     Services.findOne({ name: name })
       .populate("description")
       .exec(function (err, services) {
         if (services) {
+          console.log(services);
           res.render("admin/add_services", {
-            image: image,
             name: name,
             description: description,
+            type: type,
           });
         } else {
           var services = new Services({
             name: name,
-            image: image,
+            image: imageFile,
             description: description,
+            type: type,
           });
           services.save(function (err) {
             if (err) {
               return console.log(err);
+            }
+
+            if (imageFile !== "") {
+              let productImage = req.files.image;
+              let path = "public/images" + "/" + imageFile;
+
+              productImage.mv(path, function (err) {
+                return console.log(err);
+              });
             }
 
             req.flash("success", "человек добавлен");
@@ -106,11 +119,15 @@ router.get("/edit-services/:id", isAdmin, function (req, res) {
       res.render("admin/edit_services", {
         errors: errors,
         description: service.description,
-        name: service.content,
+        name: service.name,
         image: service.image,
         id: service._id,
+        type: service.type,
       });
     }
+    // service.forEach((el)=>{
+    //   console.log(el.description)
+    // })
   });
 });
 
@@ -119,21 +136,24 @@ router.get("/edit-services/:id", isAdmin, function (req, res) {
  */
 router.post("/edit-services/:id", function (req, res) {
   req.checkBody("name", "Название должно быть заполненым").notEmpty();
-  req.checkBody("image", "Описание должно быть заполненым").notEmpty();
 
+  var imageFile =
+    typeof req.files?.image !== "undefined" ? req.files.image.name : "";
   var name = req.body.name;
   var image = req.body.image;
   var id = req.params.id;
+  const type = req.body.type;
   const description = req.body.description.split(",");
   var errors = req.validationErrors();
 
   if (errors) {
     req.session.errors = errors;
     res.redirect("/admin/admin_services/edit-services/" + id);
+    console.log(`1`, errors);
   } else {
-    Services.findOne({ name: name, image: image }, function (err, service) {
+    Services.findOne({ name: name, _id: { $ne: id } }, function (err, service) {
       if (err) {
-        console.log(err);
+        console.log(`2`, err);
       }
       if (service) {
         res.redirect("/admin/admin_services");
@@ -143,11 +163,29 @@ router.post("/edit-services/:id", function (req, res) {
 
           service.name = name;
           service.description = description;
-          service.image = image;
-
+          service.type = type;
+          if (imageFile !== "") {
+            service.image = imageFile;
+          }
           service.save(function (err) {
             if (err) return console.log(err);
+            if (imageFile !== "") {
+              if (image !== "") {
+                fs.remove(
+                  "public/product_images" + "/" + image,
+                  function (err) {
+                    if (err) console.log(err);
+                  }
+                );
+              }
 
+              var serviceImage = req.files.image;
+              var path = "public/product_images/" + imageFile;
+
+              serviceImage.mv(path, function (err) {
+                return console.log(err);
+              });
+            }
             req.flash("success", "пост отредактирован!");
             alert("Пост отредактирован");
             res.redirect("/admin/admin_services/edit-services/" + id);

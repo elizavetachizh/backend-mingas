@@ -103,7 +103,7 @@ router.post("/add-departament", (req, res) => {
               return console.log(err);
             }
             req.flash("success", "departament добавлен");
-            res.redirect("/admin_departament");
+            res.redirect("/admin/admin_departament");
           });
         }
       }
@@ -122,9 +122,9 @@ router.get("/edit-departament/:id", isAdmin, function (req, res) {
     Departament.findById(req.params.id, function (err, departament) {
       if (err) {
         console.log(err);
-        res.render("admin/admin_departament");
+        res.render("/admin/admin_departament");
       } else {
-        res.render("admin/edit_departament", {
+        res.render("/admin/edit_departament", {
           errors: errors,
           name: departament.name,
           id: departament._id,
@@ -155,7 +155,7 @@ router.post("/edit-departament/:id", function (req, res) {
   if (errors) {
     req.session.errors = errors;
     console.log(errors);
-    res.redirect("/admin_departament/edit-departament/" + id);
+    res.redirect("admin/admin_departament/edit-departament/" + id);
   } else {
     Departament.findOne(
       {
@@ -172,7 +172,7 @@ router.post("/edit-departament/:id", function (req, res) {
           console.log(err);
         }
         if (departament) {
-          res.redirect("/admin_departament/edit-departament/" + id);
+          res.redirect("/admin/admin_departament/edit-departament/" + id);
         } else {
           Departament.findById(id, function (err, departament) {
             if (err) return console.log(err);
@@ -188,7 +188,7 @@ router.post("/edit-departament/:id", function (req, res) {
 
               req.flash("success", "продукция отредактировна!");
               alert("Пост отредактирован");
-              res.redirect("/admin_departament/");
+              res.redirect("/admin/admin_departament/");
             });
           });
         }
@@ -206,7 +206,7 @@ router.get("/delete-departament/:id", isAdmin, function (req, res) {
     if (err) return console.log(err);
 
     req.flash("success", "Page deleted!");
-    res.redirect("/admin_departament/");
+    res.redirect("/admin/admin_departament/");
   });
 });
 

@@ -39,7 +39,7 @@ router.post("/add-mainpost", (req, res) => {
   var errors = req.validationErrors();
   if (errors) {
     console.log(errors);
-    res.render("admin/add_mainpost", {
+    res.render("/admin/add_mainpost", {
       errors: errors,
       name: name,
       description: description,
@@ -49,7 +49,7 @@ router.post("/add-mainpost", (req, res) => {
       { name: name, description: description },
       function (err, posts) {
         if (posts) {
-          res.render("admin/add_mainpost", {
+          res.render("/admin/add_mainpost", {
             name: name,
             description: description,
           });
@@ -109,7 +109,7 @@ router.post("/edit-mainpost/:id", function (req, res) {
 
   if (errors) {
     req.session.errors = errors;
-    res.redirect("/admin_mainpost/edit-mainpost/" + id);
+    res.redirect("/admin/admin_mainpost/edit-mainpost/" + id);
   } else {
     mainPosts.findOne(
       { name: name, description: description },
@@ -130,7 +130,7 @@ router.post("/edit-mainpost/:id", function (req, res) {
 
               req.flash("success", "пост отредактирован!");
               alert("Пост отредактирован");
-              res.redirect("/admin_mainpost/edit-mainpost/" + id);
+              res.redirect("/admin/admin_mainpost/edit-mainpost/" + id);
             });
           });
         }

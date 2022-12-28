@@ -110,7 +110,7 @@ router.post("/edit-questions/:id", function (req, res) {
 
   if (errors) {
     req.session.errors = errors;
-    res.redirect("/admin_questions/edit-questions/" + id);
+    res.redirect("/admin/admin_questions/edit-questions/" + id);
   } else {
     AskedQuestions.findOne(
       { question: question, answer: answer },
@@ -121,7 +121,7 @@ router.post("/edit-questions/:id", function (req, res) {
         }
         if (questions) {
           // console.log("post3", post);
-          res.redirect("/admin_questions");
+          res.redirect("/admin/admin_questions");
         } else {
           AskedQuestions.findById(id, function (err, questions) {
             if (err) return console.log(err);

@@ -28,7 +28,7 @@
                     <% if (article.image == "") { %>
                     <img class='img' id="noimage" src="/images/noimage.png">
                     <% } else {%>
-                    <img class='img' id="noimage" src="<%= article.image %>">
+                    <img class='img' id="noimage" src="/public/images/<%= article.image %>">
                     <% }%>
                 </td>
                     <td><%= article.button %></td>

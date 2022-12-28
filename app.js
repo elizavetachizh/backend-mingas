@@ -51,7 +51,8 @@ const adminAnswerQuestionsRouter = require("./routes/admin/admin_askedQuestions"
 const answerQuestionsRouter = require("./routes/admin/answerQuestion");
 const adminThemesQuestionsRouter = require("./routes/admin/admin_themeOfAskedQuestions");
 const themesQuestionsRouter = require("./routes/admin/themesAnswerQuestions");
-
+const adminPricesRouter = require("./routes/admin/admin_price");
+const pricesRouter = require("./routes/admin/prices");
 const cors = require("cors");
 
 var app = express();
@@ -76,7 +77,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.set("layout extractScripts", true);
 app.set("layout extractStyles", true);
-
+app.use("/public", express.static("public"));
 app.use(express.static("public"));
 
 app.locals.errors = null;
@@ -199,6 +200,8 @@ app.use("/admin/admin_questions", adminAnswerQuestionsRouter);
 app.use("/admin/questions", answerQuestionsRouter);
 app.use("/admin/admin_themes", adminThemesQuestionsRouter);
 app.use("/admin/themes", themesQuestionsRouter);
+app.use("/admin/admin_prices", adminPricesRouter);
+app.use("/admin/prices", pricesRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

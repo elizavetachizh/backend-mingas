@@ -20,11 +20,13 @@ router.get("/", isAdmin, function (req, res) {
 /*
  * GET add product
  */
-router.get("/add-description", isAdmin,function (req, res) {
+router.get("/add-description", isAdmin, function (req, res) {
   var inform = "";
   var nameDescription = "";
+
   res.render("admin/add_description", {
     inform: inform,
+
     nameDescription: nameDescription,
   });
 });
@@ -43,6 +45,7 @@ router.post("/add-description", function (req, res) {
     res.render("admin/add_description", {
       errors: errors,
       inform: inform,
+
       nameDescription: nameDescription,
     });
   } else {
@@ -50,17 +53,20 @@ router.post("/add-description", function (req, res) {
       {
         inform: inform,
         nameDescription: nameDescription,
+
       },
       function (err, description) {
         if (description) {
           res.render("admin/add_description", {
             inform: inform,
             nameDescription: nameDescription,
+
           });
         } else {
           var description = new Description({
             inform: inform,
             nameDescription: nameDescription,
+
           });
           description.save(function (err) {
             if (err) {
@@ -84,13 +90,14 @@ router.get("/edit-description/:id", isAdmin, function (req, res) {
   Description.findById(req.params.id, function (err, description) {
     if (err) {
       console.log(err);
-      res.render("/admin/admin_description");
+      res.render("admin/admin_description");
     } else {
-      res.render("/admin/edit_description", {
+      res.render("admin/edit_description", {
         errors: errors,
         nameDescription: description.nameDescription,
         inform: description.inform,
         id: description._id,
+        type: description.type,
       });
     }
   });
@@ -153,7 +160,7 @@ router.get("/delete-description/:id", isAdmin, function (req, res) {
     if (err) return console.log(err);
 
     req.flash("success", "Page deleted!");
-    res.redirect("/admin_description/");
+    res.redirect("/admin/admin_description/");
   });
 });
 

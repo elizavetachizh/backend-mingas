@@ -6,6 +6,7 @@
 
         <thead>
         <tr class="home">
+            <th>id</th>
             <th>Вопрос</th>
             <th>Ответ</th>
             <th>edit</th>
@@ -15,6 +16,7 @@
         <tbody>
         <% questions.forEach(function(el){ %>
             <tr>
+                <td><%= el.id %></td>
                 <td><%= el.question %></td>
                 <td><%= el.answer %></td>
                 <td><a href="/admin/admin_questions/edit-questions/<%= el._id %>">edit</a></td>

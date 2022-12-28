@@ -1,5 +1,5 @@
 
-<h2 class="page-title">Управление</h2>
+<h2 class="page-title">Услуги и их описание</h2>
 <a href="/admin/admin_description/add-description" class="btn btn-primary">Добавить новое описание</a>
 <br><br>
 
@@ -7,7 +7,9 @@
 
     <thead>
       <tr class="home">
+          <th>id</th>
                   <th>nameDescription</th>
+
                   <th>inform</th>
                   <th>edit</th>
                   <th>delete</th>
@@ -16,7 +18,9 @@
      <tbody>
             <% description.forEach(function(el){ %>
             <tr>
+                <td><%= el.id %></td>
                 <td><%= el.nameDescription %></td>
+
                 <td><%= el.inform %></td>
 
                 <td><a href="/admin/admin_description/edit-description/<%= el._id %>">edit</a></td>

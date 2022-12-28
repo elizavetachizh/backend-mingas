@@ -27,6 +27,7 @@ router.get("/", isAdmin, function (req, res) {
 router.get("/add-separations", isAdmin, function (req, res) {
   var id = req.params._id;
   var separation = "";
+
   var documents = [];
   SeparationDocs.find({ _id: { $ne: id } })
     .populate("documents")
@@ -36,6 +37,7 @@ router.get("/add-separations", isAdmin, function (req, res) {
       res.render("admin/add_separations", {
         separations: separations,
         separation: separation,
+
         documents: documents,
       });
     });
@@ -43,6 +45,7 @@ router.get("/add-separations", isAdmin, function (req, res) {
 
 router.post("/add-separations", function (req, res) {
   const separation = req.body.separation;
+
   const documents = req.body.documents.split(",");
 
   var errors = req.validationErrors();
@@ -51,6 +54,7 @@ router.post("/add-separations", function (req, res) {
     res.render("admin/add_separations", {
       errors: errors,
       separation: separation,
+
       documents: documents,
     });
   } else {
@@ -60,11 +64,13 @@ router.post("/add-separations", function (req, res) {
         if (separations) {
           res.render("admin/add_separations", {
             separation: separation,
+
             documents: documents,
           });
         } else {
           var separations = new SeparationDocs({
             separation: separation,
+
             documents: documents,
           });
           separations.save(function (err) {
@@ -112,6 +118,7 @@ router.post("/edit-separations/:id", function (req, res) {
   var separation = req.body.separation;
   var documents = req.body.documents.split(",");
   var id = req.params.id;
+
   var errors = req.validationErrors();
 
   if (errors) {
@@ -119,7 +126,7 @@ router.post("/edit-separations/:id", function (req, res) {
     res.redirect("/admin/admin_separations/edit-separations/" + id);
   } else {
     SeparationDocs.findOne(
-      { separation: separation },
+      { separation: separation, documents: documents, _id: { $ne: id } },
       function (err, separations) {
         if (err) return console.log(err);
 
