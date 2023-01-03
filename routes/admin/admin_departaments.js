@@ -124,7 +124,7 @@ router.get("/edit-departament/:id", isAdmin, function (req, res) {
         console.log(err);
         res.render("/admin/admin_departament");
       } else {
-        res.render("/admin/edit_departament", {
+        res.render("admin/admin_departament", {
           errors: errors,
           name: departament.name,
           id: departament._id,

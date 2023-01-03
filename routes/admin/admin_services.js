@@ -188,7 +188,7 @@ router.post("/edit-services/:id", function (req, res) {
             }
             req.flash("success", "пост отредактирован!");
             alert("Пост отредактирован");
-            res.redirect("/admin/admin_services/edit-services/" + id);
+            res.redirect("/admin/admin_services");
           });
         });
       }

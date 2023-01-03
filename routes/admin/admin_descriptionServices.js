@@ -142,7 +142,7 @@ router.post("/edit-description/:id", function (req, res) {
 
               req.flash("success", "продукция отредактировна!");
               alert("Пост отредактирован");
-              res.redirect("/admin/admin_description/edit-description/" + id);
+              res.redirect("/admin/admin_description");
             });
           });
         }
