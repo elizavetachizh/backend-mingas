@@ -54,7 +54,7 @@ const themesQuestionsRouter = require("./routes/admin/themesAnswerQuestions");
 const adminPricesRouter = require("./routes/admin/admin_price");
 const pricesRouter = require("./routes/admin/prices");
 const cors = require("cors");
-
+console.log()
 var app = express();
 //for site
 var port = process.env.PORT || 3000;
