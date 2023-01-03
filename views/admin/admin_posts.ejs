@@ -1,0 +1,37 @@
+<h2 class="page-title">Посты</h2>
+<a href="/admin/admin_posts/add-post" class="btn btn-primary">Добавить новый пост</a>
+<br><br>
+<% if (count > 0) { %>
+<table class="table table-striped sorting">
+
+    <thead>
+      <tr class="home">
+                  <th>Ссылка на пост</th>
+                  <th>Картинка для поста</th>
+                  <th>Контент для поста</th>
+                  <th>edit</th>
+                  <th>delete</th>
+              </tr>
+    </thead>
+     <tbody>
+            <% posts.forEach(function(post){ %>
+            <tr>
+                <td><%= post.link %></td>
+               <td>
+                                 <% if (post.image == "") { %>
+                                 <img class='img' id="noimage" src="/images/noimage.png">
+                                 <% } else {%>
+                                 <img class='img' id="noimage" src="<%= post.image %>">
+                                 <% }%>
+                             </td>
+                <td><%= post.content %></td>
+
+                <td><a href="/admin/admin_posts/edit-post/<%= post._id %>">edit</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_posts/delete-post/<%= post._id %>">delete</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+</table>
+<% } else {%>
+<h3 class="text-center">Нет ни одного созданного поста</h3>
+<% }%>

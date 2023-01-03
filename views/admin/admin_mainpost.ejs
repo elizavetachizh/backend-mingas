@@ -1,0 +1,35 @@
+
+<h2 class="page-title">Статьи</h2>
+<a href="/admin/admin_mainpost/add-mainpost" class="btn btn-primary">Добавить новую статью</a>
+<br><br>
+<% if (count > 0) { %>
+<table class="table table-striped sorting">
+
+    <thead>
+      <tr class="home">
+
+                  <th>ID</th>
+                  <th>name</th>
+                  <th>description</th>
+                  <th>edit</th>
+                  <th>delete</th>
+              </tr>
+    </thead>
+     <tbody>
+            <% posts.forEach(function(post){ %>
+            <tr>
+                <td><%= post.id %></td>
+                <td><%= post.name %></td>
+
+                    <td><%= post.description %></td>
+
+                <td><a href="/admin/admin_mainpost/edit-mainpost/<%= post._id %>">edit</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_mainpost/delete-mainpost/<%= post._id %>">delete</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+</table>
+<% } else {%>
+<h3 class="text-center">Нет ни одного созданного поста</h3>
+<% }%>
+

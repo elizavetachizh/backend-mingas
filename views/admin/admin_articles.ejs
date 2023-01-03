@@ -1,0 +1,47 @@
+
+<h2 class="page-title">Статьи</h2>
+<a href="/admin/admin_article/add-article" class="btn btn-primary">Добавить новую статью</a>
+<br><br>
+<% if (count > 0) { %>
+<table class="table table-striped sorting">
+
+    <thead>
+      <tr class="home">
+
+                  <th>ID</th>
+                  <th>Содержание</th>
+                  <th>Изображение</th>
+                   <th>Инфо. кнопка</th>
+                   <th>Ссылка</th>
+                   <th>Ссылка на пост</th>
+                  <th>edit</th>
+                  <th>delete</th>
+              </tr>
+    </thead>
+     <tbody>
+            <% articles.forEach(function(article){ %>
+            <tr>
+                <td><%= article.id %></td>
+                <td><%= article.content %></td>
+
+                <td>
+                    <% if (article.image == "") { %>
+                    <img class='img' id="noimage" src="/images/noimage.png">
+                    <% } else {%>
+                    <img class='img' id="noimage" src="/public/images/<%= article.image %>">
+                    <% }%>
+                </td>
+                    <td><%= article.button %></td>
+                        <td><%= article.link %></td>
+                             <td><%= article.href %></td>
+                <td><a href="/admin/admin_article/edit-article/<%= article._id %>">edit</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_article/delete-article/<%= article._id %>">delete</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+</table>
+<% } else {%>
+<h3 class="text-center">Нет ни одного созданного продукта</h3>
+<% }%>
+
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>

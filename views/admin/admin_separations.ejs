@@ -1,0 +1,27 @@
+
+<h2 class="page-title">Управление</h2>
+<a href="/admin/admin_separations/add-separations" class="btn btn-primary">Добавить новое название документа</a>
+<br><br>
+
+<table class="table table-striped sorting">
+
+    <thead>
+      <tr class="home">
+                  <th>separation</th>
+                  <th>documents</th>
+                  <th>edit</th>
+                  <th>delete</th>
+              </tr>
+    </thead>
+     <tbody>
+            <% separation.forEach(function(el){ %>
+            <tr>
+                <td><%= el.separation %></td>
+                <td> <% el.documents.forEach(function(el){ %> <p><%= el %></p> <% }); %></td>
+
+                <td><a href="/admin/admin_separations/edit-separations/<%= el._id %>">edit</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_separations/delete-separations/<%= el._id %>">delete</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+</table>

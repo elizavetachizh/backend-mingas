@@ -1,0 +1,27 @@
+<div class="row mt-5">
+<h1><%= title %></h1>
+
+<form method="post" action="/admin/users/login">
+
+    <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" class="form-control" placeholder="Username">
+    </div>
+
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" class="form-control"  placeholder="Password">
+    </div>
+
+    <button type="Сохранить" class="btn btn-default">Вход</button>
+    <div><a href="/users/register">Регистрация</a></div>
+</form>
+
+    <% if (errors) {%>
+        <% errors.forEach(function(error) { %>
+        <div class="alert alert-danger">
+            <%= error.msg %>
+        </div>
+        <% });%>
+    <% }%>
+</div>

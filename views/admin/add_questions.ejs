@@ -1,0 +1,27 @@
+<h2 class="page-title">Добавить продукт</h2>
+<br><br>
+<a href="/admin/admin_questions" class="btn btn-primary">Показать всх начальников</a>
+<br><br>
+
+<form method="post" action="/admin/admin_questions/add-questions" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="">Вопрос</label>
+        <input type="text" class="form-control" name="question" value="<%= question %>" placeholder="question">
+    </div>
+
+    <div class="form-group">
+        <label for="">Ответ</label>
+        <textarea type="text" class="form-control" id="ta" name="answer" placeholder="answer"><%= answer %></textarea>
+    </div>
+
+    <button class="btn btn-default">Добавить</button>
+
+    <% if (errors) {%>
+        <% errors.forEach(function(error) { %>
+            <div class="alert alert-danger">
+                <%= error.msg %>
+            </div>
+        <% });%>
+    <% }%>
+</form>
