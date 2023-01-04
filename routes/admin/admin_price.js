@@ -35,9 +35,7 @@ router.post("/add-prices", (req, res) => {
     typeof req.files?.description !== "undefined"
       ? req.files.description.name
       : "";
-  console.log(`des`, descriptionFile);
   var errors = req.validationErrors();
-  console.log(descriptionFile);
   if (errors) {
     console.log("errors1", errors);
     res.render("admin/add_prices", {
@@ -69,7 +67,6 @@ router.post("/add-prices", (req, res) => {
               return console.log(err);
             });
           }
-          console.log(`pr`, prices);
           req.flash("success", "Пост добавлен");
           res.redirect("/admin/admin_prices");
         });
@@ -114,7 +111,6 @@ router.post("/edit-prices/:id", function (req, res) {
       ? req.files.description.name
       : "";
   var id = req.params.id;
-  var description = req.body.description;
   var errors = req.validationErrors();
 
   if (errors) {
@@ -138,17 +134,8 @@ router.post("/edit-prices/:id", function (req, res) {
             if (err) return console.log(err);
 
             if (descriptionFile !== "") {
-              if (description !== "") {
-                fs.remove(
-                  "public/images" + "/" + descriptionFile,
-                  function (err) {
-                    if (err) console.log(err);
-                  }
-                );
-              }
-
               var serviceFile = req.files.description;
-              var path = "public/product_images/" + descriptionFile;
+              var path = "public/images"  + "/" + descriptionFile;
 
               serviceFile.mv(path, function (err) {
                 return console.log(err);

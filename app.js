@@ -58,8 +58,8 @@ console.log()
 var app = express();
 //for site
 var port = process.env.PORT || 3000;
-app.use(express.json({ limit: 10000000 }));
-app.use(express.urlencoded({ extended: false, limit: 10000000 }));
+app.use(express.json({ limit: 700000000 }));
+app.use(express.urlencoded({ extended: false, limit: 700000000 }));
 // var bodyParser = require("body-parser");
 app.use(cors());
 

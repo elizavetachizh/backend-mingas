@@ -132,7 +132,6 @@ router.get("/edit-article/:id", isAdmin, function (req, res) {
  * POST edit product
  */
 router.post("/edit-article/:id", function (req, res) {
-  req.checkBody("content", "Описание должно быть заполненым").notEmpty();
 
   var content = req.body.content;
   var imageFile =
