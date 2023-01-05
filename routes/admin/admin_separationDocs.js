@@ -126,7 +126,7 @@ router.post("/edit-separations/:id", function (req, res) {
     res.redirect("/admin/admin_separations/edit-separations/" + id);
   } else {
     SeparationDocs.findOne(
-      { separation: separation, documents: documents, _id: { $ne: id } },
+      { separation: separation, _id: { $ne: id } },
       function (err, separations) {
         if (err) return console.log(err);
 
@@ -138,12 +138,12 @@ router.post("/edit-separations/:id", function (req, res) {
             separations.separation = separation;
             separations.documents = documents;
 
-            separation.save(function (err) {
+            separations.save(function (err) {
               if (err) return console.log(err);
 
               req.flash("success", "пост отредактирован!");
               alert("Пост отредактирован");
-              res.redirect("/admin/admin_separations/edit-separations/" + id);
+              res.redirect("/admin/admin_separations");
             });
           });
         }

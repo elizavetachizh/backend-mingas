@@ -5,9 +5,6 @@ const ThemeOfAskedQuestionsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  question: {
-    type: String,
-  },
   questionAnswer: [
     { type: mongoose.Schema.Types.ObjectId, ref: "AskedQuestions" },
   ],

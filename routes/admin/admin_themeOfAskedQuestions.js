@@ -28,7 +28,6 @@ router.get("/", isAdmin, function (req, res) {
 router.get("/add-themes", isAdmin, function (req, res) {
   var id = req.params._id;
   var title = "";
-  var question = "";
   var questionAnswer = [];
   ThemeOfAskedQuestions.find({ _id: { $ne: id } })
     .populate("questionAnswer")
@@ -37,7 +36,6 @@ router.get("/add-themes", isAdmin, function (req, res) {
 
       res.render("admin/add_themes", {
         title: title,
-        question: question,
         questionAnswer: questionAnswer,
       });
     });
@@ -45,7 +43,6 @@ router.get("/add-themes", isAdmin, function (req, res) {
 
 router.post("/add-themes", function (req, res) {
   const title = req.body.title;
-  const question = req.body.question;
   const questionAnswer = req.body.questionAnswer.split(",");
 
   var errors = req.validationErrors();
@@ -54,7 +51,6 @@ router.post("/add-themes", function (req, res) {
     res.render("admin/add_themes", {
       errors: errors,
       title: title,
-      question: question,
       questionAnswer: questionAnswer,
     });
   } else {
@@ -64,13 +60,11 @@ router.post("/add-themes", function (req, res) {
         if (themes) {
           res.render("admin/add_separations", {
             title: title,
-            question: question,
             questionAnswer: questionAnswer,
           });
         } else {
           var themes = new ThemeOfAskedQuestions({
             title: title,
-            question: question,
             questionAnswer: questionAnswer,
           });
           themes.save(function (err) {
@@ -101,7 +95,6 @@ router.get("/edit-themes/:id", isAdmin, function (req, res) {
       res.render("admin/edit_themes", {
         errors: errors,
         title: themes.title,
-        question: themes.question,
         questionAnswer: themes.questionAnswer,
         id: themes._id,
       });
@@ -113,36 +106,32 @@ router.get("/edit-themes/:id", isAdmin, function (req, res) {
  * POST edit product
  */
 router.post("/edit-themes/:id", function (req, res) {
-  // req.checkBody("name", "Название должно быть заполненым").notEmpty();
+  req.checkBody("title", "Название должно быть заполненым").notEmpty();
   // req.checkBody("image", "Описание должно быть заполненым").notEmpty();
 
   const title = req.body.title;
-  const question = req.body.question;
   const questionAnswer = req.body.questionAnswer.split(",");
   var id = req.params.id;
   var errors = req.validationErrors();
-
   if (errors) {
     req.session.errors = errors;
     res.redirect("/admin/admin_themes/edit-themes/" + id);
   } else {
-    ThemeOfAskedQuestions.findOne({ title: title }, function (err, themes) {
+    ThemeOfAskedQuestions.findOne({ title: title, _id: { $ne: id } }, function (err, themes) {
       if (err) return console.log(err);
-
       if (themes) {
         res.redirect("/admin/admin_themes");
       } else {
         ThemeOfAskedQuestions.findById(id, function (err, themes) {
           if (err) console.log(err);
+
           themes.title = title;
-          themes.question = question;
           themes.questionAnswer = questionAnswer;
           themes.save(function (err) {
             if (err) return console.log(err);
-
             req.flash("success", "themes отредактирован!");
             alert("themes отредактирован");
-            res.redirect("/admin/admin_themes/edit-themes/" + id);
+            res.redirect("/admin/admin_themes");
           });
         });
       }
