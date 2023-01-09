@@ -120,11 +120,12 @@ router.get("/edit-departament/:id", isAdmin, function (req, res) {
   req.session.errors = null;
   Management.find(function (err, management) {
     Departament.findById(req.params.id, function (err, departament) {
+      console.log(departament);
       if (err) {
         console.log(err);
-        res.render("/admin/admin_departament");
+        res.render("admin/admin_departament");
       } else {
-        res.render("admin/admin_departament", {
+        res.render("admin/edit_departament", {
           errors: errors,
           name: departament.name,
           id: departament._id,
@@ -155,7 +156,7 @@ router.post("/edit-departament/:id", function (req, res) {
   if (errors) {
     req.session.errors = errors;
     console.log(errors);
-    res.redirect("admin/admin_departament/edit-departament/" + id);
+    res.redirect("/admin/admin_departament/edit-departament/" + id);
   } else {
     Departament.findOne(
       {
