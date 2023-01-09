@@ -12,8 +12,11 @@ router.get("/:id", function (req, res) {
   var id = req.params.id;
   Prices.findById(id, function (err, prices) {
     if (err) return console.log(err);
-
-    res.send(prices);
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", "attachment");
+    res.download(
+      `D:/project/backend-mingas/backend-mingas/public/images/${prices.description}`
+    );
   });
 });
 module.exports = router;
