@@ -23,10 +23,12 @@ router.get("/add-post", isAdmin, function (req, res) {
   var link = "";
   var content = "";
   var image = "";
+  var date = new Date();
   res.render("admin/add_posts", {
     link: link,
     content: content,
     image: image,
+    date: date,
   });
 });
 
@@ -38,7 +40,7 @@ router.post("/add-post", (req, res) => {
   var link = req.body.link;
   var content = req.body.content;
   var image = req.body.image;
-
+  var date = req.body.date;
   var errors = req.validationErrors();
 
   if (errors) {
@@ -48,6 +50,7 @@ router.post("/add-post", (req, res) => {
       link: link,
       content: content,
       image: image,
+      date: date,
     });
   } else {
     Posts.findOne({ link: link }, function (err, post) {
@@ -56,13 +59,16 @@ router.post("/add-post", (req, res) => {
           link: link,
           content: content,
           image: image,
+          date: date,
         });
       } else {
         var post = new Posts({
           link: link,
           content: content,
           image: image,
+          date: date,
         });
+        console.log(date);
         post.save(function (err) {
           if (err) {
             return console.log(err);
@@ -95,6 +101,7 @@ router.get("/edit-post/:id", isAdmin, function (req, res) {
         content: post.content,
         image: post.image,
         id: post._id,
+        date: post.date,
       });
     }
   });
@@ -111,6 +118,7 @@ router.post("/edit-post/:id", function (req, res) {
   var content = req.body.content;
   var image = req.body.image;
   var id = req.params.id;
+  var date = req.body.date;
 
   var errors = req.validationErrors();
 
@@ -119,7 +127,7 @@ router.post("/edit-post/:id", function (req, res) {
     res.redirect("/admin/admin_posts/edit-post/" + id);
   } else {
     Posts.findOne(
-      { link: link, content: content, image: image },
+      { link: link, content: content, image: image, date: date },
       function (err, post) {
         // console.log("post2", post);
         if (err) {
@@ -134,13 +142,13 @@ router.post("/edit-post/:id", function (req, res) {
             post.link = link;
             post.content = content;
             post.image = image;
-
+            post.date = date;
             post.save(function (err) {
               if (err) return console.log(err);
 
               req.flash("success", "пост отредактирован!");
               alert("Пост отредактирован");
-              res.redirect("/admin/admin_posts/edit-post/" + id);
+              res.redirect("/admin/admin_posts/");
             });
           });
         }

@@ -1,0 +1,40 @@
+<h2 class="page-title">Административные услуги</h2>
+<a href="/admin/admin_administration/add-administration" class="btn btn-primary">Добавить новую административную услугу</a>
+<br><br>
+<% if (count > 0) { %>
+    <table class="table table-striped sorting">
+
+        <thead>
+        <tr class="home">
+            <th >id</th>
+            <th>uniqueName</th>
+            <th>maximumImplementationPeriod</th>
+            <th>certificateValidityPeriod</th>
+            <th>boardSize</th>
+            <th cols="30" rows="10">documents</th>
+            <th>contactInform</th>
+            <th>type</th>
+            <th>edit</th>
+            <th>delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% administration.forEach(function(document){ %>
+            <tr>
+                <td><%= document.id %></td>
+                <td><div style="width: 200px"><%= document.uniqueName %></div></td>
+                <td><%= document.maximumImplementationPeriod %></td>
+                <td><%= document.certificateValidityPeriod %></td>
+                <td><%= document.boardSize %></td>
+                <td><div style="width: 300px"><%= document.documents %></div></td>
+                <td><%= document.contactInform %></td>
+                <td><%= document.type %></td>
+                <td><a href="/admin/admin_administration/edit-administration/<%= document.id %>">edit</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_administration/delete-administration/<%= document.id %>">delete</a></td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+<% } else {%>
+    <h3 class="text-center">Нет ни одной созданной административной процедуры</h3>
+<% }%>

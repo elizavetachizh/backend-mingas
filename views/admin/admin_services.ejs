@@ -26,7 +26,7 @@
                 </td>
   <td><%= service.name %></td>
                 <td><%= service.type %></td>
-  <td>  <% service.description.forEach(function(el){ %> <p><%= el %></p> <% }); %></td>
+  <td> <div style="width: 600px"> <% service.description.forEach(function(el){ %> <p><%= el %></p> <% }); %></div> </td>
 
                 <td><a href="/admin/admin_services/edit-services/<%= service._id %>">edit</a></td>
                 <td><a class="confirmDeletion" href="/admin/admin_services/delete-services/<%= service._id %>">delete</a></td>

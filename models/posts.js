@@ -8,9 +8,12 @@ var PostsSchema = mongoose.Schema({
   content: {
     type: String,
   },
-    image: {
-        type: String
-    }
+  image: {
+    type: String,
+  },
+  date: {
+    type: String,
+  },
 });
 
 const Posts = mongoose.model("Posts", PostsSchema);

@@ -53,8 +53,10 @@ const adminThemesQuestionsRouter = require("./routes/admin/admin_themeOfAskedQue
 const themesQuestionsRouter = require("./routes/admin/themesAnswerQuestions");
 const adminPricesRouter = require("./routes/admin/admin_price");
 const pricesRouter = require("./routes/admin/prices");
+const adminAdministrativeServicesRouter = require("./routes/admin/admin_AdministrativeServices");
+const administrativeServicesRouter = require("./routes/admin/administrativeServices");
+
 const cors = require("cors");
-console.log()
 var app = express();
 //for site
 var port = process.env.PORT || 3000;
@@ -202,6 +204,8 @@ app.use("/admin/admin_themes", adminThemesQuestionsRouter);
 app.use("/admin/themes", themesQuestionsRouter);
 app.use("/admin/admin_prices", adminPricesRouter);
 app.use("/admin/prices", pricesRouter);
+app.use("/admin/admin_administration", adminAdministrativeServicesRouter);
+app.use("/admin/administration", administrativeServicesRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
