@@ -42,7 +42,6 @@ router.get("/add-men", isAdmin, function (req, res) {
 router.post("/add-men", (req, res) => {
   req.checkBody("fullName", "Название должно быть заполненым").notEmpty();
   req.checkBody("position", "Описание должно быть заполненым").notEmpty();
-  req.checkBody("cardImg", "Картинка должна быть загружена").isImage(imageFile);
   var image = req.body.image;
 
   var fullName = req.body.fullName;
@@ -93,7 +92,7 @@ router.post("/add-men", (req, res) => {
               return console.log(err);
             }
             req.flash("success", "человек добавлен");
-            res.redirect("/admin_management");
+            res.redirect("/admin/admin_management");
           });
         }
       }
@@ -147,13 +146,12 @@ router.post("/edit-men/:id", function (req, res) {
     res.redirect("/admin/admin_management/edit-men/" + id);
   } else {
     Management.findOne(
-      { fullName: fullName, _id: { $ne: id } },
+      { fullName: fullName, _id: { $ne: id }, department: department },
       function (err, men) {
         if (err) {
           console.log(err);
         }
         if (men) {
-          // console.log("men2", men);
           res.redirect("/admin/admin_management/edit-men/" + id);
         } else {
           Management.findById(id, function (err, men) {
@@ -169,9 +167,8 @@ router.post("/edit-men/:id", function (req, res) {
 
               req.flash("success", "продукция отредактировна!");
               alert("Пост отредактирован");
-              res.redirect("/admin/admin_management/edit-men/" + id);
+              res.redirect("/admin/admin_management/");
             });
-            // console.log("men", men);
           });
         }
       }
@@ -188,7 +185,7 @@ router.get("/delete-men/:id", isAdmin, function (req, res) {
     if (err) return console.log(err);
 
     req.flash("success", "Page deleted!");
-    res.redirect("/admin_management/");
+    res.redirect("/admin/admin_management/");
   });
 });
 

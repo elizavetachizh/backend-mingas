@@ -13,7 +13,7 @@ router.get("/", isAdmin, function (req, res) {
       description: description,
     });
     // res.send(description)
-    // console.log(description);
+    //  console.log(description);
   });
 });
 

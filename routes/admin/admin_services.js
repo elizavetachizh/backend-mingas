@@ -21,6 +21,9 @@ router.get("/", isAdmin, function (req, res) {
       res.render("admin/admin_services", {
         services: services,
       });
+      services.map((el)=>(
+          console.log(el.description)
+      ))
     });
 });
 

@@ -21,7 +21,7 @@
                 <td><%= post.id %></td>
                 <td><%= post.name %></td>
 
-                    <td><%= post.description %></td>
+                    <td><div style="width: 300px"><%= post.description %></div></td>
 
                 <td><a href="/admin/admin_mainpost/edit-mainpost/<%= post._id %>">edit</a></td>
                 <td><a class="confirmDeletion" href="/admin/admin_mainpost/delete-mainpost/<%= post._id %>">delete</a></td>
