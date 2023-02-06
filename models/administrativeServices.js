@@ -23,6 +23,9 @@ var AdministrativeServicesSchema = mongoose.Schema({
   type: {
     type: String,
   },
+  typeAdministrativeService: {
+    type: String,
+  },
 });
 
 const AdministrativeServices = mongoose.model(

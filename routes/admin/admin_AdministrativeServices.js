@@ -27,6 +27,7 @@ router.get("/add-administration", isAdmin, function (req, res) {
   var documents = "";
   var contactInform = "";
   var type = "";
+  var typeAdministrativeService = "";
   res.render("admin/add_administration", {
     uniqueName: uniqueName,
     maximumImplementationPeriod: maximumImplementationPeriod,
@@ -35,6 +36,7 @@ router.get("/add-administration", isAdmin, function (req, res) {
     documents: documents,
     contactInform: contactInform,
     type: type,
+    typeAdministrativeService: typeAdministrativeService
   });
 });
 
@@ -48,6 +50,7 @@ router.post("/add-administration", (req, res) => {
   const documents = req.body.documents;
   const contactInform = req.body.contactInform;
   const type = req.body.type;
+  const typeAdministrativeService  = req.body.typeAdministrativeService
   var errors = req.validationErrors();
 
   if (errors) {
@@ -61,6 +64,7 @@ router.post("/add-administration", (req, res) => {
       documents: documents,
       contactInform: contactInform,
       type: type,
+      typeAdministrativeService:typeAdministrativeService
     });
   } else {
     AdministrativeServices.findOne(
@@ -72,6 +76,7 @@ router.post("/add-administration", (req, res) => {
         documents: documents,
         contactInform: contactInform,
         type: type,
+        typeAdministrativeService:typeAdministrativeService
       },
       function (err, administration) {
         if (administration) {
@@ -83,6 +88,7 @@ router.post("/add-administration", (req, res) => {
             documents: documents,
             contactInform: contactInform,
             type: type,
+            typeAdministrativeService:typeAdministrativeService
           });
           console.log(administration);
         } else {
@@ -94,6 +100,7 @@ router.post("/add-administration", (req, res) => {
             documents: documents,
             contactInform: contactInform,
             type: type,
+            typeAdministrativeService:typeAdministrativeService
           });
           administrativeServices.save(function (err) {
             if (err) {
@@ -136,6 +143,7 @@ router.get("/edit-administration/:id/", function (req, res) {
           documents: administration.documents,
           contactInform: administration.contactInform,
           type: administration.type,
+          typeAdministrativeService:administration.typeAdministrativeService
         });
       }
     }
@@ -155,6 +163,7 @@ router.post("/edit-administration/:id", function (req, res) {
   const documents = req.body.documents;
   const contactInform = req.body.contactInform;
   const type = req.body.type;
+  const typeAdministrativeService = req.body.typeAdministrativeService
   var id = req.params.id;
   var errors = req.validationErrors();
 
@@ -171,6 +180,7 @@ router.post("/edit-administration/:id", function (req, res) {
         documents: documents,
         contactInform: contactInform,
         type: type,
+        typeAdministrativeService:typeAdministrativeService
       },
       function (err, administration) {
         // console.log("post2", post);
@@ -192,6 +202,7 @@ router.post("/edit-administration/:id", function (req, res) {
             administration.documents = documents;
             administration.contactInform = contactInform;
             administration.type = type;
+            administration.typeAdministrativeService=typeAdministrativeService
             administration.save(function (err) {
               if (err) return console.log(err);
 
