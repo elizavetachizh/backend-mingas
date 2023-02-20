@@ -134,7 +134,7 @@ router.post("/edit-questions/:id", function (req, res) {
 
               req.flash("success", "пост отредактирован!");
               alert("questions отредактирован");
-              res.redirect("/admin/admin_questions/edit-questions/" + id);
+              res.redirect("/admin/admin_questions");
             });
           });
         }
