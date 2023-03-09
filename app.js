@@ -57,6 +57,7 @@ const adminAdministrativeServicesRouter = require("./routes/admin/admin_Administ
 const administrativeServicesRouter = require("./routes/admin/administrativeServices");
 const pageSlugRouter = require("./routes/admin/pageSlug");
 const adminPageRouter = require("./routes/admin/admin_pages");
+const adminTableRouter = require("./routes/admin/admin_table");
 const cors = require("cors");
 var app = express();
 //for site
@@ -207,6 +208,7 @@ app.use("/admin/admin_prices", adminPricesRouter);
 app.use("/admin/prices", pricesRouter);
 app.use("/admin/admin_administration", adminAdministrativeServicesRouter);
 app.use("/admin/administration", administrativeServicesRouter);
+app.use("/admin/admin_table", adminTableRouter);
 app.use("/page", pageSlugRouter);
 app.use("/admin_page", adminPageRouter);
 // catch 404 and forward to error handler
