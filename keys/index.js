@@ -1,6 +1,6 @@
 module.exports = {
   MONGODB_URI:
-    "mongodb://root:v|}BfYvNXhQed5yH@mongo",
+    "mongodb://root:v|}BfYvNXhQed5yH@mongo:27017",
   SESSION_SECRET: "some secret value",
 };
 // MONGODB_URI:
