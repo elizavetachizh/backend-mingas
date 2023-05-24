@@ -54,7 +54,7 @@ router.post("/add-documents", (req, res) => {
     });
   } else {
     RegulatoryDocSchema.findOne(
-      { name: name, link: link,  type: type, separation: separation },
+      { name: name, link: link, type: type, separation: separation },
       function (err, document) {
         if (document) {
           res.render("admin/add_documents", {
@@ -63,7 +63,6 @@ router.post("/add-documents", (req, res) => {
             type: type,
             separation: separation,
           });
-          console.log(document)
         } else {
           var document = new RegulatoryDocSchema({
             link: link,
@@ -79,7 +78,6 @@ router.post("/add-documents", (req, res) => {
             req.flash("success", "document добавлен");
             res.redirect("/admin/admin_documents");
           });
-          console.log(document)
         }
       }
     );
@@ -95,7 +93,6 @@ router.get("/edit-documents/:id", isAdmin, function (req, res) {
   req.session.errors = null;
 
   RegulatoryDocSchema.findById(req.params.id, function (err, document) {
-    // console.log(post);
     if (err) {
       console.log(err);
       res.render("admin/admin_documents");
@@ -138,7 +135,6 @@ router.post("/edit-documents/:id", function (req, res) {
           console.log(err);
         }
         if (document) {
-           console.log("type", type);
           res.redirect("/admin/admin_documents");
         } else {
           RegulatoryDocSchema.findById(id, function (err, document) {

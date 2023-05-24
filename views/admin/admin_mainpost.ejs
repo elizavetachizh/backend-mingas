@@ -10,6 +10,7 @@
 
                   <th>ID</th>
                   <th>name</th>
+                    <th>type</th>
                   <th>description</th>
                   <th>edit</th>
                   <th>delete</th>
@@ -20,7 +21,7 @@
             <tr>
                 <td><%= post.id %></td>
                 <td><%= post.name %></td>
-
+                <td><%= post.type %></td>
                     <td><div style="width: 300px"><%= post.description %></div></td>
 
                 <td><a href="/admin/admin_mainpost/edit-mainpost/<%= post._id %>">edit</a></td>

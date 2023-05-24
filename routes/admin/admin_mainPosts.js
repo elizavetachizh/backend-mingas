@@ -22,9 +22,11 @@ router.get("/", isAdmin, function (req, res) {
 router.get("/add-mainpost", isAdmin, function (req, res) {
   var name = "";
   var description = "";
+  var type = "";
 
   res.render("admin/add_mainpost", {
     name: name,
+    type: type,
     description: description,
   });
 });
@@ -35,6 +37,7 @@ router.post("/add-mainpost", (req, res) => {
 
   var name = req.body.name;
   var description = req.body.description;
+  const type = req.body.type;
 
   var errors = req.validationErrors();
   if (errors) {
@@ -42,20 +45,23 @@ router.post("/add-mainpost", (req, res) => {
     res.render("/admin/add_mainpost", {
       errors: errors,
       name: name,
+      type: type,
       description: description,
     });
   } else {
     mainPosts.findOne(
-      { name: name, description: description },
+      { name: name,type: type, description: description },
       function (err, posts) {
         if (posts) {
           res.render("/admin/add_mainpost", {
             name: name,
+            type: type,
             description: description,
           });
         } else {
           var posts = new mainPosts({
             name: name,
+            type: type,
             description: description,
           });
           posts.save(function (err) {
@@ -87,6 +93,7 @@ router.get("/edit-mainpost/:id", isAdmin, function (req, res) {
       res.render("admin/edit_mainpost", {
         errors: errors,
         name: posts.name,
+        type: posts.type,
         description: posts.description,
         id: posts._id,
       });
@@ -104,7 +111,7 @@ router.post("/edit-mainpost/:id", function (req, res) {
   var name = req.body.name;
   var description = req.body.description;
   var id = req.params.id;
-
+  var type = req.body.type;
   var errors = req.validationErrors();
 
   if (errors) {
@@ -112,7 +119,7 @@ router.post("/edit-mainpost/:id", function (req, res) {
     res.redirect("/admin/admin_mainpost/edit-mainpost/" + id);
   } else {
     mainPosts.findOne(
-      { name: name, description: description },
+      { name: name,type: type, description: description },
       function (err, posts) {
         if (err) {
           console.log(err);
@@ -124,7 +131,7 @@ router.post("/edit-mainpost/:id", function (req, res) {
             if (err) return console.log(err);
             posts.name = name;
             posts.description = description;
-
+            posts.type = type;
             posts.save(function (err) {
               if (err) return console.log(err);
 
