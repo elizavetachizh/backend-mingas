@@ -3,6 +3,7 @@ const { isAdmin } = require("../../config/auth");
 const express = require("express");
 const alert = require("alert");
 const Management = require("../../models/management");
+const {log} = require("debug");
 const router = express.Router();
 
 router.get("/", isAdmin, function (req, res) {
@@ -10,14 +11,19 @@ router.get("/", isAdmin, function (req, res) {
   Departament.count(function (err, c) {
     count = c;
   });
-  Departament.find(function (err, departament) {
-    res.render("admin/admin_departament", {
-      departament: departament,
-      count: count,
+  Management.find(function (err, management) {
+    Departament.find(function (err, departament) {
+      res.render("admin/admin_departament", {
+        departament: departament,
+        count: count,
+        nameMen: management,
+      });
+      console.log(management);
+      console.log(departament);
     });
-    // console.log("getDEp", departament);
-    // res.send(management)
   });
+  // console.log("getDEp", departament);
+  // res.send(management)
 });
 
 /*

@@ -5,20 +5,20 @@
 <form method="post" action="/admin/admin_management/edit-men/<%= id %>" enctype="multipart/form-data">
 
     <div class="form-group">
-        <label for="">fullName</label>
+        <label for="">ФИО руководителя</label>
         <input type="text" class="form-control" name="fullName" value="<%= fullName %>" placeholder="fullName">
     </div>
 
  <div class="form-group">
-        <label for="">position</label>
+        <label for="">Должность руководителя</label>
         <input type="text" class="form-control" name="position" value="<%= position %>" placeholder="position">
     </div>
 
       <div class="form-group">
-                                      <label for="">department</label>
+                                      <label for="">Выбрать подразделения</label>
     <ul class="list-without-dots">
-                                          <% department.forEach(function(dep){ %>
-                                            <li>  <input type="checkbox" name="department" value="<%= dep.name %>"><%= dep.name %></input></li>
+                                          <% departments.forEach(function(dep){ %>
+                                            <li>  <input type="checkbox" name="department" value="<%= dep.name %>"}><%= dep.name %></input></li>
                                           <% }); %>
     </ul>
                                   </div>

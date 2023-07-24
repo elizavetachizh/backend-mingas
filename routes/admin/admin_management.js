@@ -117,10 +117,12 @@ router.get("/edit-men/:id", isAdmin, function (req, res) {
           errors: errors,
           fullName: men.fullName,
           position: men.position,
-          department: departamnets,
+          departments: departamnets,
+          department: men.department,
           image: men.image,
           id: men._id,
         });
+        console.log(men.department);
       }
     });
   });

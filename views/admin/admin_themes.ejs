@@ -17,7 +17,7 @@
     <% themes.forEach(function(el){ %>
         <tr>
             <td><%= el.title %></td>
-            <td> <% el.questionAnswer.forEach(function(el){ %> <p><%= el %></p> <% }); %></td>
+            <td> <% el.questionAnswer.forEach(function(el){ %> <p><%= el.question %></p> <% }); %></td>
 
             <td><a href="/admin/admin_themes/edit-themes/<%= el._id %>">edit</a></td>
             <td><a class="confirmDeletion" href="/admin/admin_themes/delete-themes/<%= el._id %>">delete</a></td>

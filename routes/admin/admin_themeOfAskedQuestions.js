@@ -4,6 +4,7 @@ const SeparationDocs = require("../../models/separationDocuments");
 const { isAdmin } = require("../../config/auth");
 const alert = require("alert");
 const ThemeOfAskedQuestions = require("../../models/themeOfAskedQuestions");
+const AskedQuestions = require("../../models/askedQuestions");
 
 router.get("/", isAdmin, function (req, res) {
   var count;
@@ -86,19 +87,23 @@ router.get("/edit-themes/:id", isAdmin, function (req, res) {
   var errors;
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
-
-  ThemeOfAskedQuestions.findById(req.params.id, function (err, themes) {
-    if (err) {
-      console.log(err);
-      res.render("admin/admin_themes");
-    } else {
-      res.render("admin/edit_themes", {
-        errors: errors,
-        title: themes.title,
-        questionAnswer: themes.questionAnswer,
-        id: themes._id,
-      });
-    }
+  AskedQuestions.find(function (err, questions) {
+    ThemeOfAskedQuestions.findById(req.params.id, function (err, themes) {
+      if (err) {
+        console.log(err);
+        res.render("admin/admin_themes");
+      } else {
+        res.render("admin/edit_themes", {
+          errors: errors,
+          title: themes.title,
+          questionAnswer: themes.questionAnswer,
+          id: themes._id,
+          listOfQuestionAnswer: questions,
+        });
+        console.log(themes.questionAnswer)
+        console.log(questions)
+      }
+    });
   });
 });
 
@@ -117,25 +122,28 @@ router.post("/edit-themes/:id", function (req, res) {
     req.session.errors = errors;
     res.redirect("/admin/admin_themes/edit-themes/" + id);
   } else {
-    ThemeOfAskedQuestions.findOne({ title: title, _id: { $ne: id } }, function (err, themes) {
-      if (err) return console.log(err);
-      if (themes) {
-        res.redirect("/admin/admin_themes");
-      } else {
-        ThemeOfAskedQuestions.findById(id, function (err, themes) {
-          if (err) console.log(err);
+    ThemeOfAskedQuestions.findOne(
+      { title: title, _id: { $ne: id } },
+      function (err, themes) {
+        if (err) return console.log(err);
+        if (themes) {
+          res.redirect("/admin/admin_themes");
+        } else {
+          ThemeOfAskedQuestions.findById(id, function (err, themes) {
+            if (err) console.log(err);
 
-          themes.title = title;
-          themes.questionAnswer = questionAnswer;
-          themes.save(function (err) {
-            if (err) return console.log(err);
-            req.flash("success", "themes отредактирован!");
-            alert("themes отредактирован");
-            res.redirect("/admin/admin_themes");
+            themes.title = title;
+            themes.questionAnswer = questionAnswer;
+            themes.save(function (err) {
+              if (err) return console.log(err);
+              req.flash("success", "themes отредактирован!");
+              alert("themes отредактирован");
+              res.redirect("/admin/admin_themes");
+            });
           });
-        });
+        }
       }
-    });
+    );
   }
 });
 

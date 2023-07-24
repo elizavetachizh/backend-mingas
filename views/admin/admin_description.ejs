@@ -8,6 +8,7 @@
     <thead>
       <tr class="home">
           <th>id</th>
+          <th>link</th>
                   <th>nameDescription</th>
 
                   <th>inform</th>
@@ -19,6 +20,7 @@
             <% description.forEach(function(el){ %>
             <tr>
                 <td><%= el.id %></td>
+                <td>https://mingas.by/posts/<%= el.id %></td>
                 <td><%= el.nameDescription %></td>
 
                 <td><div style="width: 600px"><%= el.inform %></div></td>
