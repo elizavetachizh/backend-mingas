@@ -1,3 +1,8 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
 section {
   width: 90%;
   margin: 0 auto !important;
@@ -27,4 +32,12 @@ ul.list-without-dots {
 
 th.th-image {
   width: 300px !important;
+}
+.div-menu {
+  width: 40%;
+}
+.menu {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
 }

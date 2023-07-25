@@ -1,28 +1,2 @@
 <h1>Панель администрирования</h1>
 <h4>Выберете пункт из меню, где необходимо внести правки</h4>
-<div><ul class="nav nav-pills">
-        <% if (user) { %>
-            <% if (user && user.admin == 1) { %>
-                <li class="nav-item"><a href="/admin/admin_posts" class="nav-link">Статьи для ленты новостей</a></li>
-                <li class="nav-item"><a href="/admin/admin_departament" class="nav-link">Отделы</a></li>
-                <li class="nav-item"><a href="/admin/admin_management" class="nav-link">Руководоство</a></li>
-                <li class="nav-item"><a href="/admin/admin_tenders" class="nav-link">Тендеры</a></li>
-<!--                <li class="nav-item"><a href="/admin/admin_table" class="nav-link">Таблица</a></li>-->
-                <li class="nav-item"><a href="/admin/admin_article" class="nav-link">Новости для главного экрана</a></li>
-                <li class="nav-item"><a href="/admin/admin_mainpost" class="nav-link">Информация для статей и новостей УП "МИНГАЗ"</a></li>
-                <li class="nav-item"><a href="/admin/admin_description" class="nav-link">Информация услуг</a></li>
-                <li class="nav-item"><a href="/admin/admin_services" class="nav-link">Услуги</a></li>
-                <li class="nav-item"><a href="/admin/admin_documents" class="nav-link">Регламентирующие документы</a></li>
-                <li class="nav-item"><a href="/admin/admin_separations" class="nav-link">Разделения регламентирующих документов</a></li>
-                <li class="nav-item"><a href="/admin/admin_questions" class="nav-link">Рубрика вопрос-ответ</a></li>
-                <li class="nav-item"><a href="/admin/admin_themes" class="nav-link">Темы рубрики Вопрос-ответ</a></li>
-                <li class="nav-item"><a href="/admin/admin_prices" class="nav-link">Прайс-лист</a></li>
-                <li class="nav-item"><a href="/admin/admin_administration" class="nav-link">Административные услуги</a></li>
-            <% }%>
-        <% } %>
-        <% if (user) { %>
-                <p></p>
-        <% } else {%>
-            <p></p>
-        <% } %>
-    </ul></div>
