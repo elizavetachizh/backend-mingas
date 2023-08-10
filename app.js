@@ -9,7 +9,7 @@ const expressLayouts = require("express-ejs-layouts");
 const flash = require("connect-flash");
 const session = require("express-session");
 var passport = require("passport");
-const fileUpload = require("express-fileupload");
+// const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 //Routers
@@ -58,6 +58,7 @@ const administrativeServicesRouter = require("./routes/admin/administrativeServi
 const pageSlugRouter = require("./routes/admin/pageSlug");
 const adminPageRouter = require("./routes/admin/admin_pages");
 const adminTableRouter = require("./routes/admin/admin_table");
+const adminPhotosRouter = require('./routes/admin/admin_photos')
 const cors = require("cors");
 var app = express();
 //for site
@@ -96,7 +97,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(flash());
 
 // Express fileUpload middleware
-app.use(fileUpload());
+// app.use(fileUpload());
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -211,20 +212,11 @@ app.use("/admin/administration", administrativeServicesRouter);
 app.use("/admin/admin_table", adminTableRouter);
 app.use("/page", pageSlugRouter);
 app.use("/admin_page", adminPageRouter);
+app.use("/admin/upload", adminPhotosRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
 });
-console.log('test')
-// app.use(function (err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get("env") === "development" ? err : {};
-//
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render("error");
-// });
 
 app.listen(port, () => {
   console.log(`server start on port ${port}`);
