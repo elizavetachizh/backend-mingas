@@ -10,29 +10,14 @@ const home = (req, res) => {
 const uploadFiles = async (req, res) => {
   try {
     await upload(req, res);
-    console.log(req.files);
-
     if (req.files.length <= 0) {
       return res
         .status(400)
         .send({ message: "You must select at least 1 file." });
     }
-
     if (res.status(200)) {
       res.redirect("/admin/upload/files");
     }
-
-    // console.log(req.file);
-
-    // if (req.file == undefined) {
-    //   return res.send({
-    //     message: "You must select a file.",
-    //   });
-    // }
-
-    // return res.send({
-    //   message: "File has been uploaded.",
-    // });
   } catch (error) {
     console.log(error);
 
@@ -44,10 +29,6 @@ const uploadFiles = async (req, res) => {
     return res.status(500).send({
       message: `Error when trying upload many files: ${error}`,
     });
-
-    // return res.send({
-    //   message: "Error when trying upload image: ${error}",
-    // });
   }
 };
 
@@ -55,9 +36,7 @@ const getListFiles = async (req, res) => {
   try {
     const database = mongoClient.db(keys.database);
     const images = database.collection(keys.imgBucket + ".files");
-    console.log(images);
     const cursor = images.find({});
-    console.log(cursor);
     if ((await cursor.count()) === 0) {
       return res.status(500).send({
         message: "No files found!",
@@ -111,5 +90,5 @@ module.exports = {
   uploadFiles,
   getListFiles,
   download,
-  home
+  home,
 };

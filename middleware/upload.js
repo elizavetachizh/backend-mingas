@@ -1,9 +1,9 @@
 const util = require("util");
 const multer = require("multer");
 const { GridFsStorage } = require("multer-gridfs-storage");
-
+const keys = require("../keys/index");
 var storage = new GridFsStorage({
-  url: "mongodb+srv://elizavetachizh:mwSF7rcHYSd0XO2Z@cluster0.ct1ltqh.mongodb.net/?retryWrites=true&w=majority",
+  url: keys.MONGODB_URI,
   options: { useNewUrlParser: true, useUnifiedTopology: true },
   file: (req, file) => {
     const match = [
@@ -18,7 +18,7 @@ var storage = new GridFsStorage({
     if (match.indexOf(file.mimetype) === -1) {
       const filename = `${Date.now()}-${file.originalname}`;
       const url =
-        "http://localhost:3000/admin/upload/files/" +
+        "https://back.mingas.by/admin/upload/files/" +
         `${Date.now()}-${file.originalname}`;
       return { filename, url };
     }
@@ -27,7 +27,7 @@ var storage = new GridFsStorage({
       bucketName: "photos",
       filename: `${Date.now()}-${file.originalname}`,
       url:
-        "http://localhost:3000/admin/upload/files/" +
+        "https://back.mingas.by/admin/upload/files/" +
         `${Date.now()}-${file.originalname}`,
     };
   },
