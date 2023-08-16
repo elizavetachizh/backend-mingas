@@ -9,7 +9,7 @@ const expressLayouts = require("express-ejs-layouts");
 const flash = require("connect-flash");
 const session = require("express-session");
 var passport = require("passport");
-// const fileUpload = require("express-fileupload");
+const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 //Routers
@@ -97,7 +97,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(flash());
 
 // Express fileUpload middleware
-// app.use(fileUpload());
+ app.use(fileUpload());
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));

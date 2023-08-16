@@ -47,7 +47,7 @@ const getListFiles = async (req, res) => {
     await cursor.forEach((doc) => {
       fileInfos.push({
         name: doc.filename,
-        url: "http://localhost:3000/admin/upload/files/" + doc.filename,
+        url: "https://back.mingas.by/admin/upload/files/" + doc.filename,
       });
     });
 
