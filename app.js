@@ -27,6 +27,7 @@ const adminRouter = require("./routes/admin/index");
 
 //RoutersAdmin
 const postsAdminRouter = require("./routes/admin/admin_posts");
+const corruptionAdminRouter = require("./routes/admin/admin_corruption");
 const adminUsersRouter = require("./routes/admin/users");
 const postsRouter = require("./routes/admin/posts");
 const managementAdminRouter = require("./routes/admin/admin_management");
@@ -53,6 +54,7 @@ const adminThemesQuestionsRouter = require("./routes/admin/admin_themeOfAskedQue
 const themesQuestionsRouter = require("./routes/admin/themesAnswerQuestions");
 const adminPricesRouter = require("./routes/admin/admin_price");
 const pricesRouter = require("./routes/admin/prices");
+const corruptionRouter = require('./routes/admin/corruption')
 const adminAdministrativeServicesRouter = require("./routes/admin/admin_AdministrativeServices");
 const administrativeServicesRouter = require("./routes/admin/administrativeServices");
 const pageSlugRouter = require("./routes/admin/pageSlug");
@@ -182,7 +184,9 @@ app.use("/admin", adminRouter);
 //admin
 app.use("/admin/users", adminUsersRouter);
 app.use("/admin/admin_posts", postsAdminRouter);
+app.use("/admin/admin_corruption", corruptionAdminRouter);
 app.use("/admin/posts", postsRouter);
+app.use("/admin/corruption", corruptionRouter);
 app.use("/admin/tenders", tendersRouter);
 app.use("/admin/admin_management", managementAdminRouter);
 app.use("/admin/admin_tenders", tendersAdminRouter);

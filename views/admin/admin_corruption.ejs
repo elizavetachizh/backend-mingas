@@ -1,0 +1,28 @@
+<h2 class="page-title">Коррупция</h2>
+<a href="/admin/admin_corruption/add-element" class="btn btn-primary">Добавить новую ссылку</a>
+<br><br>
+<% if (count > 0) { %>
+    <table class="table table-striped sorting">
+
+        <thead>
+        <tr class="home">
+            <th>Ссылка на документ</th>
+            <th>Наименование документа</th>
+            <th>edit</th>
+            <th>delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% corruption.forEach(function(post){ %>
+            <tr>
+                <td><%= post.link %></td>
+                <td><%= post.name %></td>
+                <td><a href="/admin/admin_corruption/edit-post/<%= post._id %>">edit</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_corruption/delete-element/<%= post._id %>">delete</a></td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+<% } else {%>
+    <h3 class="text-center">Нет ни одной созданной ссылки</h3>
+<% }%>

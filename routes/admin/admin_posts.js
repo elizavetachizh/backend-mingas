@@ -127,32 +127,32 @@ router.post("/edit-post/:id", function (req, res) {
     res.redirect("/admin/admin_posts/edit-post/" + id);
   } else {
     Posts.findOne(
-      { link: link, content: content, image: image, date: date },
-      function (err, post) {
-        // console.log("post2", post);
-        if (err) {
-          console.log(err);
-        }
-        if (post) {
-          res.redirect("/admin/admin_posts");
-        } else {
-          Posts.findById(id, function (err, post) {
-            if (err) return console.log(err);
-
-            post.link = link;
-            post.content = content;
-            post.image = image;
-            post.date = date;
-            post.save(function (err) {
+        { link: link, content: content, image: image, date: date },
+        function (err, post) {
+          // console.log("post2", post);
+          if (err) {
+            console.log(err);
+          }
+          if (post) {
+            res.redirect("/admin/admin_posts");
+          } else {
+            Posts.findById(id, function (err, post) {
               if (err) return console.log(err);
 
-              req.flash("success", "пост отредактирован!");
-              alert("Пост отредактирован");
-              res.redirect("/admin/admin_posts/");
+              post.link = link;
+              post.content = content;
+              post.image = image;
+              post.date = date;
+              post.save(function (err) {
+                if (err) return console.log(err);
+
+                req.flash("success", "пост отредактирован!");
+                alert("Пост отредактирован");
+                res.redirect("/admin/admin_posts/");
+              });
             });
-          });
+          }
         }
-      }
     );
   }
 });
