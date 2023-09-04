@@ -30,9 +30,9 @@ router.get("/add-men", isAdmin, function (req, res) {
   var image = "";
   Departament.find(function (err, departaments) {
     res.render("admin/add_management", {
-      fullName: fullName,
-      position: position,
-      image: image,
+      fullName,
+      position,
+      image,
       idDepartment: departaments,
       department: departaments,
     });
@@ -53,10 +53,10 @@ router.post("/add-men", (req, res) => {
     console.log(errors);
     Departament.find(function (err, departaments) {
       res.render("admin/add_management", {
-        errors: errors,
-        fullName: fullName,
-        position: position,
-        image: image,
+        errors,
+        fullName,
+        position,
+        image,
         idDepartment: departaments.map((el) => el._id),
         department: departaments,
       });
@@ -64,28 +64,28 @@ router.post("/add-men", (req, res) => {
   } else {
     Management.findOne(
       {
-        fullName: fullName,
-        position: position,
-        department: department,
-        image: image,
+        fullName,
+        position,
+        department,
+        image,
       },
       function (err, men) {
         if (men) {
           Departament.find(function (err, departaments) {
             res.render("admin/add_management", {
-              fullName: fullName,
-              position: position,
-              image: image,
+              fullName,
+              position,
+              image,
               idDepartment: departaments.map((el) => el._id),
               department: departaments,
             });
           });
         } else {
           var management = new Management({
-            fullName: fullName,
-            position: position,
-            image: image,
-            department: department,
+            fullName,
+            position,
+            image,
+            department,
           });
           management.save(function (err) {
             if (err) {
@@ -114,7 +114,7 @@ router.get("/edit-men/:id", isAdmin, function (req, res) {
         res.render("admin/admin_management");
       } else {
         res.render("admin/edit_management", {
-          errors: errors,
+          errors,
           fullName: men.fullName,
           position: men.position,
           departments: departamnets,

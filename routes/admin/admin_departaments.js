@@ -3,7 +3,6 @@ const { isAdmin } = require("../../config/auth");
 const express = require("express");
 const alert = require("alert");
 const Management = require("../../models/management");
-const {log} = require("debug");
 const router = express.Router();
 
 router.get("/", isAdmin, function (req, res) {
@@ -14,12 +13,10 @@ router.get("/", isAdmin, function (req, res) {
   Management.find(function (err, management) {
     Departament.find(function (err, departament) {
       res.render("admin/admin_departament", {
-        departament: departament,
-        count: count,
+        departament,
+        count,
         nameMen: management,
       });
-      console.log(management);
-      console.log(departament);
     });
   });
   // console.log("getDEp", departament);
@@ -37,14 +34,13 @@ router.get("/add-departament", isAdmin, function (req, res) {
     contacts = "";
   Management.find(function (err, management) {
     res.render("admin/add_departament", {
-      name: name,
+      name,
       nameMen: management,
-      chief: chief,
-      description: description,
-      schedule: schedule,
-      contacts: contacts,
+      chief,
+      description,
+      schedule,
+      contacts,
     });
-    management.map((el) => console.log("nameMen", el.fullName));
   });
 });
 
@@ -64,45 +60,45 @@ router.post("/add-departament", (req, res) => {
 
     Management.find(function (err, management) {
       res.render("admin/add_departament", {
-        errors: errors,
-        name: name,
-        chief: chief,
-        description: description,
-        schedule: schedule,
-        contacts: contacts,
-        nameMen: nameMen,
+        errors,
+        name,
+        chief,
+        description,
+        schedule,
+        contacts,
+        nameMen,
       });
     });
   } else {
     Departament.findOne(
       {
-        name: name,
-        chief: chief,
-        description: description,
-        schedule: schedule,
-        contacts: contacts,
-        nameMen: nameMen,
+        name,
+        chief,
+        description,
+        schedule,
+        contacts,
+        nameMen,
       },
       function (err, departament) {
         if (departament) {
           Management.find(function (err, management) {
             res.render("admin/add_departament", {
-              name: name,
-              chief: chief,
-              description: description,
-              schedule: schedule,
-              contacts: contacts,
+              name,
+              chief,
+              description,
+              schedule,
+              contacts,
               nameMen: management,
             });
           });
         } else {
           var departament = new Departament({
-            name: name,
-            chief: chief,
-            description: description,
-            schedule: schedule,
-            contacts: contacts,
-            nameMen: nameMen,
+            name,
+            chief,
+            description,
+            schedule,
+            contacts,
+            nameMen,
           });
           departament.save(function (err) {
             if (err) {
@@ -132,7 +128,7 @@ router.get("/edit-departament/:id", isAdmin, function (req, res) {
         res.render("admin/admin_departament");
       } else {
         res.render("admin/edit_departament", {
-          errors: errors,
+          errors,
           name: departament.name,
           id: departament._id,
           chief: departament.chief,
@@ -166,12 +162,12 @@ router.post("/edit-departament/:id", function (req, res) {
   } else {
     Departament.findOne(
       {
-        name: name,
-        chief: chief,
-        description: description,
-        schedule: schedule,
-        contacts: contacts,
-        nameMen: nameMen,
+        name,
+        chief,
+        description,
+        schedule,
+        contacts,
+        nameMen,
         _id: { $ne: id },
       },
       function (err, departament) {

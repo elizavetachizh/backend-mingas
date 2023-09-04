@@ -3,6 +3,7 @@ const router = express.Router();
 const Posts = require("../../models/posts");
 const { isAdmin } = require("../../config/auth");
 var alert = require("alert");
+const mainPosts = require("../../models/mainPosts");
 router.get("/", isAdmin, function (req, res) {
   var count;
   Posts.count(function (err, c) {
@@ -10,8 +11,8 @@ router.get("/", isAdmin, function (req, res) {
   });
   Posts.find(function (err, posts) {
     res.render("admin/admin_posts", {
-      posts: posts,
-      count: count,
+      posts,
+      count,
     });
   });
 });
@@ -24,11 +25,14 @@ router.get("/add-post", isAdmin, function (req, res) {
   var content = "";
   var image = "";
   var date = new Date();
-  res.render("admin/add_posts", {
-    link: link,
-    content: content,
-    image: image,
-    date: date,
+  mainPosts.find(function (err, mainPosts) {
+    res.render("admin/add_posts", {
+      link,
+      content,
+      image,
+      date,
+      mainPosts,
+    });
   });
 });
 
@@ -46,29 +50,28 @@ router.post("/add-post", (req, res) => {
   if (errors) {
     console.log(errors);
     res.render("admin/add_posts", {
-      errors: errors,
-      link: link,
-      content: content,
-      image: image,
-      date: date,
+      errors,
+      link,
+      content,
+      image,
+      date,
     });
   } else {
-    Posts.findOne({ link: link }, function (err, post) {
+    Posts.findOne({ link }, function (err, post) {
       if (post) {
         res.render("admin/add_posts", {
-          link: link,
-          content: content,
-          image: image,
-          date: date,
+          link,
+          content,
+          image,
+          date,
         });
       } else {
         var post = new Posts({
-          link: link,
-          content: content,
-          image: image,
-          date: date,
+          link,
+          content,
+          image,
+          date,
         });
-        console.log(date);
         post.save(function (err) {
           if (err) {
             return console.log(err);
@@ -90,13 +93,12 @@ router.get("/edit-post/:id", isAdmin, function (req, res) {
   req.session.errors = null;
 
   Posts.findById(req.params.id, function (err, post) {
-    // console.log(post);
     if (err) {
       console.log(err);
       res.render("admin/admin_posts");
     } else {
       res.render("admin/edit_post", {
-        errors: errors,
+        errors,
         link: post.link,
         content: post.content,
         image: post.image,
@@ -127,32 +129,32 @@ router.post("/edit-post/:id", function (req, res) {
     res.redirect("/admin/admin_posts/edit-post/" + id);
   } else {
     Posts.findOne(
-        { link: link, content: content, image: image, date: date },
-        function (err, post) {
-          // console.log("post2", post);
-          if (err) {
-            console.log(err);
-          }
-          if (post) {
-            res.redirect("/admin/admin_posts");
-          } else {
-            Posts.findById(id, function (err, post) {
+      { link, content, image, date },
+      function (err, post) {
+        // console.log("post2", post);
+        if (err) {
+          console.log(err);
+        }
+        if (post) {
+          res.redirect("/admin/admin_posts");
+        } else {
+          Posts.findById(id, function (err, post) {
+            if (err) return console.log(err);
+
+            post.link = link;
+            post.content = content;
+            post.image = image;
+            post.date = date;
+            post.save(function (err) {
               if (err) return console.log(err);
 
-              post.link = link;
-              post.content = content;
-              post.image = image;
-              post.date = date;
-              post.save(function (err) {
-                if (err) return console.log(err);
-
-                req.flash("success", "пост отредактирован!");
-                alert("Пост отредактирован");
-                res.redirect("/admin/admin_posts/");
-              });
+              req.flash("success", "пост отредактирован!");
+              alert("Пост отредактирован");
+              res.redirect("/admin/admin_posts/");
             });
-          }
+          });
         }
+      }
     );
   }
 });
