@@ -6,12 +6,12 @@
 
     <thead>
       <tr class="home">
-                  <th>image</th>
-                  <th>name</th>
-          <th>type</th>
-                  <th>description</th>
-                  <th>edit</th>
-                  <th>delete</th>
+                  <th>Картинка</th>
+                  <th>Наименование раздела услуг</th>
+          <th>Тип раздела</th>
+                  <th>Услуги, входящие в раздел</th>
+                  <th>Редактировать</th>
+                  <th>Удалить</th>
               </tr>
     </thead>
      <tbody>
@@ -26,7 +26,7 @@
                 </td>
   <td><%= service.name %></td>
                 <td><%= service.type %></td>
-  <td> <div style="width: 600px"> <% service.description.forEach(function(el){ %> <p><%= el %></p> <% }); %></div> </td>
+  <td> <div style="width: 600px"> <% service.description.forEach(function(el){ %> <p><%= el.nameDescription %></p> <% }); %></div> </td>
 
                 <td><a href="/admin/admin_services/edit-services/<%= service._id %>">edit</a></td>
                 <td><a class="confirmDeletion" href="/admin/admin_services/delete-services/<%= service._id %>">delete</a></td>

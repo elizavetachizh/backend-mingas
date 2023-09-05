@@ -4,7 +4,6 @@ const { isAdmin } = require("../../config/auth");
 var alert = require("alert");
 const mainArticle = require("../../models/mainArticles");
 const mainPosts = require("../../models/mainPosts");
-const fs = require("fs-extra");
 router.get("/", isAdmin, function (req, res) {
   var count;
   mainArticle.count(function (err, c) {
@@ -142,7 +141,6 @@ router.post("/edit-article/:id", function (req, res) {
   var href = req.body.href;
   var image = req.body.image;
   var errors = req.validationErrors();
-  console.log(imageFile);
   if (errors) {
     console.log(errors);
     req.session.errors = errors;
@@ -155,7 +153,6 @@ router.post("/edit-article/:id", function (req, res) {
           console.log(err);
         }
         if (article) {
-          console.log(article);
           res.redirect("/admin/admin_article");
         } else {
           mainArticle.findById(id, function (err, article) {
@@ -166,7 +163,6 @@ router.post("/edit-article/:id", function (req, res) {
             article.button = button;
             article.link = link;
             article.href = href;
-
             article.save(function (err) {
               if (err) return console.log(err);
 
@@ -178,7 +174,6 @@ router.post("/edit-article/:id", function (req, res) {
                   return console.log(err);
                 });
               }
-              console.log(`art`, article);
               req.flash("success", "пост отредактирован!");
               alert("Пост отредактирован");
               res.redirect("/admin/admin_article");

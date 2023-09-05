@@ -122,6 +122,7 @@ router.get("/edit-departament/:id", isAdmin, function (req, res) {
   req.session.errors = null;
   Management.find(function (err, management) {
     Departament.findById(req.params.id, function (err, departament) {
+      const fullName = management?.find((el) => el.id === departament?.nameMen);
       console.log(departament);
       if (err) {
         console.log(err);
@@ -135,6 +136,7 @@ router.get("/edit-departament/:id", isAdmin, function (req, res) {
           description: departament.description,
           schedule: departament.schedule,
           contacts: departament.contacts,
+          management: fullName?.fullName,
           nameMen: management,
         });
       }

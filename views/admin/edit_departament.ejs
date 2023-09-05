@@ -4,34 +4,41 @@
 
 <form method="post" action="/admin/admin_departament/edit-departament/<%= id %>" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="">name</label>
+        <label for="name">Название отдела</label>
         <input type="text" class="form-control" name="name" value="<%= name %>" placeholder="name">
     </div>
 
     <div class="form-group">
-        <label for="">chief</label>
+        <label for="chief">Начальник отдела</label>
         <input type="text" class="form-control" name="chief" value="<%= chief %>" placeholder="chief">
     </div>
 
 
     <div class="form-group">
-        <label for="">description</label>
+        <label for="description">Описание</label>
         <textarea name="description" class="form-control" id="ta" cols="30" rows="10" placeholder="description"><%= description %></textarea>
     </div>
 
 
     <div class="form-group">
-        <label for="">schedule</label>
+        <label for="schedule">График работы</label>
         <textarea name="schedule" class="form-control" id="ta" cols="30" rows="10" placeholder="schedule"><%= schedule %></textarea>
     </div>
 
     <div class="form-group">
-        <label for="">contacts</label>
+        <label for="contacts">Контакты</label>
         <textarea name="contacts" class="form-control" id="ta" cols="30" rows="10" placeholder="contacts"><%= contacts %></textarea>
     </div>
-
     <div class="form-group">
-        <label for="">nameMen</label>
+
+        <% if (management) { %>
+            <p class="form-control"><%= management %></p>
+            <% } else {%>
+            <p></p>
+        <% }%>
+    </div>
+    <div class="form-group">
+        <label for="">Выбрать руководителя</label>
         <ul class="list-without-dots">
             <% nameMen.map(function(men){ %>
                 <li>  <input type="radio" name="nameMen" value="<%= men._id %>"><%= men.fullName %></input></li>

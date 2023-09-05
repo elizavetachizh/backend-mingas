@@ -80,7 +80,6 @@ router.get("/edit-questions/:id", isAdmin, function (req, res) {
   req.session.errors = null;
 
   AskedQuestions.findById(req.params.id, function (err, questions) {
-    // console.log(post);
     if (err) {
       console.log(err);
       res.render("admin/admin_questions");
@@ -115,20 +114,16 @@ router.post("/edit-questions/:id", function (req, res) {
     AskedQuestions.findOne(
       { question: question, answer: answer },
       function (err, questions) {
-        // console.log("post2", post);
         if (err) {
           console.log(err);
         }
         if (questions) {
-          // console.log("post3", post);
           res.redirect("/admin/admin_questions");
         } else {
           AskedQuestions.findById(id, function (err, questions) {
             if (err) return console.log(err);
-
             questions.question = question;
             questions.answer = answer;
-
             questions.save(function (err) {
               if (err) return console.log(err);
 

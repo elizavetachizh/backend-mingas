@@ -130,7 +130,6 @@ router.post("/edit-documents/:id", function (req, res) {
     RegulatoryDocSchema.findOne(
       { link: link, name: name, separation: separation },
       function (err, document) {
-        // console.log("post2", post);
         if (err) {
           console.log(err);
         }

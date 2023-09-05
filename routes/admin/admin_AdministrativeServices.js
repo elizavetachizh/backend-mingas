@@ -90,7 +90,6 @@ router.post("/add-administration", (req, res) => {
             type: type,
             typeAdministrativeService:typeAdministrativeService
           });
-          console.log(administration);
         } else {
           var administrativeServices = new AdministrativeServices({
             uniqueName: uniqueName,
@@ -127,7 +126,6 @@ router.get("/edit-administration/:id/", function (req, res) {
   AdministrativeServices.findById(
     req.params.id,
     function (err, administration) {
-      console.log(administration);
       if (err) {
         console.log(err);
         res.render("admin/admin_administration");
@@ -183,7 +181,6 @@ router.post("/edit-administration/:id", function (req, res) {
         typeAdministrativeService:typeAdministrativeService
       },
       function (err, administration) {
-        // console.log("post2", post);
         if (err) {
           console.log(err);
         }

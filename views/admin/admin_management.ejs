@@ -7,12 +7,12 @@
 
     <thead>
       <tr class="home">
-                  <th>fullName</th>
-                  <th>position</th>
-                         <th>departaments</th>
-                  <th>Image</th>
-                  <th>edit</th>
-                  <th>delete</th>
+                  <th>ФИО</th>
+                  <th>должность</th>
+                         <th>Подразделения в подчинении</th>
+                  <th>Фото</th>
+                  <th>редактировать</th>
+                  <th>Удалить</th>
               </tr>
     </thead>
      <tbody>
@@ -36,8 +36,8 @@
                     <img class='img' id="noimage" src="<%= men.image %>">
                     <% }%>
                 </td>
-                <td><a href="/admin/admin_management/edit-men/<%= men._id %>">edit</a></td>
-                <td><a class="confirmDeletion" href="/admin/admin_management/delete-men/<%= men._id %>">delete</a></td>
+                <td><a href="/admin/admin_management/edit-men/<%= men._id %>">Редактировать</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_management/delete-men/<%= men._id %>">Удалить</a></td>
             </tr>
             <% }); %>
         </tbody>

@@ -17,13 +17,9 @@ router.get("/", isAdmin, function (req, res) {
       if (err) {
         console.log(err);
       }
-      // res.send(services)
       res.render("admin/admin_services", {
         services: services,
       });
-      services.map((el)=>(
-          console.log(el.description)
-      ))
     });
 });
 
@@ -71,7 +67,6 @@ router.post("/add-services", function (req, res) {
       .populate("description")
       .exec(function (err, services) {
         if (services) {
-          console.log(services);
           res.render("admin/add_services", {
             name: name,
             description: description,
@@ -128,9 +123,6 @@ router.get("/edit-services/:id", isAdmin, function (req, res) {
         type: service.type,
       });
     }
-    // service.forEach((el)=>{
-    //   console.log(el.description)
-    // })
   });
 });
 
@@ -152,11 +144,11 @@ router.post("/edit-services/:id", function (req, res) {
   if (errors) {
     req.session.errors = errors;
     res.redirect("/admin/admin_services/edit-services/" + id);
-    console.log(`1`, errors);
+    console.log(errors);
   } else {
     Services.findOne({ name: name, _id: { $ne: id } }, function (err, service) {
       if (err) {
-        console.log(`2`, err);
+        console.log(err);
       }
       if (service) {
         res.redirect("/admin/admin_services");

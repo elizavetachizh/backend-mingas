@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 const nodemailer = require("nodemailer");
 /* GET users listing. */
-router.get("/", function (req, res, next) {
+router.get("/", function (req, res) {
   res.send(req.body);
 });
 
@@ -50,7 +50,6 @@ router.post("/", (req, res) => {
       });
     }
     if (info) {
-      console.log(info);
       res.json({
         status: true,
         respMesg: "Форма успешно отправлена, спасибо за вашу заявку!",

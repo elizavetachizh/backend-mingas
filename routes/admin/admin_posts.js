@@ -131,7 +131,6 @@ router.post("/edit-post/:id", function (req, res) {
     Posts.findOne(
       { link, content, image, date },
       function (err, post) {
-        // console.log("post2", post);
         if (err) {
           console.log(err);
         }
