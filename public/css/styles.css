@@ -41,6 +41,14 @@ th.th-image {
   width: 100%;
   flex-direction: column;
 }
-.body-container{
+.body-container {
   width: 70%;
+}
+
+td.table-for-posts, th.table-for-posts {
+  border: 1px solid gray;
+  padding: 0.4rem;
+}
+.table-for-posts {
+  border-collapse: collapse;
 }

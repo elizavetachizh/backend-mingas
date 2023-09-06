@@ -29,8 +29,8 @@
        <table>
            <thead>
            <tr>
-               <th>Ссылка на статью</th>
-               <th>Название статьи</th>
+               <th class="table-for-posts">Ссылка на статью</th>
+               <th class="table-for-posts">Название статьи</th>
            </tr>
            </thead>
            <tbody>
@@ -39,8 +39,8 @@
            </tr>
            <% mainPosts.map(function(post){ %>
                <tr>
-                   <td>https://mingas.by/posts/<%= post._id %> </td>
-                   <td><%= post.name %></td>
+                   <td class="table-for-posts">https://mingas.by/posts/<%= post._id %> </td>
+                   <td class="table-for-posts"><%= post.name %></td>
                </tr>
            <% }); %>
            </tbody></table>
