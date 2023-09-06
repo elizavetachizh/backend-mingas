@@ -146,7 +146,7 @@ router.post("/edit-services/:id", function (req, res) {
     res.redirect("/admin/admin_services/edit-services/" + id);
     console.log(errors);
   } else {
-    Services.findOne({ name: name, _id: { $ne: id } }, function (err, service) {
+    Services.findOne({ name, _id: { $ne: id } }, function (err, service) {
       if (err) {
         console.log(err);
       }

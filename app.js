@@ -54,18 +54,19 @@ const adminThemesQuestionsRouter = require("./routes/admin/admin_themeOfAskedQue
 const themesQuestionsRouter = require("./routes/admin/themesAnswerQuestions");
 const adminPricesRouter = require("./routes/admin/admin_price");
 const pricesRouter = require("./routes/admin/prices");
-const corruptionRouter = require('./routes/admin/corruption')
+const corruptionRouter = require("./routes/admin/corruption");
 const adminAdministrativeServicesRouter = require("./routes/admin/admin_AdministrativeServices");
 const administrativeServicesRouter = require("./routes/admin/administrativeServices");
 const pageSlugRouter = require("./routes/admin/pageSlug");
 const adminPageRouter = require("./routes/admin/admin_pages");
 const adminTableRouter = require("./routes/admin/admin_table");
-const adminPhotosRouter = require('./routes/admin/admin_photos')
+const tableRouter = require("./routes/admin/tables");
+const adminPhotosRouter = require("./routes/admin/admin_photos");
 const cors = require("cors");
 var app = express();
 //for site
 var port = process.env.PORT || 3000;
-app.use(express.json({ limit: '50mb' }));
+app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: 4000000000 }));
 // var bodyParser = require("body-parser");
 app.use(cors());
@@ -211,6 +212,7 @@ app.use("/admin/admin_themes", adminThemesQuestionsRouter);
 app.use("/admin/themes", themesQuestionsRouter);
 app.use("/admin/admin_prices", adminPricesRouter);
 app.use("/admin/prices", pricesRouter);
+app.use("/admin/table", tableRouter);
 app.use("/admin/admin_administration", adminAdministrativeServicesRouter);
 app.use("/admin/administration", administrativeServicesRouter);
 app.use("/admin/admin_table", adminTableRouter);

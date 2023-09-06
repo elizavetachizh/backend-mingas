@@ -148,7 +148,7 @@ router.post("/edit-men/:id", function (req, res) {
     res.redirect("/admin/admin_management/edit-men/" + id);
   } else {
     Management.findOne(
-      { fullName: fullName, _id: { $ne: id }, department: department },
+      { fullName, _id: { $ne: id }, department },
       function (err, men) {
         if (err) {
           console.log(err);

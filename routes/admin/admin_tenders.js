@@ -98,7 +98,7 @@ router.post("/edit-tender/:id", function (req, res) {
     req.session.errors = errors;
     res.redirect("/admin_tenders/edit-tender/" + id);
   } else {
-    Tenders.findOne({ content: content }, function (err, tender) {
+    Tenders.findOne({ content }, function (err, tender) {
       if (err) {
         console.log(err);
       }

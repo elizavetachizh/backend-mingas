@@ -128,7 +128,7 @@ router.post("/edit-documents/:id", function (req, res) {
     res.redirect("/admin/admin_documents/edit-documents/" + id);
   } else {
     RegulatoryDocSchema.findOne(
-      { link: link, name: name, separation: separation },
+      { link, name, separation },
       function (err, document) {
         if (err) {
           console.log(err);

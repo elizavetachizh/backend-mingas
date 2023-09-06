@@ -44,11 +44,10 @@ router.post("/add-table", function (req, res) {
     console.log(errors);
     res.render("admin/add_table", {
       errors,
-
       name,
     });
   } else {
-    Table.findOne({ name: name }, function (err, table) {
+    Table.findOne({ name }, function (err, table) {
       if (table) {
         res.render("admin/add_table", {
           name,
@@ -71,7 +70,7 @@ router.post("/add-table", function (req, res) {
 /*
  * GET edit product
  */
-router.get("/edit-ttable/:id", isAdmin, function (req, res) {
+router.get("/edit-table/:id", isAdmin, function (req, res) {
   var errors;
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
@@ -95,16 +94,17 @@ router.get("/edit-ttable/:id", isAdmin, function (req, res) {
  * POST edit product
  */
 router.post("/edit-table/:id", function (req, res) {
-  req.checkBody("content", "Описание должно быть заполненым").notEmpty();
+  req.checkBody("name", "Описание должно быть заполненым").notEmpty();
   var name = req.body.name;
   var id = req.params.id;
   var errors = req.validationErrors();
-
+  console.log(name)
   if (errors) {
     req.session.errors = errors;
-    res.redirect("/admin_table/edit-table/" + id);
+    console.log(errors)
+    res.redirect("/admin/admin_table/edit-table/" + id);
   } else {
-    Table.findOne({ name: name }, function (err, table) {
+    Table.findOne({ name }, function (err, table) {
       if (err) {
         console.log(err);
       }
@@ -139,7 +139,7 @@ router.get("/delete-table/:id", isAdmin, function (req, res) {
     if (err) return console.log(err);
 
     req.flash("success", "Page deleted!");
-    res.redirect("/admin/admin_table/");
+    res.redirect("/admin/admin_table");
   });
 });
 

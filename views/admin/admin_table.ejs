@@ -6,17 +6,17 @@
 
         <thead>
         <tr class="home">
-            <th>имя</th>
-            <th>edit</th>
-            <th>delete</th>
+            <th>Информация</th>
+            <th>Редактировать</th>
+            <th>Удалить</th>
         </tr>
         </thead>
         <tbody>
-        <% table.forEach(function(tabl){ %>
+        <% tableInfo.forEach(function(tabl){ %>
             <tr>
                 <td><%= tabl.name %></td>
-                <td><a href="/admin/admin_table/edit-table/<%= tabl._id %>">edit</a></td>
-                <td><a class="confirmDeletion" href="/admin/admin_table/delete-table/<%= tabl._id %>">delete</a></td>
+                <td><a href="/admin/admin_table/edit-table/<%= tabl._id %>">Редактировать</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_table/delete-table/<%= tabl._id %>">Удалить</a></td>
             </tr>
         <% }); %>
         </tbody>
