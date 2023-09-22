@@ -1,0 +1,25 @@
+<table class="table table-striped sorting">
+
+    <thead>
+    <tr class="home">
+        <th>Содержание</th>
+        <th>Документ</th>
+        <th>Скачать</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% fileInfos.forEach(function(element){ %>
+        <tr>
+            <td><%= element.name %></td>
+            <td>
+                <% if (element.url === "") { %>
+                    <img class='img' id="noimage" src="/images/noimage.png" alt="document">
+                <% } else {%>
+                    <img style="width: 200px" class='img' id="noimage" src="<%= element.url %>" alt="document">
+                <% }%>
+            </td>
+            <td><a href="/admin/upload/files/<%= element.name %>">скачать</a></td>
+        </tr>
+    <% }); %>
+    </tbody>
+</table>

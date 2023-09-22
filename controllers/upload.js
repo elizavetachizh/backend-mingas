@@ -50,8 +50,9 @@ const getListFiles = async (req, res) => {
         url: "https://back.mingas.by/admin/upload/files/" + doc.filename,
       });
     });
-
-    return res.status(200).send(fileInfos);
+    res.status(200).render("admin/admin_photos", {
+      fileInfos,
+    });
   } catch (error) {
     return res.status(500).send({
       message: error.message,

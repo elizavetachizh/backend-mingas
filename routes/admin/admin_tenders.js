@@ -10,8 +10,8 @@ router.get("/", isAdmin, function (req, res) {
   });
   Tenders.find(function (err, tenders) {
     res.render("admin/admin_tenders", {
-      tenders: tenders,
-      count: count,
+      tenders,
+      count,
     });
   });
 });
@@ -22,7 +22,7 @@ router.get("/", isAdmin, function (req, res) {
 router.get("/add-tender", isAdmin, function (req, res) {
   var content = "";
   res.render("admin/add_tenders", {
-    content: content,
+    content,
   });
 });
 
@@ -36,18 +36,18 @@ router.post("/add-tender", (req, res) => {
   if (errors) {
     console.log(errors);
     res.render("admin/add_tenders", {
-      errors: errors,
-      content: content,
+      errors,
+      content,
     });
   } else {
-    Tenders.findOne({ content: content }, function (err, tender) {
+    Tenders.findOne({ content }, function (err, tender) {
       if (tender) {
         res.render("admin/add_tenders", {
-          content: content,
+          content,
         });
       } else {
         var tender = new Tenders({
-          content: content,
+          content,
         });
         tender.save(function (err) {
           if (err) {
@@ -76,7 +76,7 @@ router.get("/edit-tender/:id", isAdmin, function (req, res) {
       res.render("admin/admin_tenders");
     } else {
       res.render("admin/edit_tenders", {
-        errors: errors,
+        errors,
         content: tender.content,
         id: tender._id,
       });
