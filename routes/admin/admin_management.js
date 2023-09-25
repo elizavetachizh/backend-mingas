@@ -13,11 +13,9 @@ router.get("/", isAdmin, function (req, res) {
   });
   Management.find(function (err, management) {
     res.render("admin/admin_management", {
-      management: management,
-      count: count,
+      management,
+      count,
     });
-    // console.log(management);
-    // res.send(management)
   });
 });
 
@@ -122,7 +120,6 @@ router.get("/edit-men/:id", isAdmin, function (req, res) {
           image: men.image,
           id: men._id,
         });
-        console.log(men.department);
       }
     });
   });

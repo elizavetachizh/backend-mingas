@@ -4,6 +4,7 @@ const Services = require("../../models/services");
 const { isAdmin } = require("../../config/auth");
 const alert = require("alert");
 const fs = require("fs-extra");
+const Description = require("../../models/descriptionServices");
 
 router.get("/", isAdmin, function (req, res) {
   var count;
@@ -24,24 +25,21 @@ router.get("/", isAdmin, function (req, res) {
 });
 
 /*
- * GET add product
+ * GET add service
  */
 router.get("/add-services", isAdmin, function (req, res) {
-  var id = req.params._id;
   var name = "";
   const description = [];
   var type = "";
-  Services.find({ _id: { $ne: id } })
-    .populate("description")
-    .exec(function (err, services) {
-      if (err) console.log(err);
-      res.render("admin/add_services", {
-        services: services,
-        name: name,
-        type: type,
-        description: description,
-      });
+  Description.find(function (err, generalDescription) {
+    if (err) console.log(err);
+    res.render("admin/add_services", {
+      name,
+      type,
+      description,
+      generalDescription,
     });
+  });
 });
 
 router.post("/add-services", function (req, res) {

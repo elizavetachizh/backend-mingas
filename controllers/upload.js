@@ -1,12 +1,16 @@
 const upload = require("../middleware/upload");
 const { MongoClient, GridFSBucket } = require("mongodb");
 const keys = require("../keys");
-const path = require("path");
 const mongoClient = new MongoClient(keys.MONGODB_URI);
 
 const home = (req, res) => {
-  return res.sendFile(path.join(`${__dirname}/../views/admin/add_images.html`));
-};
+  var files = "";
+  var name = "";
+  res.render("admin/add_photos", {
+    files,
+    name
+  });
+ };
 const uploadFiles = async (req, res) => {
   try {
     await upload(req, res);

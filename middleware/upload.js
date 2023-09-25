@@ -16,7 +16,7 @@ var storage = new GridFsStorage({
     ];
 
     if (match.indexOf(file.mimetype) === -1) {
-      const filename = `${Date.now()}-${file.originalname}`;
+      const filename = `${req.name}`;
       const url =
         "https://back.mingas.by/admin/upload/files/" +
         `${Date.now()}-${file.originalname}`;

@@ -18,7 +18,7 @@ router.get("/", isAdmin, function (req, res) {
 });
 
 /*
- * GET add product
+ * GET add post
  */
 router.get("/add-post", isAdmin, function (req, res) {
   var link = "";
@@ -48,7 +48,6 @@ router.post("/add-post", (req, res) => {
   var errors = req.validationErrors();
 
   if (errors) {
-    console.log(errors);
     res.render("admin/add_posts", {
       errors,
       link,

@@ -20,6 +20,27 @@
         <input type="text" class="form-control" name="description" value="<%= description %>" placeholder="description">
     </div>
 
+    <div class="form-group">
+        <label for="">Предложенные статьи</label>
+        <table>
+            <thead>
+            <tr>
+                <th class="table-for-posts">Id на услугу</th>
+                <th class="table-for-posts">Название услуги</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+            </tr>
+            <% generalDescription.map(function(post){ %>
+                <tr>
+                    <td class="table-for-posts"><%= post._id %> </td>
+                    <td class="table-for-posts"><%= post.nameDescription %></td>
+                </tr>
+            <% }); %>
+            </tbody></table>
+    </div>
     <button class="btn btn-default">Добавить</button>
 
     <% if (errors) {%>

@@ -12,8 +12,6 @@ router.get("/", isAdmin, function (req, res) {
     res.render("admin/admin_description", {
       description: description,
     });
-    // res.send(description)
-    //  console.log(description);
   });
 });
 
@@ -25,9 +23,8 @@ router.get("/add-description", isAdmin, function (req, res) {
   var nameDescription = "";
 
   res.render("admin/add_description", {
-    inform: inform,
-
-    nameDescription: nameDescription,
+    inform,
+    nameDescription,
   });
 });
 
@@ -43,29 +40,28 @@ router.post("/add-description", function (req, res) {
   if (errors) {
     console.log(errors);
     res.render("admin/add_description", {
-      errors: errors,
-      inform: inform,
-
-      nameDescription: nameDescription,
+      errors,
+      inform,
+      nameDescription,
     });
   } else {
     Description.findOne(
       {
-        inform: inform,
-        nameDescription: nameDescription,
+        inform,
+        nameDescription,
 
       },
       function (err, description) {
         if (description) {
           res.render("admin/add_description", {
-            inform: inform,
-            nameDescription: nameDescription,
+            inform,
+            nameDescription,
 
           });
         } else {
           var description = new Description({
-            inform: inform,
-            nameDescription: nameDescription,
+            inform,
+            nameDescription,
 
           });
           description.save(function (err) {
@@ -93,7 +89,7 @@ router.get("/edit-description/:id", isAdmin, function (req, res) {
       res.render("admin/admin_description");
     } else {
       res.render("admin/edit_description", {
-        errors: errors,
+        errors,
         nameDescription: description.nameDescription,
         inform: description.inform,
         id: description._id,
