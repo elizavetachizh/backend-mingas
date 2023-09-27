@@ -1,4 +1,4 @@
-<form method="post" action="/admin/admin_services/add-services/" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_services/add-services/" >
 
     <div class="form-group">
         <label for="">Картинка</label>
@@ -7,17 +7,17 @@
     </div>
 
      <div class="form-group">
-            <label for="">name</label>
-            <input type="text" class="form-control" name="name" value="<%= name %>" placeholder="name">
+            <label for="name">Название услуги</label>
+            <input type="text" class="form-control" id="name" name="name" value="<%= name %>" placeholder="name">
         </div>
     <div class="form-group">
-        <label for="">type</label>
-        <input type="text" class="form-control" name="type" value="<%= type %>" placeholder="type">
+        <label for="type">Тип - 1: физ.лица, тип -2: юр. лица</label>
+        <input type="text" class="form-control" id="type" name="type" value="<%= type %>" placeholder="type">
     </div>
 
     <div class="form-group">
-        <label for="">description</label>
-        <input type="text" class="form-control" name="description" value="<%= description %>" placeholder="description">
+        <label for="description">Айдишники необходимых пунктов</label>
+        <input type="text" class="form-control" id="description" name="description" value="<%= description %>" placeholder="description">
     </div>
 
     <div class="form-group">

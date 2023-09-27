@@ -9,7 +9,6 @@ const expressLayouts = require("express-ejs-layouts");
 const flash = require("connect-flash");
 const session = require("express-session");
 var passport = require("passport");
-const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 //Routers
@@ -66,9 +65,14 @@ const cors = require("cors");
 var app = express();
 //for site
 var port = process.env.PORT || 3000;
-app.use(express.json({ limit: "50mb" }));
-app.use(express.urlencoded({ extended: true, limit: 4000000000 }));
-// var bodyParser = require("body-parser");
+ app.use(express.json({ limit: "50mb" }));
+ app.use(express.urlencoded({ extended: true, limit: 4000000000 }));
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
+
+
 app.use(cors());
 
 //mongo
@@ -98,14 +102,6 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(flash());
-
-// Express fileUpload middleware
- app.use(fileUpload());
-
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }));
-// parse application/json
-app.use(bodyParser.json());
 
 app.use(
   session({

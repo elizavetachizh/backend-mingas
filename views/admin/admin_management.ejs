@@ -9,7 +9,7 @@
       <tr class="home">
                   <th>ФИО</th>
                   <th>должность</th>
-                         <th>Подразделения в подчинении</th>
+          <th>Подразделения в подчинении</th>
                   <th>Фото</th>
                   <th>редактировать</th>
                   <th>Удалить</th>
@@ -30,10 +30,10 @@
     </td>
 
                 <td>
-                    <% if (men.image == "") { %>
-                    <img class='img' id="noimage" src="/images/noimage.png">
+                    <% if (men.image === "") { %>
+                    <img class='img' id="noimage" src="/images/noimage.png" alt="">
                     <% } else {%>
-                    <img class='img' id="noimage" src="<%= men.image %>">
+                    <img class='img' id="noimage" src="<%= men.image %>" alt="">
                     <% }%>
                 </td>
                 <td><a href="/admin/admin_management/edit-men/<%= men._id %>">Редактировать</a></td>

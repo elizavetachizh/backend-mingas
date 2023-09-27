@@ -79,7 +79,7 @@ router.get("/edit-element/:id", isAdmin, function (req, res) {
       res.render("admin/admin_corruption");
     } else {
       res.render("admin/edit_corruption", {
-        errors: errors,
+        errors,
         link: post.link,
         name: post.name,
         id: post._id,
@@ -120,7 +120,7 @@ router.post("/edit-element/:id", function (req, res) {
 
             req.flash("success", "пост отредактирован!");
             alert("Пост отредактирован");
-            res.redirect("/admin/admin_element/");
+            res.redirect("/admin/admin_corruption/");
           });
         });
       }
@@ -137,7 +137,7 @@ router.get("/delete-element/:id", isAdmin, function (req, res) {
     if (err) return console.log(err);
 
     req.flash("success", "Page deleted!");
-    res.redirect("/admin/admin_element");
+    res.redirect("/admin/admin_corruption");
   });
 });
 

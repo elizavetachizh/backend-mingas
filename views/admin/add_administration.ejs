@@ -3,42 +3,42 @@
 <a href="/admin/admin_administration" class="btn btn-primary">Показать все административные услуги</a>
 <br><br>
 
-<form method="post" action="/admin/admin_administration/add-administration" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_administration/add-administration">
 
     <div class="form-group">
-        <label for=""> имя</label>
-        <textarea  class="form-control" name="uniqueName"  placeholder="uniqueName"><%= uniqueName %></textarea>
-    </div>
-
-    <div class="form-group">
-        <label for="">maximumImplementationPeriod</label>
-        <textarea  class="form-control" name="maximumImplementationPeriod"  placeholder="maximumImplementationPeriod"><%= maximumImplementationPeriod %></textarea>
+        <label for="uniqueName"> имя</label>
+        <textarea  class="form-control" name="uniqueName" id="uniqueName"  placeholder="uniqueName"><%= uniqueName %></textarea>
     </div>
 
     <div class="form-group">
-        <label for="">certificateValidityPeriod</label>
-        <textarea  class="form-control" name="certificateValidityPeriod"  placeholder="certificateValidityPeriod"><%= certificateValidityPeriod %></textarea>
+        <label for="maximumImplementationPeriod">maximumImplementationPeriod</label>
+        <textarea  class="form-control" id="maximumImplementationPeriod" name="maximumImplementationPeriod"  placeholder="maximumImplementationPeriod"><%= maximumImplementationPeriod %></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="certificateValidityPeriod">certificateValidityPeriod</label>
+        <textarea  class="form-control" id="certificateValidityPeriod" name="certificateValidityPeriod"  placeholder="certificateValidityPeriod"><%= certificateValidityPeriod %></textarea>
     </div>
     <div class="form-group">
-        <label for="">boardSize</label>
-        <textarea  class="form-control" name="boardSize"  placeholder="boardSize"><%= boardSize %></textarea>
+        <label for="boardSize">boardSize</label>
+        <textarea  class="form-control" id="boardSize" name="boardSize"  placeholder="boardSize"><%= boardSize %></textarea>
     </div>
     <div class="form-group">
-        <label for="">documents</label>
+        <label for="ta">documents</label>
         <textarea id="ta" class="form-control" name="documents"  placeholder="documents"><%= documents %></textarea>
     </div>
     <div class="form-group">
-        <label for="">contactInform</label>
-        <textarea id="ta"  class="form-control" name="contactInform"  placeholder="contactInform"><%= contactInform %></textarea>
+        <label for="contactInform">contactInform</label>
+        <textarea id="contactInform"  class="form-control" name="contactInform"  placeholder="contactInform"><%= contactInform %></textarea>
     </div>
     <div class="form-group">
-        <label for="">type</label>
-        <input type="text" class="form-control" name="type" value="<%= type %>">
+        <label for="type">type</label>
+        <input type="text" class="form-control" id="type" name="type" value="<%= type %>">
 
     </div>
     <div class="form-group">
-        <label for="">typeAdministrativeService</label>
-        <input type="text" class="form-control" name="typeAdministrativeService" value="<%= typeAdministrativeService %>">
+        <label for="typeAdministrativeService">typeAdministrativeService</label>
+        <input type="text" class="form-control" id="typeAdministrativeService" name="typeAdministrativeService" value="<%= typeAdministrativeService %>">
 
     </div>
 

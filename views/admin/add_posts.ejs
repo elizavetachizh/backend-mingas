@@ -3,25 +3,25 @@
 <a href="/admin/admin_posts" class="btn btn-primary">Показать все посты</a>
 <br><br>
 
-<form method="post" action="/admin/admin_posts/add-post/" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_posts/add-post/" >
 
     <div class="form-group">
         <label for="link">Ссылка</label>
-        <input type="text" class="form-control" name="link" value="<%= link %>" placeholder="Title">
+        <input type="text" class="form-control" id="link" name="link" value="<%= link %>" placeholder="Title">
     </div>
 
     <div class="form-group">
         <label for="content">Описание</label>
-      <input type="text" class="form-control" name="content" value="<%= content %>" placeholder="Описание">
+      <input type="text" class="form-control" id="content" name="content" value="<%= content %>" placeholder="Описание">
     </div>
 
     <div class="form-group">
         <label for="image">Картинка</label>
-        <input type="text" class="form-control" name="image" id="img" value="<%= image %>">
+        <input type="text" class="form-control" id="image" name="image" value="<%= image %>">
     </div>
 
     <div class="form-group">
-        <label for="">Дата добавления</label>
+        <label for="date">Дата добавления</label>
         <input type="date" class="form-control" name="date" id="date" value="<%= date %>">
     </div>
     <div class="form-group">

@@ -15,10 +15,9 @@ router.get("/", isAdmin, function (req, res) {
     }
     // res.send(services)
     res.render("admin/admin_table", {
-      tableInfo: tableInfo,
-      count: count,
+      tableInfo,
+      count,
     });
-    tableInfo.map((el) => console.log(el.description));
   });
 });
 
@@ -53,10 +52,10 @@ router.post("/add-table", function (req, res) {
           name,
         });
       } else {
-        var table = new Table({
+        var newTable = new Table({
           name,
         });
-        table.save(function (err) {
+        newTable.save(function (err) {
           if (err) {
             return console.log(err);
           }
@@ -98,7 +97,6 @@ router.post("/edit-table/:id", function (req, res) {
   var name = req.body.name;
   var id = req.params.id;
   var errors = req.validationErrors();
-  console.log(name)
   if (errors) {
     req.session.errors = errors;
     console.log(errors)

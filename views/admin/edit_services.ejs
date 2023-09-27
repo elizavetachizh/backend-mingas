@@ -2,38 +2,58 @@
 <a href="/admin/admin_services" class="btn btn-primary">Назад ко всем услугам</a>
 <br><br>
 
-<form method="post" action="/admin/admin_services/edit-services/<%= id %>" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_services/edit-services/<%= id %>" >
 
     <div class="form-group">
-        <label for="">name</label>
-        <input type="text" class="form-control" name="name" value="<%= name %>" placeholder="name">
+        <label for="name">Название услуги</label>
+        <input type="text" class="form-control" id="name" name="name" value="<%= name %>" placeholder="name">
     </div>
     <div class="form-group">
-        <label for="">type</label>
-        <input type="text" class="form-control" name="type" value="<%= type %>" placeholder="type">
+        <label for="type">Тип - 1: физ.лица, тип -2: юр. лица</label>
+        <input type="text" class="form-control" id="type" name="type" value="<%= type %>" placeholder="type">
     </div>
     <div class="form-group">
         <label for="">Current Image</label>
         <p>
-            <% if (image == "") { %>
-                <img id="noimage" src="/images/noimage.png" alt="">
+            <% if (image === "") { %>
+        <p></p>
             <% } else {%>
-                <img id="noimage" src="/product_images/<%= image %>" alt="">
+                <img id="noimage" src="/public/images/<%= image %>" alt="">
             <% } %>
         </p>
     </div>
 
     <div class="form-group">
-        <label for="">Upload Image</label>
+        <label for="">Загрузить другую картинку</label>
         <input type="file" class="form-control" name="image" id="img">
         <img src="#" id="imgPreview" alt="">
     </div>
 
-    <input type="hidden" name="pimage" value="<%= image %>">
+    <div class="form-group">
+        <label for="description">Айдишники необходимых пунктов</label>
+        <input type="text" class="form-control" id="description" name="description" value="<%= description %>" placeholder="description">
+    </div>
 
     <div class="form-group">
-        <label for="">description</label>
-        <input type="text" class="form-control" name="description" value="<%= description %>" placeholder="description">
+        <label for="">Предложенные статьи</label>
+        <table>
+            <thead>
+            <tr>
+                <th class="table-for-posts">Id на услугу</th>
+                <th class="table-for-posts">Название услуги</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td></td>
+            </tr>
+            <% generalDescription.map(function(post){ %>
+                <tr>
+                    <td class="table-for-posts"><%= post._id %> </td>
+                    <td class="table-for-posts"><%= post.nameDescription %></td>
+                </tr>
+            <% }); %>
+            </tbody></table>
     </div>
 
     <button class="btn btn-default">Сохранить</button>

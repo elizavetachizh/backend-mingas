@@ -28,7 +28,6 @@ router.get("/add-tender", isAdmin, function (req, res) {
 
 router.post("/add-tender", (req, res) => {
   req.checkBody("content", "Название должно быть заполненым").notEmpty();
-
   var content = req.body.content;
 
   var errors = req.validationErrors();
@@ -46,10 +45,10 @@ router.post("/add-tender", (req, res) => {
           content,
         });
       } else {
-        var tender = new Tenders({
+        var newTender = new Tenders({
           content,
         });
-        tender.save(function (err) {
+        newTender.save(function (err) {
           if (err) {
             return console.log(err);
           }

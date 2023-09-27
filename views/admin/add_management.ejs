@@ -3,28 +3,28 @@
 <a href="/admin/admin_management" class="btn btn-primary">Показать всх начальников</a>
 <br><br>
 
-<form method="post" action="/admin/admin_management/add-men" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_management/add-men" >
 
     <div class="form-group">
-        <label for="">Полное имя</label>
-        <input type="text" class="form-control" name="fullName" value="<%= fullName %>" placeholder="fullName">
+        <label for="fullName">Полное имя</label>
+        <input type="text" class="form-control" id="fullName" name="fullName" value="<%= fullName %>" placeholder="fullName">
     </div>
 
      <div class="form-group">
-            <label for="">Должность</label>
-            <input type="text" class="form-control" name="position" value="<%= position %>" placeholder="position">
+            <label for="position">Должность</label>
+            <input type="text" class="form-control" id="position" name="position" value="<%= position %>" placeholder="position">
         </div>
            <div class="form-group">
-                                  <label for="">department</label>
+                                  <label for="department">department</label>
 <ul class="list-without-dots">
                                       <% department.map(function(dep){ %>
-                                        <li>  <input type="checkbox" name="department" value="<%= dep.name %>"><%= dep.name %></input></li>
+                                        <li>  <input type="checkbox" name="department" id="department" value="<%= dep.name %>"/></li>
                                       <% }); %>
 </ul>
                               </div>
 
  <div class="form-group">
-        <label for="">Картинка</label>
+        <label for="img">Картинка</label>
         <input type="text" class="form-control" name="image" id="img" value="<%= image %>">
 
     </div>

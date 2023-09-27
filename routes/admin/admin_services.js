@@ -3,7 +3,6 @@ const router = express.Router();
 const Services = require("../../models/services");
 const { isAdmin } = require("../../config/auth");
 const alert = require("alert");
-const fs = require("fs-extra");
 const Description = require("../../models/descriptionServices");
 
 router.get("/", isAdmin, function (req, res) {
@@ -45,8 +44,7 @@ router.get("/add-services", isAdmin, function (req, res) {
 router.post("/add-services", function (req, res) {
   req.checkBody("name", "Название должно быть заполненым").notEmpty();
 
-  var imageFile =
-    typeof req.files?.image !== "undefined" ? req.files.image.name : "";
+  var image = req.body.image;
   const name = req.body.name;
   const description = req.body.description.split(",");
   var errors = req.validationErrors();
@@ -54,44 +52,36 @@ router.post("/add-services", function (req, res) {
   if (errors) {
     console.log(errors);
     res.render("admin/add_services", {
-      errors: errors,
-      description: description,
-      name: name,
-      image: imageFile,
-      type: type,
+      errors,
+      description,
+      name,
+      image,
+      type,
     });
   } else {
-    Services.findOne({ name: name })
+    Services.findOne({ name })
       .populate("description")
       .exec(function (err, services) {
         if (services) {
           res.render("admin/add_services", {
-            name: name,
-            description: description,
-            type: type,
+            name,
+            description,
+            type,
+            image,
           });
         } else {
-          var services = new Services({
-            name: name,
-            image: imageFile,
-            description: description,
-            type: type,
+          var newServices = new Services({
+            name,
+            image,
+            description,
+            type,
           });
-          services.save(function (err) {
+          newServices.save(function (err) {
             if (err) {
               return console.log(err);
             }
 
-            if (imageFile !== "") {
-              let productImage = req.files.image;
-              let path = "public/images" + "/" + imageFile;
-
-              productImage.mv(path, function (err) {
-                return console.log(err);
-              });
-            }
-
-            req.flash("success", "человек добавлен");
+            req.flash("success", "услуга добавлена");
             res.redirect("/admin/admin_services");
           });
         }
@@ -107,20 +97,25 @@ router.get("/edit-services/:id", isAdmin, function (req, res) {
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
 
-  Services.findById(req.params.id, function (err, service) {
-    if (err) {
-      console.log(err);
-      res.render("admin/admin_services");
-    } else {
-      res.render("admin/edit_services", {
-        errors: errors,
-        description: service.description,
-        name: service.name,
-        image: service.image,
-        id: service._id,
-        type: service.type,
-      });
-    }
+  Description.find(function (err, generalDescription) {
+    if (err) console.log(err);
+    Services.findById(req.params.id, function (err, service) {
+      const { description, name, image, _id: id, type } = service;
+      if (err) {
+        console.log(err);
+        res.render("admin/admin_services");
+      } else {
+        res.render("admin/edit_services", {
+          errors,
+          description,
+          name,
+          image,
+          id,
+          type,
+          generalDescription,
+        });
+      }
+    });
   });
 });
 
@@ -130,8 +125,6 @@ router.get("/edit-services/:id", isAdmin, function (req, res) {
 router.post("/edit-services/:id", function (req, res) {
   req.checkBody("name", "Название должно быть заполненым").notEmpty();
 
-  var imageFile =
-    typeof req.files?.image !== "undefined" ? req.files.image.name : "";
   var name = req.body.name;
   var image = req.body.image;
   var id = req.params.id;
@@ -157,28 +150,10 @@ router.post("/edit-services/:id", function (req, res) {
           service.name = name;
           service.description = description;
           service.type = type;
-          if (imageFile !== "") {
-            service.image = imageFile;
-          }
+          service.image = image;
+
           service.save(function (err) {
             if (err) return console.log(err);
-            if (imageFile !== "") {
-              if (image !== "") {
-                fs.remove(
-                  "public/product_images" + "/" + image,
-                  function (err) {
-                    if (err) console.log(err);
-                  }
-                );
-              }
-
-              var serviceImage = req.files.image;
-              var path = "public/product_images/" + imageFile;
-
-              serviceImage.mv(path, function (err) {
-                return console.log(err);
-              });
-            }
             req.flash("success", "пост отредактирован!");
             alert("Пост отредактирован");
             res.redirect("/admin/admin_services");

@@ -2,30 +2,30 @@
 <a href="/admin/admin_management" class="btn btn-primary">Назад</a>
 <br><br>
 
-<form method="post" action="/admin/admin_management/edit-men/<%= id %>" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_management/edit-men/<%= id %>">
 
     <div class="form-group">
-        <label for="">ФИО руководителя</label>
-        <input type="text" class="form-control" name="fullName" value="<%= fullName %>" placeholder="fullName">
+        <label for="fullName">ФИО руководителя</label>
+        <input type="text" class="form-control" id="fullName" name="fullName" value="<%= fullName %>" placeholder="fullName">
     </div>
 
  <div class="form-group">
-        <label for="">Должность руководителя</label>
-        <input type="text" class="form-control" name="position" value="<%= position %>" placeholder="position">
+        <label for="position">Должность руководителя</label>
+        <input type="text" class="form-control" id="position" name="position" value="<%= position %>" placeholder="position">
     </div>
 
       <div class="form-group">
-                                      <label for="">Выбрать подразделения</label>
+                                      <label for="department">Выбрать подразделения</label>
     <ul class="list-without-dots">
                                           <% departments.forEach(function(dep){ %>
-                                            <li>  <input type="checkbox" name="department" value="<%= dep.name %>"}><%= dep.name %></input></li>
+                                            <li>  <input type="checkbox" id="department" name="department" value="<%= dep.name %>"><%= dep.name %></input></li>
                                           <% }); %>
     </ul>
                                   </div>
 
    <div class="form-group">
-          <label for="">Картинка</label>
-          <input type="text" class="form-control" name="image" id="img" value="<%= image %>">
+          <label for="image">Картинка</label>
+          <input type="text" class="form-control" id="image" name="image" value="<%= image %>">
 
       </div>
 

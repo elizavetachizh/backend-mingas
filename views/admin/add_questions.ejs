@@ -1,17 +1,17 @@
-<h2 class="page-title">Добавить продукт</h2>
+<h2 class="page-title">Добавить новый вопрос</h2>
 <br><br>
-<a href="/admin/admin_questions" class="btn btn-primary">Показать всх начальников</a>
+<a href="/admin/admin_questions" class="btn btn-primary">Показать все вопросы</a>
 <br><br>
 
-<form method="post" action="/admin/admin_questions/add-questions" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_questions/add-questions">
 
     <div class="form-group">
-        <label for="">Вопрос</label>
-        <input type="text" class="form-control" name="question" value="<%= question %>" placeholder="question">
+        <label for="question">Вопрос</label>
+        <input type="text" class="form-control" id="question" name="question" value="<%= question %>" placeholder="question">
     </div>
 
     <div class="form-group">
-        <label for="">Ответ</label>
+        <label for="ta">Ответ</label>
         <textarea type="text" class="form-control" id="ta" name="answer" placeholder="answer"><%= answer %></textarea>
     </div>
 

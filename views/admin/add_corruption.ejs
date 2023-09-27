@@ -3,16 +3,16 @@
 <a href="/admin/admin_corruption" class="btn btn-primary">Показать все ссылки</a>
 <br><br>
 
-<form method="post" action="/admin/admin_corruption/add-element/" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_corruption/add-element/">
 
     <div class="form-group">
         <label for="link">Ссылка</label>
-        <input type="text" class="form-control" name="link" value="<%= link %>" placeholder="Title">
+        <input type="text" class="form-control" id="link" name="link" value="<%= link %>" placeholder="Title">
     </div>
 
     <div class="form-group">
         <label for="name">Имя</label>
-        <input type="text" class="form-control" name="name" value="<%= name %>" placeholder="Описание">
+        <input type="text" class="form-control" id="name" name="name" value="<%= name %>" placeholder="Описание">
     </div>
 
     <button class="btn btn-default">Добавить</button>

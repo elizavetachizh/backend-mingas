@@ -12,8 +12,6 @@
                   <th>Содержание</th>
                   <th>Изображение</th>
                    <th>Инфо. кнопка</th>
-                   <th>Ссылка</th>
-                   <th>Ссылка на пост</th>
                   <th>edit</th>
                   <th>delete</th>
               </tr>
@@ -25,15 +23,13 @@
                 <td><%= article.content %></td>
 
                 <td>
-                    <% if (article.image == "") { %>
-                    <img class='img' id="noimage" src="/images/noimage.png">
+                    <% if (article.image === "") { %>
+                    <img class='img' id="noimage" src="/images/noimage.png" alt="">
                     <% } else {%>
-                    <img class='img' id="noimage" src="/public/images/<%= article.image %>">
+                    <img class='img' id="noimage" src="/public/images/<%= article.image %>" alt="">
                     <% }%>
                 </td>
-                    <td><%= article.button %></td>
-                        <td><%= article.link %></td>
-                             <td><%= article.href %></td>
+                <td><%= article.button %></td>
                 <td><a href="/admin/admin_article/edit-article/<%= article._id %>">edit</a></td>
                 <td><a class="confirmDeletion" href="/admin/admin_article/delete-article/<%= article._id %>">delete</a></td>
             </tr>
@@ -41,7 +37,7 @@
         </tbody>
 </table>
 <% } else {%>
-<h3 class="text-center">Нет ни одного созданного продукта</h3>
+<h3 class="text-center">Нет ни одного созданной записи</h3>
 <% }%>
 
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>

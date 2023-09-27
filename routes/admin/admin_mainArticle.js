@@ -3,7 +3,6 @@ const router = express.Router();
 const { isAdmin } = require("../../config/auth");
 var alert = require("alert");
 const mainArticle = require("../../models/mainArticles");
-const mainPosts = require("../../models/mainPosts");
 router.get("/", isAdmin, function (req, res) {
   var count;
   mainArticle.count(function (err, c) {
@@ -11,8 +10,8 @@ router.get("/", isAdmin, function (req, res) {
   });
   mainArticle.find(function (err, articles) {
     res.render("admin/admin_articles", {
-      articles: articles,
-      count: count,
+      articles,
+      count,
     });
   });
 });
@@ -24,78 +23,57 @@ router.get("/add-article", isAdmin, function (req, res) {
   var content = "";
   var button = "";
   var link = "";
-
-  mainPosts.find(function (err, post) {
+  var image = "";
     res.render("admin/add_article", {
-      content: content,
-      button: button,
-      link: link,
-      href: post,
+      content,
+      button,
+      link,
+      image,
     });
-  });
 });
 
-router.post("/add-article", (req, res) => {
-  // req.checkBody("content", "Описание должно быть заполненым").notEmpty();
+router.post("/add-article",  (req, res) => {
+   // req.checkBody("content", "Описание должно быть заполненым").notEmpty();
   // req.checkBody("image", "Картинка должна быть загружена").notEmpty();
-  var imageFile =
-    typeof req.files?.image !== "undefined" ? req.files.image.name : "";
   var content = req.body.content;
   var button = req.body.button;
   var link = req.body.link;
-  var href = req.body.href;
-
+  var image = req.body.image;
   var errors = req.validationErrors();
-  if (errors) {
-    console.log(errors);
-    mainPosts.find(function (err, post) {
-      res.render("admin/add_article", {
-        errors: errors,
-        content: content,
-        image: imageFile,
-        button: button,
-        link: link,
-        href: post,
-      });
-    });
-  } else {
-    mainArticle.findOne({ content: content }, function (err, article) {
+  try {
+     mainArticle.findOne({ content }, function (err, article) {
       if (article) {
-        mainPosts.find(function (err, post) {
           res.render("admin/add_article", {
-            content: content,
-            button: button,
-            link: link,
-            href: post,
+            content,
+            button,
+            link,
+            image,
           });
-        });
       } else {
-        var article = new mainArticle({
-          content: content,
-          image: imageFile,
-          button: button,
-          link: link,
-          href: href,
+        var newArticle = new mainArticle({
+          content,
+          button,
+          link,
+          image,
         });
-        article.save(function (err) {
+        newArticle.save(function (err) {
           if (err) {
             return console.log(err);
           }
 
-          if (imageFile !== "") {
-            let productImage = req.files.image;
-            let path = "public/images" + "/" + imageFile;
-
-            productImage.mv(path, function (err) {
-              return console.log(err);
-            });
-          }
-
           req.flash("success", "Пост добавлен");
-          res.redirect("/admin/admin_article");
+           res.redirect("/admin/admin_article");
         });
       }
     });
+  } catch (error) {
+    console.log(errors);
+      res.render("admin/add_article", {
+        errors,
+        content,
+        button,
+        link,
+      });
   }
 });
 
@@ -107,39 +85,33 @@ router.get("/edit-article/:id", isAdmin, function (req, res) {
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
 
-  mainPosts.find(function (err, post) {
     mainArticle.findById(req.params.id, function (err, article) {
       if (err) {
         console.log(err);
         res.render("admin/admin_article");
       } else {
         res.render("admin/edit_article", {
-          errors: errors,
+          errors,
           content: article.content,
           image: article.image,
           button: article.button,
           link: article.link,
           id: article._id,
-          href: post,
         });
       }
     });
-  });
 });
 
 /*
  * POST edit product
  */
 router.post("/edit-article/:id", function (req, res) {
-
   var content = req.body.content;
-  var imageFile =
-    typeof req.files?.image !== "undefined" ? req.files.image.name : "";
+  var image =
+      req.body.image
   var id = req.params.id;
   var button = req.body.button;
   var link = req.body.link;
-  var href = req.body.href;
-  var image = req.body.image;
   var errors = req.validationErrors();
   if (errors) {
     console.log(errors);
@@ -147,7 +119,7 @@ router.post("/edit-article/:id", function (req, res) {
     res.redirect("/admin/admin_article/edit-article/" + id);
   } else {
     mainArticle.findOne(
-      { content: content, link: link, href: href, image: imageFile },
+      { content, link, image },
       function (err, article) {
         if (err) {
           console.log(err);
@@ -159,21 +131,12 @@ router.post("/edit-article/:id", function (req, res) {
             if (err) return console.log(err);
 
             article.content = content;
-            article.image = imageFile;
+            article.image = image;
             article.button = button;
             article.link = link;
-            article.href = href;
             article.save(function (err) {
               if (err) return console.log(err);
 
-              if (imageFile !== "") {
-                var serviceImage = req.files.image;
-                var path = "public/images" + "/" + imageFile;
-
-                serviceImage.mv(path, function (err) {
-                  return console.log(err);
-                });
-              }
               req.flash("success", "пост отредактирован!");
               alert("Пост отредактирован");
               res.redirect("/admin/admin_article");

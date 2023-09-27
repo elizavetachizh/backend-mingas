@@ -10,8 +10,8 @@ router.get("/", isAdmin, function (req, res) {
   });
   AskedQuestions.find(function (err, questions) {
     res.render("admin/admin_questions", {
-      questions: questions,
-      count: count,
+      questions,
+      count,
     });
   });
 });
@@ -23,8 +23,8 @@ router.get("/add-questions", isAdmin, function (req, res) {
   var question = "";
   var answer = "";
   res.render("admin/add_questions", {
-    question: question,
-    answer: answer,
+    question,
+    answer,
   });
 });
 
@@ -40,25 +40,25 @@ router.post("/add-questions", (req, res) => {
   if (errors) {
     console.log(errors);
     res.render("admin/add_questions", {
-      errors: errors,
-      question: question,
-      answer: answer,
+      errors,
+      question,
+      answer,
     });
   } else {
     AskedQuestions.findOne(
-      { question: question, answer: answer },
+      { question, answer },
       function (err, questions) {
         if (questions) {
           res.render("admin/add_questions", {
-            question: question,
-            answer: answer,
+            question,
+            answer,
           });
         } else {
-          var questions = new AskedQuestions({
-            question: question,
-            answer: answer,
+          var newQuestions = new AskedQuestions({
+            question,
+            answer,
           });
-          questions.save(function (err) {
+          newQuestions.save(function (err) {
             if (err) {
               return console.log(err);
             }
@@ -85,7 +85,7 @@ router.get("/edit-questions/:id", isAdmin, function (req, res) {
       res.render("admin/admin_questions");
     } else {
       res.render("admin/edit_questions", {
-        errors: errors,
+        errors,
         question: questions.question,
         answer: questions.answer,
         id: questions._id,
@@ -112,7 +112,7 @@ router.post("/edit-questions/:id", function (req, res) {
     res.redirect("/admin/admin_questions/edit-questions/" + id);
   } else {
     AskedQuestions.findOne(
-      { question: question, answer: answer },
+      { question, answer },
       function (err, questions) {
         if (err) {
           console.log(err);

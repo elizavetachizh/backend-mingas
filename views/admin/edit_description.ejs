@@ -2,15 +2,15 @@
 <a href="/admin/admin_description" class="btn btn-primary">Назад</a>
 <br><br>
 
-<form method="post" action="/admin/admin_description/edit-description/<%= id %>" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_description/edit-description/<%= id %>" >
 
     <div class="form-group">
-        <label for="">nameDescription</label>
-        <input type="text" class="form-control" name="nameDescription" value="<%= nameDescription %>" placeholder="nameDescription">
+        <label for="nameDescription">Название услуги</label>
+        <input type="text" class="form-control" id="nameDescription" name="nameDescription" value="<%= nameDescription %>" placeholder="nameDescription">
     </div>
 
     <div class="form-group">
-        <label for="">inform</label>
+        <label for="ta">Информация</label>
          <textarea name="inform" class="form-control" cols="30" id="ta"  rows="10" placeholder="inform"><%= inform %></textarea>
 
     </div>

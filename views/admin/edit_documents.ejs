@@ -2,27 +2,27 @@
 <a href="/admin/admin_documents" class="btn btn-primary">Назад</a>
 <br><br>
 
-<form method="post" action="/admin/admin_documents/edit-documents/<%= id %>" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_documents/edit-documents/<%= id %>" >
 
     <div class="form-group">
-          <label for=""> имя</label>
-          <input type="text" class="form-control" name="name" value="<%= name %>" placeholder="name">
+          <label for="name"> имя</label>
+          <input type="text" class="form-control" id="name" name="name" value="<%= name %>" placeholder="name">
       </div>
 
 
     <div class="form-group">
-        <label for="">type</label>
-        <input type="text" class="form-control" name="type" value="<%= type %>" placeholder="type">
+        <label for="type">type</label>
+        <input type="text" class="form-control" id="type" name="type" value="<%= type %>" placeholder="type">
     </div>
 
 
     <div class="form-group">
-              <label for="">link</label>
-              <input type="text" class="form-control" name="link" value="<%= link %>" placeholder="link">
+              <label for="link">link</label>
+              <input type="text" class="form-control" id="link" name="link" value="<%= link %>" placeholder="link">
           </div>
     <div class="form-group">
-              <label for="">separation</label>
-              <input type="text" class="form-control" name="separation" value="<%= separation %>" placeholder="separation">
+              <label for="separation">separation</label>
+              <input type="text" class="form-control" id="separation" name="separation" value="<%= separation %>" placeholder="separation">
           </div>
 
     <button class="btn btn-default">Сохранить</button>

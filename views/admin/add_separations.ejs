@@ -1,13 +1,13 @@
-<form method="post" action="/admin/admin_separations/add-separations/" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_separations/add-separations/">
 
     <div class="form-group">
-        <label for="">separation</label>
-        <input type="text" class="form-control" name="separation" value="<%= separation %>" placeholder="separation">
+        <label for="separation">Раздел</label>
+        <input type="text" class="form-control" id="separation" name="separation" value="<%= separation %>" placeholder="separation">
     </div>
 
     <div class="form-group">
-        <label for="">documents</label>
-        <input type="text" class="form-control" name="documents" value="<%= documents %>" placeholder="documents">
+        <label for="documents">Необходимые документы</label>
+        <input type="text" class="form-control" id="documents" name="documents" value="<%= documents %>" placeholder="documents">
     </div>
 
 

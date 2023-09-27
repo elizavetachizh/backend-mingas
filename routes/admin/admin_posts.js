@@ -65,13 +65,13 @@ router.post("/add-post", (req, res) => {
           date,
         });
       } else {
-        var post = new Posts({
+        var newPost = new Posts({
           link,
           content,
           image,
           date,
         });
-        post.save(function (err) {
+        newPost.save(function (err) {
           if (err) {
             return console.log(err);
           }

@@ -1,21 +1,21 @@
 <form method="post" action="/admin/upload" enctype="multipart/form-data">
 
     <div class="form-group">
-        <label for="content">Описание</label>
+        <label for="input-files">Картинка</label>
         <input
                 type="file"
                 name="file"
-                multiple
                 id="input-files"
                 class="form-control-file border"
                 value="<%= files %>"
         />
     </div>
-    <div class="form-group">
-        <label for="content">Описание</label>
-        <input type="text" class="form-control" name="content" value="<%= name %>" placeholder="Описание">
+    <hr />
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="preview-images"></div>
+        </div>
     </div>
-
     <button class="btn btn-default">Добавить</button>
 
     <% if (errors) {%>
@@ -37,7 +37,7 @@
                 for (i = 0; i < filesAmount; i++) {
                     let reader = new FileReader();
                     reader.onload = function (event) {
-                        $($.parseHTML("<img>"))
+                        $($.parseHTML("<img />"))
                             .attr("src", event.target.result)
                             .appendTo(placeToInsertImagePreview);
                     };

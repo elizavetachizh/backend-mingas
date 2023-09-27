@@ -41,7 +41,6 @@ router.post("/add-men", (req, res) => {
   req.checkBody("fullName", "Название должно быть заполненым").notEmpty();
   req.checkBody("position", "Описание должно быть заполненым").notEmpty();
   var image = req.body.image;
-
   var fullName = req.body.fullName;
   var position = req.body.position;
   var department = req.body.department;

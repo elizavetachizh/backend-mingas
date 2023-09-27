@@ -3,37 +3,37 @@
 <a href="/admin/admin_departament" class="btn btn-primary">Показать все отделы</a>
 <br><br>
 
-<form method="post" action="/admin/admin_departament/add-departament/" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_departament/add-departament/">
 
     <div class="form-group">
-        <label for="">Название отдела</label>
-        <input type="text" class="form-control" name="name" value="<%= name %>" placeholder="name">
+        <label for="name">Название отдела</label>
+        <input type="text" class="form-control" id="name" name="name" value="<%= name %>" placeholder="name">
     </div>
 
      <div class="form-group">
-            <label for="">Начальник отдела</label>
-            <input type="text" class="form-control" name="chief" value="<%= chief %>" placeholder="chief">
+            <label for="chief">Начальник отдела</label>
+            <input type="text" class="form-control" id="chief" name="chief" value="<%= chief %>" placeholder="chief">
         </div>
            <div class="form-group">
-               <label for="">Описание отдела</label>
+               <label for="ta">Описание отдела</label>
              <textarea name="description" class="form-control" id="ta" cols="30" rows="10" placeholder="description"><%= description %></textarea>
            </div>
 
     <div class="form-group">
-            <label for="">График работы</label>
-            <textarea name="schedule" class="form-control" id="ta" cols="30" rows="10" placeholder="schedule"><%= schedule %></textarea>
+            <label for="schedule">График работы</label>
+            <textarea name="schedule" class="form-control" id="schedule" cols="30" rows="10" placeholder="schedule"><%= schedule %></textarea>
         </div>
 
             <div class="form-group">
-              <label for="">Контакты + адрес</label>
-              <textarea name="contacts" class="form-control" id="ta" cols="30" rows="10" placeholder="contacts"><%= contacts %></textarea>
+              <label for="contacts">Контакты + адрес</label>
+              <textarea name="contacts" class="form-control" id="contacts" cols="30" rows="10" placeholder="contacts"><%= contacts %></textarea>
                 </div>
 
                            <div class="form-group">
-                                                  <label for="">Зам. генерального</label>
+                                                  <label for="nameMen">Зам. генерального</label>
                 <ul class="list-without-dots">
                                                       <% nameMen.map(function(men){ %>
-                                                        <li>  <input type="radio" name="nameMen" value="<%= men._id %>"><%= men.fullName %></input></li>
+                                                        <li>  <input type="radio" id="nameMen" name="nameMen" value="<%= men._id %>"><%= men.fullName %></input></li>
                                                       <% }); %>
                 </ul>
                                               </div>

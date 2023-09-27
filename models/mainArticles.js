@@ -14,9 +14,6 @@ var mainArticlesSchema = mongoose.Schema({
   link: {
     type: String,
   },
-  href: {
-    type: String,
-  },
 });
 
 const mainArticle = mongoose.model("mainArticle", mainArticlesSchema);

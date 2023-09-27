@@ -29,7 +29,6 @@ router.get("/:slug", function (req, res) {
       //   content: page.content,
       // });
       res.send(page);
-      console.log(page);
     }
   });
 });

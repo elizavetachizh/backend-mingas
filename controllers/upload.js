@@ -5,21 +5,20 @@ const mongoClient = new MongoClient(keys.MONGODB_URI);
 
 const home = (req, res) => {
   var files = "";
-  var name = "";
   res.render("admin/add_photos", {
     files,
-    name
   });
- };
+};
 const uploadFiles = async (req, res) => {
   try {
     await upload(req, res);
-    if (req.files.length <= 0) {
+    if (req.file.length <= 0) {
       return res
         .status(400)
         .send({ message: "You must select at least 1 file." });
     }
     if (res.status(200)) {
+      // Move the file to the desired location
       res.redirect("/admin/upload/files");
     }
   } catch (error) {

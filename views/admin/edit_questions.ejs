@@ -6,12 +6,12 @@
 <form method="post" action="/admin/admin_questions/edit-questions/<%= id %>" enctype="multipart/form-data">
 
     <div class="form-group">
-        <label for="">Вопрос</label>
-        <input type="text" class="form-control" name="question" value="<%= question %>" placeholder="question">
+        <label for="question">Вопрос</label>
+        <input type="text" class="form-control" id="question" name="question" value="<%= question %>" placeholder="question">
     </div>
 
     <div class="form-group">
-        <label for="">Ответ</label>
+        <label for="ta">Ответ</label>
         <textarea type="text" class="form-control"  id="ta" name="answer" placeholder="answer"><%= answer %></textarea>
     </div>
 

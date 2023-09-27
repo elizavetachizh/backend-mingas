@@ -10,10 +10,10 @@
     <tbody>
     <% fileInfos.forEach(function(element){ %>
         <tr>
-            <td><%= element.name %></td>
+            <td><%= element.url %></td>
             <td>
                 <% if (element.url === "") { %>
-                    <img class='img' id="noimage" src="/images/noimage.png" alt="document">
+                   <p></p>
                 <% } else {%>
                     <img style="width: 200px" class='img' id="noimage" src="<%= element.url %>" alt="document">
                 <% }%>

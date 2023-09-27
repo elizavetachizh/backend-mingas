@@ -29,20 +29,19 @@ router.get("/add-administration", isAdmin, function (req, res) {
   var type = "";
   var typeAdministrativeService = "";
   res.render("admin/add_administration", {
-    uniqueName: uniqueName,
-    maximumImplementationPeriod: maximumImplementationPeriod,
-    certificateValidityPeriod: certificateValidityPeriod,
-    boardSize: boardSize,
-    documents: documents,
-    contactInform: contactInform,
-    type: type,
-    typeAdministrativeService: typeAdministrativeService
+    uniqueName,
+    maximumImplementationPeriod,
+    certificateValidityPeriod,
+    boardSize,
+    documents,
+    contactInform,
+    type,
+    typeAdministrativeService,
   });
 });
 
 router.post("/add-administration", (req, res) => {
   req.checkBody("uniqueName", "Название должно быть заполненым").notEmpty();
-
   var uniqueName = req.body.uniqueName;
   var maximumImplementationPeriod = req.body.maximumImplementationPeriod;
   var certificateValidityPeriod = req.body.certificateValidityPeriod;
@@ -50,56 +49,56 @@ router.post("/add-administration", (req, res) => {
   const documents = req.body.documents;
   const contactInform = req.body.contactInform;
   const type = req.body.type;
-  const typeAdministrativeService  = req.body.typeAdministrativeService
+  const typeAdministrativeService = req.body.typeAdministrativeService;
   var errors = req.validationErrors();
 
   if (errors) {
     console.log(errors);
     res.render("admin/add_administration", {
-      errors: errors,
-      uniqueName: uniqueName,
-      maximumImplementationPeriod: maximumImplementationPeriod,
-      certificateValidityPeriod: certificateValidityPeriod,
-      boardSize: boardSize,
-      documents: documents,
-      contactInform: contactInform,
-      type: type,
-      typeAdministrativeService:typeAdministrativeService
+      errors,
+      uniqueName,
+      maximumImplementationPeriod,
+      certificateValidityPeriod,
+      boardSize,
+      documents,
+      contactInform,
+      type,
+      typeAdministrativeService,
     });
   } else {
     AdministrativeServices.findOne(
       {
-        uniqueName: uniqueName,
-        maximumImplementationPeriod: maximumImplementationPeriod,
-        certificateValidityPeriod: certificateValidityPeriod,
-        boardSize: boardSize,
-        documents: documents,
-        contactInform: contactInform,
-        type: type,
-        typeAdministrativeService:typeAdministrativeService
+        uniqueName,
+        maximumImplementationPeriod,
+        certificateValidityPeriod,
+        boardSize,
+        documents,
+        contactInform,
+        type,
+        typeAdministrativeService,
       },
       function (err, administration) {
         if (administration) {
           res.render("admin/add_administration", {
-            uniqueName: uniqueName,
-            maximumImplementationPeriod: maximumImplementationPeriod,
-            certificateValidityPeriod: certificateValidityPeriod,
-            boardSize: boardSize,
-            documents: documents,
-            contactInform: contactInform,
-            type: type,
-            typeAdministrativeService:typeAdministrativeService
+            uniqueName,
+            maximumImplementationPeriod,
+            certificateValidityPeriod,
+            boardSize,
+            documents,
+            contactInform,
+            type,
+            typeAdministrativeService,
           });
         } else {
           var administrativeServices = new AdministrativeServices({
-            uniqueName: uniqueName,
-            maximumImplementationPeriod: maximumImplementationPeriod,
-            certificateValidityPeriod: certificateValidityPeriod,
-            boardSize: boardSize,
-            documents: documents,
-            contactInform: contactInform,
-            type: type,
-            typeAdministrativeService:typeAdministrativeService
+            uniqueName,
+            maximumImplementationPeriod,
+            certificateValidityPeriod,
+            boardSize,
+            documents,
+            contactInform,
+            type,
+            typeAdministrativeService,
           });
           administrativeServices.save(function (err) {
             if (err) {
@@ -131,7 +130,7 @@ router.get("/edit-administration/:id/", function (req, res) {
         res.render("admin/admin_administration");
       } else {
         res.render("admin/edit_administration", {
-          errors: errors,
+          errors,
           id: administration._id,
           uniqueName: administration.uniqueName,
           maximumImplementationPeriod:
@@ -141,7 +140,7 @@ router.get("/edit-administration/:id/", function (req, res) {
           documents: administration.documents,
           contactInform: administration.contactInform,
           type: administration.type,
-          typeAdministrativeService:administration.typeAdministrativeService
+          typeAdministrativeService: administration.typeAdministrativeService,
         });
       }
     }
@@ -161,7 +160,7 @@ router.post("/edit-administration/:id", function (req, res) {
   const documents = req.body.documents;
   const contactInform = req.body.contactInform;
   const type = req.body.type;
-  const typeAdministrativeService = req.body.typeAdministrativeService
+  const typeAdministrativeService = req.body.typeAdministrativeService;
   var id = req.params.id;
   var errors = req.validationErrors();
 
@@ -171,14 +170,14 @@ router.post("/edit-administration/:id", function (req, res) {
   } else {
     AdministrativeServices.findOne(
       {
-        uniqueName: uniqueName,
-        maximumImplementationPeriod: maximumImplementationPeriod,
-        certificateValidityPeriod: certificateValidityPeriod,
-        boardSize: boardSize,
-        documents: documents,
-        contactInform: contactInform,
-        type: type,
-        typeAdministrativeService:typeAdministrativeService
+        uniqueName,
+        maximumImplementationPeriod,
+        certificateValidityPeriod,
+        boardSize,
+        documents,
+        contactInform,
+        type,
+        typeAdministrativeService,
       },
       function (err, administration) {
         if (err) {
@@ -199,7 +198,8 @@ router.post("/edit-administration/:id", function (req, res) {
             administration.documents = documents;
             administration.contactInform = contactInform;
             administration.type = type;
-            administration.typeAdministrativeService=typeAdministrativeService
+            administration.typeAdministrativeService =
+              typeAdministrativeService;
             administration.save(function (err) {
               if (err) return console.log(err);
 

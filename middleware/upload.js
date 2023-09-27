@@ -14,15 +14,13 @@ var storage = new GridFsStorage({
       "application/msword",
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     ];
-
     if (match.indexOf(file.mimetype) === -1) {
-      const filename = `${req.name}`;
+      const filename = `${file.originalname}`;
       const url =
         "https://back.mingas.by/admin/upload/files/" +
         `${Date.now()}-${file.originalname}`;
       return { filename, url };
     }
-
     return {
       bucketName: "photos",
       filename: `${Date.now()}-${file.originalname}`,
@@ -33,7 +31,6 @@ var storage = new GridFsStorage({
   },
 });
 
-var uploadFiles = multer({ storage: storage }).array("file", 10);
-// var uploadFiles = multer({ storage: storage }).single("file");
+var uploadFiles = multer({ storage }).single("file");
 var uploadFilesMiddleware = util.promisify(uploadFiles);
 module.exports = uploadFilesMiddleware;

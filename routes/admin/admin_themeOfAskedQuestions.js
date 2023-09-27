@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const SeparationDocs = require("../../models/separationDocuments");
 const { isAdmin } = require("../../config/auth");
 const alert = require("alert");
 const ThemeOfAskedQuestions = require("../../models/themeOfAskedQuestions");
@@ -27,19 +26,17 @@ router.get("/", isAdmin, function (req, res) {
  * GET add product
  */
 router.get("/add-themes", isAdmin, function (req, res) {
-  var id = req.params._id;
   var title = "";
   var questionAnswer = [];
-  ThemeOfAskedQuestions.find({ _id: { $ne: id } })
-    .populate("questionAnswer")
-    .exec(function (err, separations) {
-      if (err) console.log(err);
+  AskedQuestions.find(function (err, arrayOfAsks) {
+    if (err) console.log(err);
 
-      res.render("admin/add_themes", {
-        title: title,
-        questionAnswer: questionAnswer,
-      });
+    res.render("admin/add_themes", {
+      title,
+      questionAnswer,
+      arrayOfAsks,
     });
+  });
 });
 
 router.post("/add-themes", function (req, res) {
@@ -50,9 +47,9 @@ router.post("/add-themes", function (req, res) {
   if (errors) {
     console.log(errors);
     res.render("admin/add_themes", {
-      errors: errors,
-      title: title,
-      questionAnswer: questionAnswer,
+      errors,
+      title,
+      questionAnswer,
     });
   } else {
     ThemeOfAskedQuestions.findOne({ title: title })
@@ -60,15 +57,15 @@ router.post("/add-themes", function (req, res) {
       .exec(function (err, themes) {
         if (themes) {
           res.render("admin/add_separations", {
-            title: title,
-            questionAnswer: questionAnswer,
+            title,
+            questionAnswer,
           });
         } else {
-          var themes = new ThemeOfAskedQuestions({
-            title: title,
-            questionAnswer: questionAnswer,
+          var newThemes = new ThemeOfAskedQuestions({
+            title,
+            questionAnswer,
           });
-          themes.save(function (err) {
+          newThemes.save(function (err) {
             if (err) {
               return console.log(err);
             }
@@ -94,14 +91,12 @@ router.get("/edit-themes/:id", isAdmin, function (req, res) {
         res.render("admin/admin_themes");
       } else {
         res.render("admin/edit_themes", {
-          errors: errors,
+          errors,
           title: themes.title,
           questionAnswer: themes.questionAnswer,
           id: themes._id,
           listOfQuestionAnswer: questions,
         });
-        console.log(themes.questionAnswer)
-        console.log(questions)
       }
     });
   });
@@ -123,7 +118,7 @@ router.post("/edit-themes/:id", function (req, res) {
     res.redirect("/admin/admin_themes/edit-themes/" + id);
   } else {
     ThemeOfAskedQuestions.findOne(
-      { title: title, _id: { $ne: id } },
+      { title, _id: { $ne: id } },
       function (err, themes) {
         if (err) return console.log(err);
         if (themes) {

@@ -1,8 +1,8 @@
 <form method="post" action="/admin/admin_themes/edit-themes/<%= id %>" enctype="multipart/form-data">
 
     <div class="form-group">
-        <label for="">Наименование темы вопросов</label>
-        <input type="text" class="form-control" name="title" value="<%= title %>" placeholder="title">
+        <label for="title">Наименование темы вопросов</label>
+        <input type="text" class="form-control" id="title" name="title" value="<%= title %>" placeholder="title">
     </div>
 
     <div class="form-group">
@@ -16,13 +16,13 @@
                 <% }); %>
             <% }); %>
         </ul>
-        <input type="text" class="form-control" name="questionAnswer" value="<%= questionAnswer %>" placeholder="questionAnswer">
+        <label for="questionAnswer">айдишники необходимых вопросов</label><input type="text" class="form-control" id="questionAnswer" name="questionAnswer" value="<%= questionAnswer %>" placeholder="questionAnswer">
     </div>
     <div class="form-group">
         <label for="">Вопросы</label>
         <ul class="list-without-dots">
             <% listOfQuestionAnswer.forEach(function(dep){ %>
-                <li>  <input type="checkbox" name="department" value="<%= dep.question %>" > <%= dep.question %> <%= dep._id %></input></li>
+                <li>  <input type="checkbox" name="question" value="<%= dep.question %>" > <%= dep.question %> <%= dep._id %></input></li>
             <% }); %>
         </ul>
     </div>

@@ -9,7 +9,7 @@ router.get("/", isAdmin, function (req, res) {
     .sort({ sorting: 1 })
     .exec(function (err, pages) {
       res.render("admin/pages", {
-        pages: pages,
+        pages,
       });
     });
 });
@@ -62,14 +62,14 @@ router.post("/add_page", (req, res) => {
           content: content,
         });
       } else {
-        var page = new Page({
-          title: title,
-          slug: slug,
-          content: content,
+        var newPage = new Page({
+          title,
+          slug,
+          content,
           sorting: 100,
         });
 
-        page.save(function (err) {
+        newPage.save(function (err) {
           if (err) {
             return console.log(err);
           }

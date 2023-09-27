@@ -3,36 +3,28 @@
 <a href="/admin/admin_article" class="btn btn-primary">Показать все статьи</a>
 <br><br>
 
-<form method="post" action="/admin/admin_article/add-article" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_article/add-article">
 
     <div class="form-group">
-        <label for="">content</label>
+        <label for="ta">Контент</label>
         <textarea type="text" class="form-control"  id="ta" name="content" placeholder="content"><%= content %></textarea>
     </div>
 
     <div class="form-group">
         <label for="">Картинка</label>
-        <input type="file" class="form-control" name="image" id="img">
+        <input type="file" class="form-control" name="image" id="img" >
         <img src="#" id="imgPreview" alt="">
     </div>
 
  <div class="form-group">
-        <label for="">button</label>
-        <input type="text" class="form-control" name="button" value="<%= button %>" placeholder="button">
+        <label for="button">Кнопка</label>
+        <input type="text" class="form-control" id="button" name="button" value="<%= button %>" placeholder="button">
     </div>
      <div class="form-group">
-            <label for="">link</label>
-            <input type="text" class="form-control" name="link" value="<%= link %>" placeholder="link">
+            <label for="link">Ссылка на пост (если необходимо)</label>
+            <input type="text" class="form-control" id="link" name="link" value="<%= link %>" placeholder="link">
         </div>
 
-          <div class="form-group">
-                <label for="">Категория</label>
-                <select name="category" class="form-control">
-                    <% href.forEach(function(el){ %>
-                        <option value="<%= el._id %>"><%= el.name %></option>
-                    <% }); %>
-                </select>
-            </div>
     <button class="btn btn-default">Добавить</button>
 
           <% if (errors) {%>
