@@ -19,7 +19,7 @@
             <tr>
                 <td><%= post.link %></td>
                <td>
-                                 <% if (post.image == "") { %>
+                                 <% if (post.image === "") { %>
                                  <img class='img' id="noimage" src="/images/noimage.png">
                                  <% } else {%>
                                  <img class='img' id="noimage" src="<%= post.image %>">

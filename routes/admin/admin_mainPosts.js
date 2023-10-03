@@ -10,8 +10,8 @@ router.get("/", isAdmin, function (req, res) {
   });
   mainPosts.find(function (err, posts) {
     res.render("admin/admin_mainpost", {
-      posts: posts,
-      count: count,
+      posts,
+      count,
     });
   });
 });
@@ -25,9 +25,9 @@ router.get("/add-mainpost", isAdmin, function (req, res) {
   var type = "";
 
   res.render("admin/add_mainpost", {
-    name: name,
-    type: type,
-    description: description,
+    name,
+    type,
+    description,
   });
 });
 
@@ -43,28 +43,28 @@ router.post("/add-mainpost", (req, res) => {
   if (errors) {
     console.log(errors);
     res.render("/admin/add_mainpost", {
-      errors: errors,
-      name: name,
-      type: type,
-      description: description,
+      errors,
+      name,
+      type,
+      description,
     });
   } else {
     mainPosts.findOne(
-      { name: name,type: type, description: description },
+      { name,type, description },
       function (err, posts) {
         if (posts) {
           res.render("/admin/add_mainpost", {
-            name: name,
-            type: type,
-            description: description,
+            name,
+            type,
+            description,
           });
         } else {
-          var posts = new mainPosts({
-            name: name,
-            type: type,
-            description: description,
+          var newPosts = new mainPosts({
+            name,
+            type,
+            description,
           });
-          posts.save(function (err) {
+          newPosts.save(function (err) {
             if (err) {
               return console.log(err);
             }
@@ -91,7 +91,7 @@ router.get("/edit-mainpost/:id", isAdmin, function (req, res) {
       res.render("admin/admin_mainpost");
     } else {
       res.render("admin/edit_mainpost", {
-        errors: errors,
+        errors,
         name: posts.name,
         type: posts.type,
         description: posts.description,
@@ -119,7 +119,7 @@ router.post("/edit-mainpost/:id", function (req, res) {
     res.redirect("/admin/admin_mainpost/edit-mainpost/" + id);
   } else {
     mainPosts.findOne(
-      { name: name,type: type, description: description },
+      { name,type, description },
       function (err, posts) {
         if (err) {
           console.log(err);
