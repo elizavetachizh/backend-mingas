@@ -7,4 +7,22 @@ router.get("/", function (req, res) {
     res.send(questions);
   });
 });
+
+router.get("/:id", function (req, res) {
+  AskedQuestions.findById(req.params.id, function (err, questions) {
+    res.send(questions);
+  });
+});
+
+router.get("/search/:key", async (req, res) => {
+  let result = await AskedQuestions.find({
+    $or: [
+      {
+        question: { $regex: req.params.key },
+      },
+    ],
+  });
+  res.send(result);
+});
+
 module.exports = router;
