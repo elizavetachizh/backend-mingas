@@ -6,6 +6,7 @@ var storage = new GridFsStorage({
   url: keys.MONGODB_URI,
   options: { useNewUrlParser: true, useUnifiedTopology: true },
   file: (req, file) => {
+    const type = req.body.type;
     const match = [
       "image/png",
       "image/jpeg",
@@ -19,10 +20,11 @@ var storage = new GridFsStorage({
       const url =
         "https://back.mingas.by/admin/upload/files/" +
         `${Date.now()}-${file.originalname}`;
-      return { filename, url };
+      return { filename, url, type };
     }
     return {
       bucketName: "photos",
+      type,
       filename: `${Date.now()}-${file.originalname}`,
       url:
         "https://back.mingas.by/admin/upload/files/" +

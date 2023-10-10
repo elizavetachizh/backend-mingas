@@ -1,0 +1,35 @@
+<h2 class="page-title">Редактирование записи</h2>
+<a href="/admin/admin_ogonek" class="btn btn-primary">Назад к информации</a>
+<br><br>
+
+<form method="post" action="/admin/admin_ogonek/edit-info/<%= id %>">
+    <div class="form-group">
+        <label for="title">Название раздела</label>
+        <textarea name="title" id="title" class="form-control" placeholder="title"><%= title %></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="ta">Информация</label>
+        <textarea name="content" id="ta" class="form-control" cols="30" rows="10" placeholder="content"><%= content %></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="typeBranch">Филиал(огонек/тбз/бубны)</label>
+        <select name="typeBranch">
+            <option value="">Выбрать</option>
+            <option value="огонек">огонек</option>
+            <option value="тбз">тбз</option>
+            <option value="бубны">бубны</option>
+        </select>
+    </div>
+
+    <button class="btn btn-default">Сохранить</button>
+
+    <% if (errors) {%>
+        <% errors.forEach(function(error) { %>
+            <div class="alert alert-danger">
+                <%= error.msg %>
+            </div>
+        <% });%>
+    <% }%>
+</form>

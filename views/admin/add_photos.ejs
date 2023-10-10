@@ -1,13 +1,23 @@
 <form method="post" action="/admin/upload" enctype="multipart/form-data">
 
     <div class="form-group">
-        <label for="input-files">Картинка</label>
+        <label for="input-files">Файл</label>
         <input
                 type="file"
                 name="file"
                 id="input-files"
                 class="form-control-file border"
                 value="<%= files %>"
+        />
+    </div>
+    <div class="text">
+        <label for="input-files">тип файла (картинка/файл/газета)</label>
+        <input
+                type="text"
+                name="type"
+                id="text"
+                class="form-control-file border"
+                value="<%= type %>"
         />
     </div>
     <hr />

@@ -5,8 +5,10 @@ const mongoClient = new MongoClient(keys.MONGODB_URI);
 
 const home = (req, res) => {
   var files = "";
+  var type = "";
   res.render("admin/add_photos", {
     files,
+    type
   });
 };
 const uploadFiles = async (req, res) => {

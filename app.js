@@ -61,17 +61,19 @@ const adminPageRouter = require("./routes/admin/admin_pages");
 const adminTableRouter = require("./routes/admin/admin_table");
 const tableRouter = require("./routes/admin/tables");
 const adminPhotosRouter = require("./routes/admin/admin_photos");
+const adminOgonekRouter = require("./routes/admin/admin_ogonek");
+const ogonekRouter = require("./routes/admin/infoOgonek");
+
 const cors = require("cors");
 var app = express();
 //for site
 var port = process.env.PORT || 3000;
- app.use(express.json({ limit: "50mb" }));
- app.use(express.urlencoded({ extended: true, limit: 4000000000 }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ extended: true, limit: 4000000000 }));
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
-
 
 app.use(cors());
 
@@ -195,6 +197,7 @@ app.use("/admin/departament", departamentRouter);
 app.use("/admin/admin_services", adminServicesRouter);
 app.use("/admin/admin_description", adminDescriptionRouter);
 app.use("/admin/admin_mainpost", adminMainPostsRouter);
+app.use("/admin/admin_ogonek", adminOgonekRouter);
 app.use("/admin/description", DescriptionRouter);
 app.use("/admin/services", ServicesRouter);
 app.use("/admin/mainposts", mainPostsRouter);
@@ -209,6 +212,7 @@ app.use("/admin/themes", themesQuestionsRouter);
 app.use("/admin/admin_prices", adminPricesRouter);
 app.use("/admin/prices", pricesRouter);
 app.use("/admin/table", tableRouter);
+app.use("/admin/ogonek", ogonekRouter);
 app.use("/admin/admin_administration", adminAdministrativeServicesRouter);
 app.use("/admin/administration", administrativeServicesRouter);
 app.use("/admin/admin_table", adminTableRouter);
