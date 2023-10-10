@@ -109,7 +109,6 @@ router.post("/edit-info/:id", function (req, res) {
   var id = req.params.id;
   var errors = req.validationErrors();
 
-  console.log(req.body)
   if (errors) {
     req.session.errors = errors;
     res.redirect("/admin_ogonek/edit-info/" + id);
