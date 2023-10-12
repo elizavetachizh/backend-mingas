@@ -28,7 +28,6 @@ router.get("/add-prices", isAdmin, function (req, res) {
 
 router.post("/add-prices", (req, res) => {
   req.checkBody("name", "Описание должно быть заполненым").notEmpty();
-  console.log(req);
   var name = req.body.name;
   var description = req.body.description;
   var errors = req.validationErrors();
