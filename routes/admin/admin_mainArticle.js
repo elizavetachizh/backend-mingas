@@ -119,7 +119,7 @@ router.post("/edit-article/:id", function (req, res) {
     res.redirect("/admin/admin_article/edit-article/" + id);
   } else {
     mainArticle.findOne(
-      { content, link, image },
+      { content, link, image, button },
       function (err, article) {
         if (err) {
           console.log(err);
