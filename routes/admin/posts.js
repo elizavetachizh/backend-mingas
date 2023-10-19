@@ -26,22 +26,6 @@ router.get("/", function (req, res) {
       });
     });
 });
-
-// router.get("/", function (req, res) {
-//   Posts.find(function (err, posts) {
-//     const pageNumber = req.query.page || 1; // Get the current page number from the query parameters
-//     const startIndex = (pageNumber - 1) * pageSize;
-//     const endIndex = startIndex + pageSize;
-//     const data = posts.slice(startIndex, endIndex);
-//     res.json({ data, total: posts.length })
-//   });
-// });
-router.get("/paginate", function (req, res) {
-  Posts.find(function (err, posts) {
-    res.send(posts);
-  });
-});
-
 /*
  * GET edit page
  */
