@@ -9,12 +9,18 @@ router.get("/", isAdmin, function (req, res) {
   Posts.count(function (err, c) {
     count = c;
   });
-  Posts.find(function (err, posts) {
-    res.render("admin/admin_posts", {
-      posts,
-      count,
+  Posts.find()
+    .sort({ _id: -1 })
+    .exec(function (err, posts) {
+      if (err) {
+        res.status(500).json(err);
+        return;
+      }
+      res.render("admin/admin_posts", {
+        posts,
+        count,
+      });
     });
-  });
 });
 
 /*
@@ -25,15 +31,18 @@ router.get("/add-post", isAdmin, function (req, res) {
   var content = "";
   var image = "";
   var date = new Date();
-  mainPosts.find(function (err, mainPosts) {
-    res.render("admin/add_posts", {
-      link,
-      content,
-      image,
-      date,
-      mainPosts,
+  mainPosts.find()
+    .sort({ _id: -1 })
+    .limit(7)
+    .exec(function (err, mainPosts) {
+      res.render("admin/add_posts", {
+        link,
+        content,
+        image,
+        date,
+        mainPosts,
+      });
     });
-  });
 });
 
 router.post("/add-post", (req, res) => {
@@ -127,33 +136,30 @@ router.post("/edit-post/:id", function (req, res) {
     req.session.errors = errors;
     res.redirect("/admin/admin_posts/edit-post/" + id);
   } else {
-    Posts.findOne(
-      { link, content, image, date },
-      function (err, post) {
-        if (err) {
-          console.log(err);
-        }
-        if (post) {
-          res.redirect("/admin/admin_posts");
-        } else {
-          Posts.findById(id, function (err, post) {
+    Posts.findOne({ link, content, image, date }, function (err, post) {
+      if (err) {
+        console.log(err);
+      }
+      if (post) {
+        res.redirect("/admin/admin_posts");
+      } else {
+        Posts.findById(id, function (err, post) {
+          if (err) return console.log(err);
+
+          post.link = link;
+          post.content = content;
+          post.image = image;
+          post.date = date;
+          post.save(function (err) {
             if (err) return console.log(err);
 
-            post.link = link;
-            post.content = content;
-            post.image = image;
-            post.date = date;
-            post.save(function (err) {
-              if (err) return console.log(err);
-
-              req.flash("success", "пост отредактирован!");
-              alert("Пост отредактирован");
-              res.redirect("/admin/admin_posts/");
-            });
+            req.flash("success", "пост отредактирован!");
+            alert("Пост отредактирован");
+            res.redirect("/admin/admin_posts/");
           });
-        }
+        });
       }
-    );
+    });
   }
 });
 

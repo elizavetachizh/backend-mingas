@@ -1,14 +1,14 @@
 const upload = require("../middleware/upload");
-const { MongoClient, GridFSBucket } = require("mongodb");
+const { MongoClient, GridFSBucket, ObjectId } = require("mongodb");
 const keys = require("../keys");
 const mongoClient = new MongoClient(keys.MONGODB_URI);
 
 const home = (req, res) => {
   var files = "";
-  var type = "";
+  // var type = "";
   res.render("admin/add_photos", {
     files,
-    type
+    // type,
   });
 };
 const uploadFiles = async (req, res) => {
@@ -47,12 +47,12 @@ const getListFiles = async (req, res) => {
         message: "No files found!",
       });
     }
-
     let fileInfos = [];
     await cursor.forEach((doc) => {
       fileInfos.push({
         name: doc.filename,
         url: "https://back.mingas.by/admin/upload/files/" + doc.filename,
+        id: doc._id,
       });
     });
     res.status(200).render("admin/admin_photos", {
@@ -92,9 +92,28 @@ const download = async (req, res) => {
   }
 };
 
+const deleteInfo = async (req, res) => {
+  try {
+    const database = mongoClient.db(keys.database);
+    const bucket = new GridFSBucket(database, {
+      bucketName: keys.imgBucket,
+    });
+
+    bucket.delete(new ObjectId(req.params.id), function (err) {
+      if (err) return console.log(err);
+    });
+    res.redirect("/admin/upload/files");
+  } catch (error) {
+    return res.status(500).send({
+      message: error.message,
+    });
+  }
+};
+
 module.exports = {
   uploadFiles,
   getListFiles,
   download,
   home,
+  deleteInfo,
 };

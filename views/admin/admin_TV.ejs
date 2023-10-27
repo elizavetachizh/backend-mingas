@@ -1,0 +1,28 @@
+<h2 class="page-title">ТВ МИНГАЗ</h2>
+<a href="/admin/admin_TV/add-info" class="btn btn-primary">Добавить новую ссылку</a>
+<br><br>
+<% if (count > 0) { %>
+    <table class="table table-striped sorting">
+
+        <thead>
+        <tr class="home">
+            <th>Название</th>
+            <th>Ссылка</th>
+            <th>Редактировать</th>
+            <th>Удалить</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% info.forEach(function(el){ %>
+            <tr>
+                <td><%= el.name %></td>
+                <td><%= el.link %></td>
+                <td><a href="/admin/admin_TV/edit-info/<%= el._id %>">Редактировать</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_TV/delete-info/<%= el._id %>">Удалить</a></td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+<% } else {%>
+    <h3 class="text-center">Нет ни одной созданной записи</h3>
+<% }%>

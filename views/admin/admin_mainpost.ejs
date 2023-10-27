@@ -31,3 +31,10 @@
 <h3 class="text-center">Нет ни одного созданного поста</h3>
 <% }%>
 
+<% pages.forEach(function(el, index){ %>
+  <a href="/admin/admin_mainpost?page=<%= index %>"><%= index %></a>
+<% }); %>
+
+
+
+

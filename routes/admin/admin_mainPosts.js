@@ -8,12 +8,24 @@ router.get("/", isAdmin, function (req, res) {
   mainPosts.count(function (err, c) {
     count = c;
   });
-  mainPosts.find(function (err, posts) {
-    res.render("admin/admin_mainpost", {
-      posts,
-      count,
+  const page = req.query.page || 0;
+
+  mainPosts
+    .find()
+    .sort({ _id: -1 })
+    .limit(5)
+    .skip(page * 5)
+    .exec(function (err, posts) {
+      if (err) {
+        res.status(500).json(err);
+        return;
+      }
+      res.render("admin/admin_mainpost", {
+        posts,
+        count,
+        pages: [...Array(Math.ceil(+count / 5))],
+      });
     });
-  });
 });
 
 /*

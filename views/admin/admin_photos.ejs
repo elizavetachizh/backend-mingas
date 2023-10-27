@@ -5,6 +5,7 @@
         <th>Содержание</th>
         <th>Документ</th>
         <th>Скачать</th>
+        <th>Удалить</th>
     </tr>
     </thead>
     <tbody>
@@ -19,6 +20,7 @@
                 <% }%>
             </td>
             <td><a href="/admin/upload/files/<%= element.name %>">скачать</a></td>
+            <td><a href="/admin/upload/delete/<%= element.id %>">удалить</a></td>
         </tr>
     <% }); %>
     </tbody>

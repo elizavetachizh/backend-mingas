@@ -34,7 +34,7 @@ router.post("/register", function (req, res) {
 
   if (errors) {
     res.render("register", {
-      errors: errors,
+      errors,
       user: null,
       title: "Register",
     });
@@ -48,10 +48,10 @@ router.post("/register", function (req, res) {
         console.log(user);
       } else {
         var user = new User({
-          name: name,
-          email: email,
-          username: username,
-          password: password,
+          name,
+          email,
+          username,
+          password,
           admin: 0,
         });
         bcrypt.genSalt(10, function (err, salt) {
