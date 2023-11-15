@@ -7,21 +7,6 @@ router.get("/", function (req, res) {
     res.send(prices);
   });
 });
-//
-// router.get("/:id", function (req, res) {
-//   var id = req.params.id;
-//   var description = res.description
-//   Prices.findById(id, function (err, prices) {
-//     if (err) return console.log(err);
-//     // "public/images" + "/"
-//     console.log(prices)
-//     res.setHeader('Content-Type', 'application/pdf');
-//
-//     res.setHeader("Content-Disposition", "attachment");
-//     res.download(`D:/project/backend-mingas/backend-mingas/public/images/${prices.description}`)
-//     console.log(prices.description)
-//   });
-// });
 
 router.get("/:description", function (req, res) {
   var description = req.params.description;
