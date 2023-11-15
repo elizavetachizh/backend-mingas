@@ -21,8 +21,10 @@ router.get("/", isAdmin, function (req, res) {
  */
 router.get("/add-prices", isAdmin, function (req, res) {
   var name = "";
+  var description = "";
   res.render("admin/add_prices", {
     name,
+    description,
   });
 });
 
@@ -43,6 +45,7 @@ router.post("/add-prices", (req, res) => {
       if (prices) {
         res.render("admin/add_prices", {
           name,
+          description,
         });
       } else {
         var newPrices = new Prices({

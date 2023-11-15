@@ -25,17 +25,14 @@ router.get("/", function (req, res) {
 
 router.get("/:description", function (req, res) {
   var description = req.params.description;
-  Prices.findOne({ description: description }, function (err, prices) {
+  Prices.findOne({ description }, function (err) {
     if (err) return console.log(err);
-    // "public/images" + "/"
-    console.log(prices);
     res.setHeader("Content-Type", "application/pdf");
 
     res.setHeader("Content-Disposition", "attachment");
     res.download(
       `D:/project/backend-mingas/backend-mingas/public/images/${description}`
     );
-    console.log(prices.description);
   });
 });
 module.exports = router;
