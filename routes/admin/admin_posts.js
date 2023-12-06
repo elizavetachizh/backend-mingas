@@ -55,7 +55,7 @@ router.post("/add-post", (req, res) => {
   var image = req.body.image;
   var date = req.body.date;
   var errors = req.validationErrors();
-
+  console.log(req.body)
   if (errors) {
     res.render("admin/add_posts", {
       errors,

@@ -6,29 +6,14 @@
     </div>
 
     <div class="form-group">
-        <label for="questionAnswer">необходимые ответы</label>
-        <input type="text" class="form-control" id="questionAnswer" name="questionAnswer" value="<%= questionAnswer %>" placeholder="questionAnswer">
-    </div>
-    <div class="form-group">
-        <label for="">Предложенные статьи</label>
-        <table>
-            <thead>
-            <tr>
-                <th class="table-for-posts">Id на вопрос</th>
-                <th class="table-for-posts">Наименование вопроса</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td></td>
-            </tr>
-            <% arrayOfAsks.map(function(post){ %>
-                <tr>
-                    <td class="table-for-posts"><%= post._id %> </td>
-                    <td class="table-for-posts"><%= post.question %></td>
-                </tr>
-            <% }); %>
-            </tbody></table>
+        <label for="">Предложенные вопросы</label>
+            <ul class="list-without-dots">
+                <% arrayOfAsks.forEach(function(dep){ %>
+                    <li><label>
+                            <input type="checkbox" name="question" value="<%= dep._id %>" > <%= dep.question %></input>
+                        </label></li>
+                <% }); %>
+            </ul>
     </div>
     <button class="btn btn-default">Добавить</button>
 

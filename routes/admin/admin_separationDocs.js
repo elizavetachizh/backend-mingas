@@ -3,6 +3,7 @@ const router = express.Router();
 const SeparationDocs = require("../../models/separationDocuments");
 const { isAdmin } = require("../../config/auth");
 const alert = require("alert");
+const RegulatoryDocSchema = require("../../models/regulatoryDocuments");
 
 router.get("/", isAdmin, function (req, res) {
   var count;
@@ -25,59 +26,50 @@ router.get("/", isAdmin, function (req, res) {
  * GET add product
  */
 router.get("/add-separations", isAdmin, function (req, res) {
-  var id = req.params._id;
   var separation = "";
-
   var documents = [];
-  SeparationDocs.find({ _id: { $ne: id } })
-    .populate("documents")
-    .exec(function (err, separations) {
-      if (err) console.log(err);
+  RegulatoryDocSchema.find(function (err, separations) {
+    if (err) console.log(err);
 
-      res.render("admin/add_separations", {
-        separations: separations,
-        separation: separation,
-
-        documents: documents,
-      });
+    res.render("admin/add_separations", {
+      separations,
+      separation,
+      documents,
     });
+  });
 });
 
 router.post("/add-separations", function (req, res) {
   const separation = req.body.separation;
-
-  const documents = req.body.documents.split(",");
+  const documents = req.body.documents;
 
   var errors = req.validationErrors();
   if (errors) {
     console.log(errors);
     res.render("admin/add_separations", {
-      errors: errors,
-      separation: separation,
-
-      documents: documents,
+      errors,
+      separation,
+      documents,
     });
   } else {
-    SeparationDocs.findOne({ separation: separation })
+    SeparationDocs.findOne({ separation })
       .populate("documents")
       .exec(function (err, separations) {
         if (separations) {
           res.render("admin/add_separations", {
-            separation: separation,
-
-            documents: documents,
+            separation,
+            documents,
           });
         } else {
-          var separations = new SeparationDocs({
-            separation: separation,
-
-            documents: documents,
+          var newSeparations = new SeparationDocs({
+            separation,
+            documents,
           });
-          separations.save(function (err) {
+          newSeparations.save(function (err) {
             if (err) {
               return console.log(err);
             }
-            req.flash("success", "человек добавлен");
+            req.flash("success", "Документ добавлен");
             res.redirect("/admin/admin_separations");
           });
         }
@@ -93,18 +85,21 @@ router.get("/edit-separations/:id", isAdmin, function (req, res) {
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
 
-  SeparationDocs.findById(req.params.id, function (err, separations) {
-    if (err) {
-      console.log(err);
-      res.render("admin/admin_separations");
-    } else {
-      res.render("admin/edit_separations", {
-        errors: errors,
-        documents: separations.documents,
-        separation: separations.separation,
-        id: separations._id,
-      });
-    }
+  RegulatoryDocSchema.find(function (err, documents) {
+    SeparationDocs.findById(req.params.id, function (err, separations) {
+      if (err) {
+        console.log(err);
+        res.render("admin/admin_separations");
+      } else {
+        res.render("admin/edit_separations", {
+          errors,
+          documents: separations.documents,
+          separation: separations.separation,
+          id: separations._id,
+          listDocuments: documents,
+        });
+      }
+    });
   });
 });
 
@@ -112,13 +107,11 @@ router.get("/edit-separations/:id", isAdmin, function (req, res) {
  * POST edit product
  */
 router.post("/edit-separations/:id", function (req, res) {
-  // req.checkBody("name", "Название должно быть заполненым").notEmpty();
-  // req.checkBody("image", "Описание должно быть заполненым").notEmpty();
+  req.checkBody("separation", "Название должно быть заполненым").notEmpty();
 
   var separation = req.body.separation;
-  var documents = req.body.documents.split(",");
+  var documents = req.body.documents;
   var id = req.params.id;
-
   var errors = req.validationErrors();
 
   if (errors) {
@@ -126,7 +119,7 @@ router.post("/edit-separations/:id", function (req, res) {
     res.redirect("/admin/admin_separations/edit-separations/" + id);
   } else {
     SeparationDocs.findOne(
-      { separation: separation, _id: { $ne: id } },
+      { separation, _id: { $ne: id }, documents },
       function (err, separations) {
         if (err) return console.log(err);
 

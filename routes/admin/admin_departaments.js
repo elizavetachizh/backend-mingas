@@ -57,8 +57,6 @@ router.post("/add-departament", (req, res) => {
 
   if (errors) {
     console.log(errors);
-
-    Management.find(function (err, management) {
       res.render("admin/add_departament", {
         errors,
         name,
@@ -68,7 +66,6 @@ router.post("/add-departament", (req, res) => {
         contacts,
         nameMen,
       });
-    });
   } else {
     Departament.findOne(
       {
@@ -92,7 +89,7 @@ router.post("/add-departament", (req, res) => {
             });
           });
         } else {
-          var departament = new Departament({
+          var newDepartment = new Departament({
             name,
             chief,
             description,
@@ -100,7 +97,7 @@ router.post("/add-departament", (req, res) => {
             contacts,
             nameMen,
           });
-          departament.save(function (err) {
+          newDepartment.save(function (err) {
             if (err) {
               return console.log(err);
             }
@@ -159,7 +156,6 @@ router.post("/edit-departament/:id", function (req, res) {
 
   if (errors) {
     req.session.errors = errors;
-    console.log(errors);
     res.redirect("/admin/admin_departament/edit-departament/" + id);
   } else {
     Departament.findOne(

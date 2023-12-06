@@ -41,9 +41,9 @@ router.get("/add-themes", isAdmin, function (req, res) {
 
 router.post("/add-themes", function (req, res) {
   const title = req.body.title;
-  const questionAnswer = req.body.questionAnswer.split(",");
-
+  const questionAnswer = req.body.question;
   var errors = req.validationErrors();
+
   if (errors) {
     console.log(errors);
     res.render("admin/add_themes", {
@@ -52,7 +52,7 @@ router.post("/add-themes", function (req, res) {
       questionAnswer,
     });
   } else {
-    ThemeOfAskedQuestions.findOne({ title: title })
+    ThemeOfAskedQuestions.findOne({ title })
       .populate("questionAnswer")
       .exec(function (err, themes) {
         if (themes) {
@@ -107,10 +107,9 @@ router.get("/edit-themes/:id", isAdmin, function (req, res) {
  */
 router.post("/edit-themes/:id", function (req, res) {
   req.checkBody("title", "Название должно быть заполненым").notEmpty();
-  // req.checkBody("image", "Описание должно быть заполненым").notEmpty();
 
   const title = req.body.title;
-  const questionAnswer = req.body.questionAnswer.split(",");
+  const questionAnswer = req.body.question;
   var id = req.params.id;
   var errors = req.validationErrors();
   if (errors) {
@@ -118,7 +117,7 @@ router.post("/edit-themes/:id", function (req, res) {
     res.redirect("/admin/admin_themes/edit-themes/" + id);
   } else {
     ThemeOfAskedQuestions.findOne(
-      { title, _id: { $ne: id } },
+      { title, _id: { $ne: id }, questionAnswer },
       function (err, themes) {
         if (err) return console.log(err);
         if (themes) {
@@ -126,7 +125,6 @@ router.post("/edit-themes/:id", function (req, res) {
         } else {
           ThemeOfAskedQuestions.findById(id, function (err, themes) {
             if (err) console.log(err);
-
             themes.title = title;
             themes.questionAnswer = questionAnswer;
             themes.save(function (err) {

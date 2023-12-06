@@ -10,8 +10,8 @@ router.get("/", isAdmin, function (req, res) {
   });
   RegulatoryDocSchema.find(function (err, documents) {
     res.render("admin/admin_documents", {
-      documents: documents,
-      count: count,
+      documents,
+      count,
     });
   });
 });
@@ -25,10 +25,10 @@ router.get("/add-documents", isAdmin, function (req, res) {
   var type = "";
   var name = "";
   res.render("admin/add_documents", {
-    link: link,
-    separation: separation,
-    type: type,
-    name: name,
+    link,
+    separation,
+    type,
+    name,
   });
 });
 
@@ -46,31 +46,31 @@ router.post("/add-documents", (req, res) => {
   if (errors) {
     console.log(errors);
     res.render("admin/add_documents", {
-      errors: errors,
-      link: link,
-      type: type,
-      separation: separation,
-      name: name,
+      errors,
+      link,
+      type,
+      separation,
+      name,
     });
   } else {
     RegulatoryDocSchema.findOne(
-      { name: name, link: link, type: type, separation: separation },
+      { name, link, type, separation },
       function (err, document) {
         if (document) {
           res.render("admin/add_documents", {
-            link: link,
-            name: name,
-            type: type,
-            separation: separation,
+            link,
+            name,
+            type,
+            separation,
           });
         } else {
-          var document = new RegulatoryDocSchema({
-            link: link,
-            name: name,
-            type: type,
-            separation: separation,
+          var newDocument = new RegulatoryDocSchema({
+            link,
+            name,
+            type,
+            separation,
           });
-          document.save(function (err) {
+          newDocument.save(function (err) {
             if (err) {
               return console.log(err);
             }
@@ -98,7 +98,7 @@ router.get("/edit-documents/:id", isAdmin, function (req, res) {
       res.render("admin/admin_documents");
     } else {
       res.render("admin/edit_documents", {
-        errors: errors,
+        errors,
         link: document.link,
         type: document.type,
         name: document.name,

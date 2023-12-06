@@ -10,8 +10,25 @@
     </div>
 
     <div class="form-group">
-        <label for="documents">Необходимые документы</label>
-        <input type="text" class="form-control" id="documents" name="documents" value="<%= documents %>" placeholder="documents">
+        <label for="">Выбранные документы</label>
+        <ul class="list-without-dots">
+            <% listDocuments.map(function(dep){ %>
+                <% documents.map(function(el){ %>
+                    <% if(el.toString() === dep._id.toString()) { %>
+                        <li><%= dep.name %></li>
+                    <% }%>
+                <% }); %>
+            <% }); %>
+        </ul>
+    </div>
+
+    <div class="form-group">
+        <label for="">Добавление новых документов</label>
+        <ul class="list-without-dots">
+            <% listDocuments.forEach(function(dep){ %>
+                <li>  <input type="checkbox" name="documents" value="<%= dep._id %>" > <%= dep.name %></input></li>
+            <% }); %>
+        </ul>
     </div>
 
     <button class="btn btn-default">Сохранить</button>

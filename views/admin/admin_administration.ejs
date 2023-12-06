@@ -6,14 +6,10 @@
 
         <thead>
         <tr class="home">
-            <th >id</th>
-            <th>uniqueName</th>
-            <th>maximumImplementationPeriod</th>
-            <th>certificateValidityPeriod</th>
-            <th>boardSize</th>
-            <th>documents</th>
-            <th>contactInform</th>
-            <th>type</th>
+            <th>id</th>
+            <th>Название <br/> административной услуги</th>
+            <th>1 - физ. лица <br/> 2 - юр. лица</th>
+            <th>Тип адм. услуги для физ.лиц</th>
             <th>edit</th>
             <th>delete</th>
         </tr>
@@ -23,11 +19,6 @@
             <tr>
                 <td><%= document.id %></td>
                 <td><div style="width: 200px"><%= document.uniqueName %></div></td>
-                <td><%= document.maximumImplementationPeriod %></td>
-                <td><%= document.certificateValidityPeriod %></td>
-                <td><%= document.boardSize %></td>
-                <td><div style="width: 300px"><%= document.documents %></div></td>
-                <td><%= document.contactInform %></td>
                 <td><%= document.type %></td>
                 <td><%= document.typeAdministrativeService %></td>
                 <td><a href="/admin/admin_administration/edit-administration/<%= document.id %>">edit</a></td>

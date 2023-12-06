@@ -7,10 +7,9 @@
     <thead>
       <tr class="home">
           <th>id</th>
-         <th>name</th>
-          <th>type</th>
-           <th>link</th>
-           <th>separation</th>
+         <th>Название</th>
+          <th>1 - физ. лица <br/> 2 - юр. лица</th>
+           <th>Тип документа</th>
            <th>edit</th>
            <th>delete</th>
               </tr>
@@ -21,7 +20,6 @@
                 <td><%= document.id %></td>
                 <td><%= document.name %></td>
                 <td><%= document.type %></td>
-                 <td><div style="width: 500px"><%= document.link %></div></td>
                  <td><%= document.separation %></td>
                 <td><a href="/admin/admin_documents/edit-documents/<%= document._id %>">edit</a></td>
                 <td><a class="confirmDeletion" href="/admin/admin_documents/delete-documents/<%= document._id %>">delete</a></td>
