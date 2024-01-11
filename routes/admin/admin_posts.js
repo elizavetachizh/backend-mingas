@@ -48,11 +48,10 @@ router.get("/add-post", isAdmin, function (req, res) {
 router.post("/add-post", (req, res) => {
   req.checkBody("link", "Название должно быть заполненым").notEmpty();
   req.checkBody("content", "Описание должно быть заполненым").notEmpty();
-  req.checkBody("image", "Картинка должна быть загружена").notEmpty();
 
   var link = req.body.link;
   var content = req.body.content;
-  var image = req.body.image;
+  var image = req.body.image ? req.body.image : 'https://back.mingas.by/public/images/background_new.webp' ;
   var date = req.body.date;
   var errors = req.validationErrors();
   console.log(req.body)

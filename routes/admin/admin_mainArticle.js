@@ -38,7 +38,8 @@ router.post("/add-article",  (req, res) => {
   var content = req.body.content;
   var button = req.body.button;
   var link = req.body.link;
-  var image = req.body.image;
+  var image = req.body.image ? req.body.image : 'phone.webp' ;
+  console.log(image)
   var errors = req.validationErrors();
   try {
      mainArticle.findOne({ content }, function (err, article) {
