@@ -8,8 +8,8 @@
     <thead>
       <tr class="home">
 
-                  <th>ID</th>
-                  <th>name</th>
+                  <th>Ссылка на пост</th>
+                  <th>Имя</th>
                     <th>type</th>
                   <th>edit</th>
                   <th>delete</th>
@@ -18,7 +18,7 @@
      <tbody>
             <% posts.forEach(function(post){ %>
             <tr>
-                <td><%= post.id %></td>
+                <td>https://mingas.by/posts/<%= post.id %></td>
                 <td><%= post.name %></td>
                 <td><%= post.type %></td>
                 <td><a href="/admin/admin_mainpost/edit-mainpost/<%= post._id %>">edit</a></td>
