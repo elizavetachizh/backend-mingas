@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "set PORT=80&&node app.js",
+    "start": "node app.js",
     "watch": "set PORT=80&&nodemon app.js"
   },
   "dependencies": {
