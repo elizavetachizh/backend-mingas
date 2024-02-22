@@ -25,6 +25,7 @@ router.get("/", isAdmin, function (req, res) {
         count,
         pages: [...Array(Math.ceil(+count / 5))],
       });
+      // console.log(posts.filter((el)=>el.type==='safety'))
     });
 });
 

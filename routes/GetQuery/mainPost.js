@@ -6,6 +6,11 @@ router.get("/", function (req, res) {
     res.send(posts);
   });
 });
+router.get("/limit", function (req, res) {
+  mainPosts.find().limit(5).exec(function (err, posts) {
+    res.send(posts);
+  });
+});
 router.get("/:id", function (req, res) {
   mainPosts.findById(req.params.id, function (err, post) {
     if (err) return console.log(err);
