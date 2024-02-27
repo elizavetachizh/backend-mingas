@@ -8,12 +8,14 @@ router.get("/", isAdmin, function (req, res) {
   Tenders.count(function (err, c) {
     count = c;
   });
-  Tenders.find(function (err, tenders) {
-    res.render("admin/admin_tenders", {
-      tenders,
-      count,
+  Tenders.find()
+    .sort({ _id: -1 })
+    .exec(function (err, tenders) {
+      res.render("admin/admin_tenders", {
+        tenders,
+        count,
+      });
     });
-  });
 });
 
 /*
