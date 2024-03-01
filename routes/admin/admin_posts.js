@@ -31,10 +31,12 @@ router.get("/add-post", isAdmin, function (req, res) {
   var content = "";
   var image = "";
   var date = new Date();
-  mainPosts.find()
+  mainPosts
+    .find({}, { name: 1 })
     .sort({ _id: -1 })
     .limit(7)
     .exec(function (err, mainPosts) {
+      // console.log(mainPosts);
       res.render("admin/add_posts", {
         link,
         content,
@@ -51,10 +53,12 @@ router.post("/add-post", (req, res) => {
 
   var link = req.body.link;
   var content = req.body.content;
-  var image = req.body.image ? req.body.image : 'https://back.mingas.by/public/images/background_new.webp' ;
+  var image = req.body.image
+    ? req.body.image
+    : "https://back.mingas.by/public/images/background_new.webp";
   var date = req.body.date;
   var errors = req.validationErrors();
-  console.log(req.body)
+  console.log(req.body);
   if (errors) {
     res.render("admin/add_posts", {
       errors,

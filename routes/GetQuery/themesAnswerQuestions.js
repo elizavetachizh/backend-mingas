@@ -18,7 +18,7 @@ router.get("/", function (req, res) {
         res.send(themes);
       });
   } else {
-    ThemeOfAskedQuestions.find()
+    ThemeOfAskedQuestions.find({}, { title: 1 })
       .populate("questionAnswer")
       .exec(function (err, themes) {
         if (err) {

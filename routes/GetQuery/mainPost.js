@@ -4,12 +4,15 @@ const router = express.Router();
 router.get("/", function (req, res) {
   mainPosts.find(function (err, posts) {
     res.send(posts);
+    // console.log(posts);
   });
 });
-router.get("/limit", function (req, res) {
-  mainPosts.find().limit(5).exec(function (err, posts) {
-    res.send(posts);
-  });
+router.get("/type", function (req, res) {
+  mainPosts
+    .find({ type: "safety" }, { name: 1, description: 1 })
+    .exec(function (err, posts) {
+      res.send(posts);
+    });
 });
 router.get("/:id", function (req, res) {
   mainPosts.findById(req.params.id, function (err, post) {
