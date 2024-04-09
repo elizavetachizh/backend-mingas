@@ -30,7 +30,7 @@ router.get("/search/:key", async (req, res) => {
   let result = await Departament.find({
     $or: [
       {
-        name: { $regex: req.params.key },
+        name: { $regex: req.params.key,$options: 'i'  },
       },
     ],
   });

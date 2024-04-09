@@ -3,15 +3,17 @@ const router = express.Router();
 const { isAdmin } = require("../../config/auth");
 var alert = require("alert");
 const mainPosts = require("../../models/mainPosts");
-router.get("/", isAdmin, function (req, res) {
+router.get("/", isAdmin, async (req, res) => {
   var count;
   mainPosts.count(function (err, c) {
     count = c;
   });
   const page = req.query.page || 0;
 
-  mainPosts
-    .find()
+  await mainPosts
+    .find({
+      name: { $regex: req.query.search || "" },
+    })
     .sort({ _id: -1 })
     .limit(5)
     .skip(page * 5)
@@ -25,7 +27,6 @@ router.get("/", isAdmin, function (req, res) {
         count,
         pages: [...Array(Math.ceil(+count / 5))],
       });
-      // console.log(posts.filter((el)=>el.type==='safety'))
     });
 });
 

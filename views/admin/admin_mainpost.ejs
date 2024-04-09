@@ -2,6 +2,10 @@
 <h2 class="page-title">Статьи</h2>
 <a href="/admin/admin_mainpost/add-mainpost" class="btn btn-primary">Добавить новую статью</a>
 <br><br>
+<form method="GET" action="/admin/admin_mainpost/"><label for="search">Поиск по статьям</label>
+    <input type="text" name="search" id="search" placeholder="Поиск по статьям"/>
+    <button class="search-btn" type="submit">Поиск</button>
+</form>
 <% if (count > 0) { %>
 <table class="table table-striped sorting">
 
