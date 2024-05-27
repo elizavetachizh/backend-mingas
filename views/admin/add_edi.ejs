@@ -10,6 +10,11 @@
                 value="<%= files %>"
         />
     </div>
+    <div class="text">
+        <label for="type">Загрузите файл (.doc, .pdf)</label>
+        <input type="text" name="files.metadata" id="type" class="form-control" value="<%= files.metadata %>"/>
+    </div>
+    <hr />
     <div class="row">
         <div class="col-sm-12">
             <div class="preview-images"></div>
@@ -29,23 +34,23 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
-    $(document).ready(function () {
-        let imagesPreview = function (input, placeToInsertImagePreview) {
-            if (input.files) {
-                let filesAmount = input.files.length;
-                for (i = 0; i < filesAmount; i++) {
-                    let reader = new FileReader();
-                    reader.onload = function (event) {
-                        $($.parseHTML("<img />"))
-                            .attr("src", event.target.result)
-                            .appendTo(placeToInsertImagePreview);
-                    };
-                    reader.readAsDataURL(input.files[i]);
-                }
-            }
-        };
-        $("#input-files").on("change", function () {
-            imagesPreview(this, "div.preview-images");
-        });
+  $(document).ready(function () {
+    let imagesPreview = function (input, placeToInsertImagePreview) {
+      if (input.files) {
+        let filesAmount = input.files.length;
+        for (i = 0; i < filesAmount; i++) {
+          let reader = new FileReader();
+          reader.onload = function (event) {
+            $($.parseHTML("<img />"))
+              .attr("src", event.target.result)
+              .appendTo(placeToInsertImagePreview);
+          };
+          reader.readAsDataURL(input.files[i]);
+        }
+      }
+    };
+    $("#input-files").on("change", function () {
+      imagesPreview(this, "div.preview-images");
     });
+  });
 </script>
