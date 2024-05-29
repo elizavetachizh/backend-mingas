@@ -42,11 +42,17 @@ const getListFiles = async (req, res) => {
     const database = mongoClient.db(keys.database);
     const images = database.collection(keys.imgBucket + ".files");
     const cursor = images.find({});
+
     if ((await cursor.count()) === 0) {
       return res.status(500).send({
         message: "No files found!",
       });
     }
+
+    cursor.forEach((doc) => {
+      console.log(doc.filename)
+    });
+
     let fileInfos = [];
     await cursor.forEach((doc) => {
       fileInfos.push({

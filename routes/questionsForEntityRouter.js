@@ -64,7 +64,6 @@ router.post("/", (req, res) => {
         });
       }
       if (info) {
-        console.log(info);
         res.json({
           status: true,
           respMesg: "Форма успешно отправлена, спасибо за вашу заявку!",

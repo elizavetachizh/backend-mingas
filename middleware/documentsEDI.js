@@ -16,20 +16,16 @@ var storage = new GridFsStorage({
     ];
     if (match.indexOf(file.mimetype) === -1) {
       const filename = `${file.originalname}`;
-      const url =
-        "https://back.mingas.by/admin/upload/files/" +
-        `${Date.now()}-${file.originalname}`;
+      const url = `https://back.mingas.by/admin/edi/files/${file.originalname}`;
       return { filename, url };
     }
     return {
-      bucketName: "photos",
-      filename: `${Date.now()}-${file.originalname}`,
+      bucketName: "documents",
+      filename: file.originalname,
       url:
-        "https://back.mingas.by/admin/upload/files/" +
-        `${Date.now()}-${file.originalname}`,
+        `https://back.mingas.by/admin/edi/files/${file.originalname}`,
     };
   },
-
 });
 
 var uploadFiles = multer({ storage }).single("file");

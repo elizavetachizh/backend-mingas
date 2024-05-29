@@ -1,4 +1,4 @@
-const upload = require("../middleware/upload");
+const upload = require("../middleware/documentsEDI");
 const { MongoClient, GridFSBucket, ObjectId } = require("mongodb");
 const keys = require("../keys");
 const mongoClient = new MongoClient(keys.MONGODB_URI);
@@ -12,6 +12,7 @@ const home = (req, res) => {
 const uploadFiles = async (req, res) => {
   try {
     await upload(req, res);
+    console.log(req);
     if (req.file.length <= 0) {
       return res
         .status(400)
@@ -39,24 +40,20 @@ const getListFiles = async (req, res) => {
   try {
     const database = mongoClient.db(keys.database);
     const images = database.collection(keys.documentsBucket + ".files");
-    const cursor = images.find({});
-    if ((await cursor.count()) === 0) {
-      return res.status(500).send({
-        message: "No files found!",
-      });
-    }
-    console.log(cursor);
+    const cursor = images.find().sort({ _id: -1 });
+
     let files = [];
     await cursor.forEach((doc) => {
       files.push({
         name: doc.filename,
-        url: "https://back.mingas.by/admin/edi/documents/" + doc.filename,
+        url: "https://back.mingas.by/admin/edi/files/" + doc.filename,
         id: doc._id,
       });
     });
     res.status(200).render("admin/admin_edi", {
       files,
     });
+
   } catch (error) {
     return res.status(500).send({
       message: error.message,
@@ -95,13 +92,13 @@ const deleteInfo = async (req, res) => {
   try {
     const database = mongoClient.db(keys.database);
     const bucket = new GridFSBucket(database, {
-      bucketName: keys.imgBucket,
+      bucketName: keys.documentsBucket,
     });
 
     bucket.delete(new ObjectId(req.params.id), function (err) {
       if (err) return console.log(err);
     });
-    res.redirect("/admin/upload/files");
+    res.redirect("/admin/edi");
   } catch (error) {
     return res.status(500).send({
       message: error.message,

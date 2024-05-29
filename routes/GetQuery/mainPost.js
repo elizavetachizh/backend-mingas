@@ -4,7 +4,6 @@ const router = express.Router();
 router.get("/", function (req, res) {
   mainPosts.find(function (err, posts) {
     res.send(posts);
-    // console.log(posts);
   });
 });
 router.get("/type", function (req, res) {

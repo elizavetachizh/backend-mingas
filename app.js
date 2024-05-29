@@ -66,6 +66,7 @@ const ogonekRouter = require("./routes/GetQuery/infoOgonek");
 const adminTVRouter = require("./routes/admin/admin_mingasTV");
 const TVRouter = require("./routes/GetQuery/TV");
 const adminDocumentsEDIRouter = require("./routes/admin/admin_edi");
+const documentsEDIRouter = require("./routes/GetQuery/documentsEDI");
 
 const cors = require("cors");
 var app = express();
@@ -224,8 +225,8 @@ app.use("/page", pageSlugRouter);
 app.use("/admin_page", adminPageRouter);
 app.use("/admin/upload", adminPhotosRouter);
 app.use("/admin/TV", TVRouter);
-app.use("admin/edi",adminDocumentsEDIRouter)
-
+app.use("/admin/edi", adminDocumentsEDIRouter);
+app.use("/admin/documents_edi", documentsEDIRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

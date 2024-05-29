@@ -45,7 +45,6 @@ router.post("/register", function (req, res) {
       if (user) {
         req.flash("danger", "Username exists, choose another!");
         res.redirect("/admin/users/register");
-        console.log(user);
       } else {
         var user = new User({
           name,
