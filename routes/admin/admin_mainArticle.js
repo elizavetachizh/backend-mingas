@@ -24,32 +24,34 @@ router.get("/add-article", isAdmin, function (req, res) {
   var button = "";
   var link = "";
   var image = "";
-    res.render("admin/add_article", {
-      content,
-      button,
-      link,
-      image,
-    });
+  res.render("admin/add_article", {
+    content,
+    button,
+    link,
+    image,
+  });
 });
 
-router.post("/add-article",  (req, res) => {
-   // req.checkBody("content", "Описание должно быть заполненым").notEmpty();
+router.post("/add-article", (req, res) => {
+  // req.checkBody("content", "Описание должно быть заполненым").notEmpty();
   // req.checkBody("image", "Картинка должна быть загружена").notEmpty();
   var content = req.body.content;
   var button = req.body.button;
   var link = req.body.link;
-  var image = req.body.image ? req.body.image : 'phone.webp' ;
+  var image = req.body.image
+    ? req.body.image
+    : "https://back.mingas.by/public/images/background_new.webp";
 
   var errors = req.validationErrors();
   try {
-     mainArticle.findOne({ content }, function (err, article) {
+    mainArticle.findOne({ content }, function (err, article) {
       if (article) {
-          res.render("admin/add_article", {
-            content,
-            button,
-            link,
-            image,
-          });
+        res.render("admin/add_article", {
+          content,
+          button,
+          link,
+          image,
+        });
       } else {
         var newArticle = new mainArticle({
           content,
@@ -63,18 +65,18 @@ router.post("/add-article",  (req, res) => {
           }
 
           req.flash("success", "Пост добавлен");
-           res.redirect("/admin/admin_article");
+          res.redirect("/admin/admin_article");
         });
       }
     });
   } catch (error) {
     console.log(errors);
-      res.render("admin/add_article", {
-        errors,
-        content,
-        button,
-        link,
-      });
+    res.render("admin/add_article", {
+      errors,
+      content,
+      button,
+      link,
+    });
   }
 });
 
@@ -86,21 +88,21 @@ router.get("/edit-article/:id", isAdmin, function (req, res) {
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
 
-    mainArticle.findById(req.params.id, function (err, article) {
-      if (err) {
-        console.log(err);
-        res.render("admin/admin_article");
-      } else {
-        res.render("admin/edit_article", {
-          errors,
-          content: article.content,
-          image: article.image,
-          button: article.button,
-          link: article.link,
-          id: article._id,
-        });
-      }
-    });
+  mainArticle.findById(req.params.id, function (err, article) {
+    if (err) {
+      console.log(err);
+      res.render("admin/admin_article");
+    } else {
+      res.render("admin/edit_article", {
+        errors,
+        content: article.content,
+        image: article.image,
+        button: article.button,
+        link: article.link,
+        id: article._id,
+      });
+    }
+  });
 });
 
 /*
@@ -108,8 +110,7 @@ router.get("/edit-article/:id", isAdmin, function (req, res) {
  */
 router.post("/edit-article/:id", function (req, res) {
   var content = req.body.content;
-  var image =
-      req.body.image
+  var image = req.body.image;
   var id = req.params.id;
   var button = req.body.button;
   var link = req.body.link;
