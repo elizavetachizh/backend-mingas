@@ -23,8 +23,7 @@ router.post("/", (req, res) => {
   var maillist = ["kc@mingas.by", "chizhem@mingas.by"];
   const mailOptionsRepair = {
     from: req.body.email, // sender address
-     //to: "elizavetka.chizh@gmail.com", //for me
-      to: maillist, // for site
+    to: maillist, // for site
     subject: "Заявка на Техническое обслуживание", // Subject line
     text: req.body.name,
     html: `

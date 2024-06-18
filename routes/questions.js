@@ -23,7 +23,6 @@ router.post("/", (req, res) => {
   });
   var maillist = [
     "kc@mingas.by",
-    // "ssta@mingas.by",
     "root@mingas.by",
     "chizhem@mingas.by",
   ];

@@ -12,17 +12,18 @@ var passport = require("passport");
 const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 //Routers
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var questionsRouter = require("./routes/questions");
-var questionsForEntityRouter = require("./routes/questionsForEntityRouter");
-var cylindersRouter = require("./routes/cylindersRouter");
-var feedbackRouter = require("./routes/feedbackRouter");
-var telemetriaRouter = require("./routes/telemetriaRouter");
-var repairRouter = require("./routes/repairRouter");
-var maintenanceRouter = require("./routes/maintenanceRouter");
-var verificationRouter = require("./routes/verificationRouter");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
+const questionsRouter = require("./routes/questions");
+const questionsForEntityRouter = require("./routes/questionsForEntityRouter");
+const cylindersRouter = require("./routes/cylindersRouter");
+const feedbackRouter = require("./routes/feedbackRouter");
+const telemetriaRouter = require("./routes/telemetriaRouter");
+const repairRouter = require("./routes/repairRouter");
+const maintenanceRouter = require("./routes/maintenanceRouter");
+const verificationRouter = require("./routes/verificationRouter");
 const adminRouter = require("./routes/GetQuery");
+const newFeedback = require("./routes/newFormFeedBack")
 
 //RoutersAdmin
 const postsAdminRouter = require("./routes/admin/admin_posts");
@@ -183,6 +184,7 @@ app.use("/repair", repairRouter);
 app.use("/maintenance", maintenanceRouter);
 app.use("/verification", verificationRouter);
 app.use("/admin", adminRouter);
+app.use("/submit-survey", newFeedback);
 
 //admin
 app.use("/admin/users", adminUsersRouter);

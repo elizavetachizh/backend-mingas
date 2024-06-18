@@ -21,17 +21,12 @@ router.post("/", (req, res) => {
       rejectUnauthorized: false,
     },
   });
-  const file = req.body.file;
+  const file = req.body.information;
   res.send(req.body);
-  var maillist = [
-    // "kc@mingas.by",
-    // "ssta@mingas.by",
-    "chizhem@mingas.by",
-  ];
+  var maillist = ["kc@mingas.by", "ssta@mingas.by", "chizhem@mingas.by"];
   const mailOptions = {
     from: req.body.email, // sender address
     to: maillist, //for site
-    //to: "elizavetka.chizh@gmail.com", // for me
     subject: "Предоставление показаний счётчика газа", // Subject line
     text: req.body.name,
     html: `
@@ -45,23 +40,30 @@ router.post("/", (req, res) => {
             <li>Контактный телефон: ${req.body.phone}</li>
             <li>Адрес: ${req.body.address}</li>
             <li>Лицевой счёт: ${req.body.text}</li>
+             <li>Показания: ${req.body.reading}</li>
             <img src="cid:uniq-name" alt="image"/>
         </ul>
         `,
     attachments: [
       {
         href: `${file}`,
-        cid: "uniq-name", //same cid value as in the html img src
+        encoding: "base64",
       },
     ],
   };
   transporter.use("compile", inlineBase64({ cidPrefix: "somePrefix_" }));
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      res.json({ status: false, respMesg: "Завяка не отправлена, попробуйте еще раз!" });
+      res.json({
+        status: false,
+        respMesg: "Завяка не отправлена, попробуйте еще раз!",
+      });
     }
     if (info) {
-      res.json({ status: true, respMesg: "Форма успешно отправлена, спасибо за вашу заявку!" });
+      res.json({
+        status: true,
+        respMesg: "Форма успешно отправлена, спасибо за вашу заявку!",
+      });
     }
   });
 });
