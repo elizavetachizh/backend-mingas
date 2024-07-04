@@ -102,7 +102,6 @@ router.get("/edit-post/:id", isAdmin, function (req, res) {
   var errors;
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
-
   Posts.findById(req.params.id, function (err, post) {
     if (err) {
       console.log(err);

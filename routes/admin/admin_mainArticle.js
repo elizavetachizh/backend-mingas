@@ -40,7 +40,7 @@ router.post("/add-article", (req, res) => {
   var link = req.body.link;
   var image = req.body.image
     ? req.body.image
-    : "https://back.mingas.by/public/images/background_new.webp";
+    : "https://back.mingas.by/admin/upload/files/1718283945809-phone.webp";
 
   var errors = req.validationErrors();
   try {

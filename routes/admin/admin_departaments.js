@@ -19,8 +19,6 @@ router.get("/", isAdmin, function (req, res) {
       });
     });
   });
-  // console.log("getDEp", departament);
-  // res.send(management)
 });
 
 /*
@@ -135,6 +133,7 @@ router.get("/edit-departament/:id", isAdmin, function (req, res) {
           contacts: departament.contacts,
           management: fullName?.fullName,
           nameMen: management,
+          nameMenChecked: departament.nameMen
         });
       }
     });

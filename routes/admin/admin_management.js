@@ -104,7 +104,7 @@ router.get("/edit-men/:id", isAdmin, function (req, res) {
   var errors;
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
-  Departament.find(function (err, departamnets) {
+  Departament.find(function (err, departments) {
     Management.findById(req.params.id, function (err, men) {
       if (err) {
         console.log(err);
@@ -114,7 +114,7 @@ router.get("/edit-men/:id", isAdmin, function (req, res) {
           errors,
           fullName: men.fullName,
           position: men.position,
-          departments: departamnets,
+          departments: departments,
           department: men.department,
           image: men.image,
           id: men._id,
