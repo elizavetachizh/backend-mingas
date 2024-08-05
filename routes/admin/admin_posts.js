@@ -58,39 +58,23 @@ router.post("/add-post", (req, res) => {
     : "https://back.mingas.by/public/images/background_new.webp";
   var date = req.body.date;
   var errors = req.validationErrors();
-  console.log(req.body);
   if (errors) {
     res.render("admin/add_posts", {
       errors,
+    });
+  } else {
+    var newPost = new Posts({
       link,
       content,
       image,
       date,
     });
-  } else {
-    Posts.findOne({ link }, function (err, post) {
-      if (post) {
-        res.render("admin/add_posts", {
-          link,
-          content,
-          image,
-          date,
-        });
-      } else {
-        var newPost = new Posts({
-          link,
-          content,
-          image,
-          date,
-        });
-        newPost.save(function (err) {
-          if (err) {
-            return console.log(err);
-          }
-          req.flash("success", "Пост добавлен");
-          res.redirect("/admin/admin_posts");
-        });
+    newPost.save(function (err) {
+      if (err) {
+        return console.log(err);
       }
+      req.flash("success", "Пост добавлен");
+      res.redirect("/admin/admin_posts");
     });
   }
 });
@@ -138,29 +122,20 @@ router.post("/edit-post/:id", function (req, res) {
     req.session.errors = errors;
     res.redirect("/admin/admin_posts/edit-post/" + id);
   } else {
-    Posts.findOne({ link, content, image, date }, function (err, post) {
-      if (err) {
-        console.log(err);
-      }
-      if (post) {
-        res.redirect("/admin/admin_posts");
-      } else {
-        Posts.findById(id, function (err, post) {
-          if (err) return console.log(err);
+    Posts.findById(id, function (err, post) {
+      if (err) return console.log(err);
 
-          post.link = link;
-          post.content = content;
-          post.image = image;
-          post.date = date;
-          post.save(function (err) {
-            if (err) return console.log(err);
+      post.link = link;
+      post.content = content;
+      post.image = image;
+      post.date = date;
+      post.save(function (err) {
+        if (err) return console.log(err);
 
-            req.flash("success", "пост отредактирован!");
-            alert("Пост отредактирован");
-            res.redirect("/admin/admin_posts/");
-          });
-        });
-      }
+        req.flash("success", "пост отредактирован!");
+        alert("Пост отредактирован");
+        res.redirect("/admin/admin_posts/");
+      });
     });
   }
 });

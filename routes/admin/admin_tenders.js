@@ -35,29 +35,19 @@ router.post("/add-tender", (req, res) => {
   var errors = req.validationErrors();
 
   if (errors) {
-    console.log(errors);
     res.render("admin/add_tenders", {
       errors,
-      content,
     });
   } else {
-    Tenders.findOne({ content }, function (err, tender) {
-      if (tender) {
-        res.render("admin/add_tenders", {
-          content,
-        });
-      } else {
-        var newTender = new Tenders({
-          content,
-        });
-        newTender.save(function (err) {
-          if (err) {
-            return console.log(err);
-          }
-          req.flash("success", "Пост добавлен");
-          res.redirect("/admin/admin_tenders");
-        });
+    const newTender = new Tenders({
+      content,
+    });
+    newTender.save(function (err) {
+      if (err) {
+        return console.log(err);
       }
+      req.flash("success", "Пост добавлен");
+      res.redirect("/admin/admin_tenders");
     });
   }
 });
@@ -99,28 +89,17 @@ router.post("/edit-tender/:id", function (req, res) {
     req.session.errors = errors;
     res.redirect("/admin_tenders/edit-tender/" + id);
   } else {
-    Tenders.findOne({ content }, function (err, tender) {
-      if (err) {
-        console.log(err);
-      }
-      if (tender) {
-        // console.log("tender", tender);
-        res.redirect("/admin/admin_tenders");
-      } else {
-        Tenders.findById(id, function (err, tender) {
-          if (err) return console.log(err);
-          tender.content = content;
+    Tenders.findById(id, function (err, tender) {
+      if (err) return console.log(err);
+      tender.content = content;
 
-          tender.save(function (err) {
-            if (err) return console.log(err);
+      tender.save(function (err) {
+        if (err) return console.log(err);
 
-            req.flash("success", "пост отредактирован!");
-            alert("Пост отредактирован");
-            res.redirect("/admin/admin_tenders/edit-tender/" + id);
-          });
-          // console.log(tender);
-        });
-      }
+        req.flash("success", "пост отредактирован!");
+        alert("Пост отредактирован");
+        res.redirect("/admin/admin_tenders/edit-tender/" + id);
+      });
     });
   }
 });

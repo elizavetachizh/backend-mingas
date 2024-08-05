@@ -36,7 +36,6 @@ router.post("/add-info", (req, res) => {
   var title = req.body.title;
   var typeBranch = req.body.typeBranch;
   var errors = req.validationErrors();
-  console.log(typeBranch);
   if (errors) {
     console.log(errors);
     res.render("admin/add_info_ogonek", {

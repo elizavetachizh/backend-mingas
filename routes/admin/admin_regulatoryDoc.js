@@ -44,43 +44,24 @@ router.post("/add-documents", (req, res) => {
   var errors = req.validationErrors();
 
   if (errors) {
-    console.log(errors);
     res.render("admin/add_documents", {
       errors,
-      link,
-      type,
-      separation,
-      name,
     });
   } else {
-    RegulatoryDocSchema.findOne(
-      { name, link, type, separation },
-      function (err, document) {
-        if (document) {
-          res.render("admin/add_documents", {
-            link,
-            name,
-            type,
-            separation,
-          });
-        } else {
-          var newDocument = new RegulatoryDocSchema({
-            link,
-            name,
-            type,
-            separation,
-          });
-          newDocument.save(function (err) {
-            if (err) {
-              return console.log(err);
-            }
-
-            req.flash("success", "document добавлен");
-            res.redirect("/admin/admin_documents");
-          });
-        }
+    const newDocument = new RegulatoryDocSchema({
+      link,
+      name,
+      type,
+      separation,
+    });
+    newDocument.save(function (err) {
+      if (err) {
+        return console.log(err);
       }
-    );
+
+      req.flash("success", "document добавлен");
+      res.redirect("/admin/admin_documents");
+    });
   }
 });
 
@@ -127,33 +108,21 @@ router.post("/edit-documents/:id", function (req, res) {
     req.session.errors = errors;
     res.redirect("/admin/admin_documents/edit-documents/" + id);
   } else {
-    RegulatoryDocSchema.findOne(
-      { link, name, separation },
-      function (err, document) {
-        if (err) {
-          console.log(err);
-        }
-        if (document) {
-          res.redirect("/admin/admin_documents");
-        } else {
-          RegulatoryDocSchema.findById(id, function (err, document) {
-            if (err) return console.log(err);
+    RegulatoryDocSchema.findById(id, function (err, document) {
+      if (err) return console.log(err);
 
-            document.link = link;
-            document.name = name;
-            document.separation = separation;
-            document.type = type;
-            document.save(function (err) {
-              if (err) return console.log(err);
+      document.link = link;
+      document.name = name;
+      document.separation = separation;
+      document.type = type;
+      document.save(function (err) {
+        if (err) return console.log(err);
 
-              req.flash("success", "пост отредактирован!");
-              alert("Пост отредактирован");
-              res.redirect("/admin/admin_documents/edit-documents/" + id);
-            });
-          });
-        }
-      }
-    );
+        req.flash("success", "пост отредактирован!");
+        alert("Пост отредактирован");
+        res.redirect("/admin/admin_documents/edit-documents/" + id);
+      });
+    });
   }
 });
 

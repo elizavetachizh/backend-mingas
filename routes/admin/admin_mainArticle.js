@@ -44,38 +44,23 @@ router.post("/add-article", (req, res) => {
 
   var errors = req.validationErrors();
   try {
-    mainArticle.findOne({ content }, function (err, article) {
-      if (article) {
-        res.render("admin/add_article", {
-          content,
-          button,
-          link,
-          image,
-        });
-      } else {
-        var newArticle = new mainArticle({
-          content,
-          button,
-          link,
-          image,
-        });
-        newArticle.save(function (err) {
-          if (err) {
-            return console.log(err);
-          }
-
-          req.flash("success", "Пост добавлен");
-          res.redirect("/admin/admin_article");
-        });
-      }
-    });
-  } catch (error) {
-    console.log(errors);
-    res.render("admin/add_article", {
-      errors,
+    var newArticle = new mainArticle({
       content,
       button,
       link,
+      image,
+    });
+    newArticle.save(function (err) {
+      if (err) {
+        return console.log(err);
+      }
+
+      req.flash("success", "Пост добавлен");
+      res.redirect("/admin/admin_article");
+    });
+  } catch (error) {
+    res.render("admin/add_article", {
+      errors,
     });
   }
 });
@@ -116,37 +101,24 @@ router.post("/edit-article/:id", function (req, res) {
   var link = req.body.link;
   var errors = req.validationErrors();
   if (errors) {
-    console.log(errors);
     req.session.errors = errors;
     res.redirect("/admin/admin_article/edit-article/" + id);
   } else {
-    mainArticle.findOne(
-      { content, link, image, button },
-      function (err, article) {
-        if (err) {
-          console.log(err);
-        }
-        if (article) {
-          res.redirect("/admin/admin_article");
-        } else {
-          mainArticle.findById(id, function (err, article) {
-            if (err) return console.log(err);
+    mainArticle.findById(id, function (err, article) {
+      if (err) return console.log(err);
 
-            article.content = content;
-            article.image = image;
-            article.button = button;
-            article.link = link;
-            article.save(function (err) {
-              if (err) return console.log(err);
+      article.content = content;
+      article.image = image;
+      article.button = button;
+      article.link = link;
+      article.save(function (err) {
+        if (err) return console.log(err);
 
-              req.flash("success", "пост отредактирован!");
-              alert("Пост отредактирован");
-              res.redirect("/admin/admin_article");
-            });
-          });
-        }
-      }
-    );
+        req.flash("success", "пост отредактирован!");
+        alert("Пост отредактирован");
+        res.redirect("/admin/admin_article");
+      });
+    });
   }
 });
 

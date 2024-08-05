@@ -36,9 +36,7 @@ router.post("/add-element", (req, res) => {
   if (errors) {
     console.log(errors);
     res.render("admin/add_corruption", {
-      errors: errors,
-      link,
-      name,
+      errors,
     });
   } else {
     Corruption.findOne({ name: name, link: link }, function (err, element) {

@@ -13,7 +13,6 @@ router.get("/", isAdmin, function (req, res) {
     if (err) {
       console.log(err);
     }
-    // res.send(services)
     res.render("admin/admin_table", {
       tableInfo,
       count,
@@ -25,8 +24,7 @@ router.get("/", isAdmin, function (req, res) {
  * GET add product
  */
 router.get("/add-table", isAdmin, function (req, res) {
-  var name = "";
-
+  const name = "";
   res.render("admin/add_table", {
     name,
   });
@@ -36,33 +34,23 @@ router.get("/add-table", isAdmin, function (req, res) {
  * GET add product
  */
 router.post("/add-table", function (req, res) {
-  var name = req.body.name;
+  const name = req.body.name;
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
   if (errors) {
-    console.log(errors);
     res.render("admin/add_table", {
       errors,
-      name,
     });
   } else {
-    Table.findOne({ name }, function (err, table) {
-      if (table) {
-        res.render("admin/add_table", {
-          name,
-        });
-      } else {
-        var newTable = new Table({
-          name,
-        });
-        newTable.save(function (err) {
-          if (err) {
-            return console.log(err);
-          }
-          req.flash("success", "Пост добавлен");
-          res.redirect("/admin/admin_table/");
-        });
+    var newTable = new Table({
+      name,
+    });
+    newTable.save(function (err) {
+      if (err) {
+        return console.log(err);
       }
+      req.flash("success", "Пост добавлен");
+      res.redirect("/admin/admin_table/");
     });
   }
 });
@@ -99,31 +87,19 @@ router.post("/edit-table/:id", function (req, res) {
   var errors = req.validationErrors();
   if (errors) {
     req.session.errors = errors;
-    console.log(errors)
     res.redirect("/admin/admin_table/edit-table/" + id);
   } else {
-    Table.findOne({ name }, function (err, table) {
-      if (err) {
-        console.log(err);
-      }
-      if (table) {
-        // console.log("tender", tender);
-        res.redirect("/admin/admin_table");
-      } else {
-        Table.findById(id, function (err, table) {
-          if (err) return console.log(err);
-          table.name = name;
+    Table.findById(id, function (err, table) {
+      if (err) return console.log(err);
+      table.name = name;
 
-          table.save(function (err) {
-            if (err) return console.log(err);
+      table.save(function (err) {
+        if (err) return console.log(err);
 
-            req.flash("success", "пост отредактирован!");
-            alert("Пост отредактирован");
-            res.redirect("/admin/admin_table/edit-table/" + id);
-          });
-          // console.log(tender);
-        });
-      }
+        req.flash("success", "пост отредактирован!");
+        alert("Пост отредактирован");
+        res.redirect("/admin/admin_table/edit-table/" + id);
+      });
     });
   }
 });

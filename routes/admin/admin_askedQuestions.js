@@ -41,33 +41,19 @@ router.post("/add-questions", (req, res) => {
     console.log(errors);
     res.render("admin/add_questions", {
       errors,
+    });
+  } else {
+    var newQuestions = new AskedQuestions({
       question,
       answer,
     });
-  } else {
-    AskedQuestions.findOne(
-      { question, answer },
-      function (err, questions) {
-        if (questions) {
-          res.render("admin/add_questions", {
-            question,
-            answer,
-          });
-        } else {
-          var newQuestions = new AskedQuestions({
-            question,
-            answer,
-          });
-          newQuestions.save(function (err) {
-            if (err) {
-              return console.log(err);
-            }
-            req.flash("success", "questions добавлен");
-            res.redirect("/admin/admin_questions");
-          });
-        }
+    newQuestions.save(function (err) {
+      if (err) {
+        return console.log(err);
       }
-    );
+      req.flash("success", "questions добавлен");
+      res.redirect("/admin/admin_questions");
+    });
   }
 });
 
@@ -111,30 +97,18 @@ router.post("/edit-questions/:id", function (req, res) {
     req.session.errors = errors;
     res.redirect("/admin/admin_questions/edit-questions/" + id);
   } else {
-    AskedQuestions.findOne(
-      { question, answer },
-      function (err, questions) {
-        if (err) {
-          console.log(err);
-        }
-        if (questions) {
-          res.redirect("/admin/admin_questions");
-        } else {
-          AskedQuestions.findById(id, function (err, questions) {
-            if (err) return console.log(err);
-            questions.question = question;
-            questions.answer = answer;
-            questions.save(function (err) {
-              if (err) return console.log(err);
+    AskedQuestions.findById(id, function (err, questions) {
+      if (err) return console.log(err);
+      questions.question = question;
+      questions.answer = answer;
+      questions.save(function (err) {
+        if (err) return console.log(err);
 
-              req.flash("success", "пост отредактирован!");
-              alert("questions отредактирован");
-              res.redirect("/admin/admin_questions");
-            });
-          });
-        }
-      }
-    );
+        req.flash("success", "пост отредактирован!");
+        alert("questions отредактирован");
+        res.redirect("/admin/admin_questions");
+      });
+    });
   }
 });
 

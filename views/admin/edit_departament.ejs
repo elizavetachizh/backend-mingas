@@ -41,7 +41,7 @@
         <label for="nameMen">Выбрать руководителя</label>
         <ul class="list-without-dots">
             <% nameMen.map(function(men){ %>
-                <li>  <input type="radio" id="nameMen" name="nameMen" checked="<%= nameMenChecked %>" value="<%= men._id %>"><%= men.fullName %></input></li>
+                <li>  <input type="radio" id="nameMen" name="nameMen" value="<%= men._id %>"><%= men.fullName %></input></li>
             <% }); %>
         </ul>
     </div>

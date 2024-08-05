@@ -38,32 +38,20 @@ router.post("/add-info", (req, res) => {
   var errors = req.validationErrors();
 
   if (errors) {
-    console.log(errors);
     res.render("admin/add_TV", {
       errors,
+    });
+  } else {
+    var newEntry = new MingasTV({
       name,
       link,
     });
-  } else {
-    MingasTV.findOne({ name, link }, function (err, questions) {
-      if (questions) {
-        res.render("admin/add_questions", {
-          name,
-          link,
-        });
-      } else {
-        var newEntry = new MingasTV({
-          name,
-          link,
-        });
-        newEntry.save(function (err) {
-          if (err) {
-            return console.log(err);
-          }
-          req.flash("success", "запись добавлена");
-          res.redirect("/admin/admin_TV");
-        });
+    newEntry.save(function (err) {
+      if (err) {
+        return console.log(err);
       }
+      req.flash("success", "запись добавлена");
+      res.redirect("/admin/admin_TV");
     });
   }
 });
@@ -108,26 +96,17 @@ router.post("/edit-info/:id", function (req, res) {
     req.session.errors = errors;
     res.redirect("/admin/admin_TV/edit-info/" + id);
   } else {
-    MingasTV.findOne({ name, link }, function (err, info) {
-      if (err) {
-        console.log(err);
-      }
-      if (info) {
-        res.redirect("/admin/admin_TV");
-      } else {
-        MingasTV.findById(id, function (err, info) {
-          if (err) return console.log(err);
-          info.name = name;
-          info.link = link;
-          info.save(function (err) {
-            if (err) return console.log(err);
+    MingasTV.findById(id, function (err, info) {
+      if (err) return console.log(err);
+      info.name = name;
+      info.link = link;
+      info.save(function (err) {
+        if (err) return console.log(err);
 
-            req.flash("success", "пост отредактирован!");
-            alert("пост отредактирован!");
-            res.redirect("/admin/admin_TV");
-          });
-        });
-      }
+        req.flash("success", "пост отредактирован!");
+        alert("пост отредактирован!");
+        res.redirect("/admin/admin_TV");
+      });
     });
   }
 });

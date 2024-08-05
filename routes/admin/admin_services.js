@@ -6,10 +6,6 @@ const alert = require("alert");
 const Description = require("../../models/descriptionServices");
 
 router.get("/", isAdmin, function (req, res) {
-  var count;
-  Services.count(function (err, c) {
-    count = c;
-  });
   Services.find({})
     .populate("description")
 
@@ -18,7 +14,7 @@ router.get("/", isAdmin, function (req, res) {
         console.log(err);
       }
       res.render("admin/admin_services", {
-        services: services,
+        services,
       });
     });
 });
@@ -50,42 +46,23 @@ router.post("/add-services", function (req, res) {
   var errors = req.validationErrors();
   const type = req.body.type;
   if (errors) {
-    console.log(errors);
     res.render("admin/add_services", {
       errors,
-      description,
-      name,
-      image,
-      type,
     });
   } else {
-    Services.findOne({ name })
-      .populate("description")
-      .exec(function (err, services) {
-        if (services) {
-          res.render("admin/add_services", {
-            name,
-            description,
-            type,
-            image,
-          });
-        } else {
-          var newServices = new Services({
-            name,
-            image,
-            description,
-            type,
-          });
-          newServices.save(function (err) {
-            if (err) {
-              return console.log(err);
-            }
-
-            req.flash("success", "услуга добавлена");
-            res.redirect("/admin/admin_services");
-          });
-        }
-      });
+    var newServices = new Services({
+      name,
+      image,
+      description,
+      type,
+    });
+    newServices.save(function (err) {
+      if (err) {
+        return console.log(err);
+      }
+      req.flash("success", "услуга добавлена");
+      res.redirect("/admin/admin_services");
+    });
   }
 });
 
@@ -135,31 +112,21 @@ router.post("/edit-services/:id", function (req, res) {
   if (errors) {
     req.session.errors = errors;
     res.redirect("/admin/admin_services/edit-services/" + id);
-    console.log(errors);
   } else {
-    Services.findOne({ name, _id: { $ne: id } }, function (err, service) {
-      if (err) {
-        console.log(err);
-      }
-      if (service) {
+    Services.findById(id, function (err, service) {
+      if (err) return console.log(err);
+
+      service.name = name;
+      service.description = description;
+      service.type = type;
+      service.image = image;
+
+      service.save(function (err) {
+        if (err) return console.log(err);
+        req.flash("success", "пост отредактирован!");
+        alert("Пост отредактирован");
         res.redirect("/admin/admin_services");
-      } else {
-        Services.findById(id, function (err, service) {
-          if (err) return console.log(err);
-
-          service.name = name;
-          service.description = description;
-          service.type = type;
-          service.image = image;
-
-          service.save(function (err) {
-            if (err) return console.log(err);
-            req.flash("success", "пост отредактирован!");
-            alert("Пост отредактирован");
-            res.redirect("/admin/admin_services");
-          });
-        });
-      }
+      });
     });
   }
 });

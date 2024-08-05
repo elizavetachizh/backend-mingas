@@ -18,7 +18,7 @@
                                   <label for="department">department</label>
 <ul class="list-without-dots">
                                       <% department.map(function(dep){ %>
-                                        <li>  <input type="checkbox" name="department" id="department" value="<%= dep.name %>"/></li>
+                                        <li>  <input type="checkbox" name="department" id="department" value="<%= dep.name %>"/><%= dep.name %></li>
                                       <% }); %>
 </ul>
                               </div>

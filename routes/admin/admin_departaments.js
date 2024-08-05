@@ -54,57 +54,25 @@ router.post("/add-departament", (req, res) => {
   var errors = req.validationErrors();
 
   if (errors) {
-    console.log(errors);
-      res.render("admin/add_departament", {
-        errors,
-        name,
-        chief,
-        description,
-        schedule,
-        contacts,
-        nameMen,
-      });
+    res.render("admin/add_departament", {
+      errors,
+    });
   } else {
-    Departament.findOne(
-      {
-        name,
-        chief,
-        description,
-        schedule,
-        contacts,
-        nameMen,
-      },
-      function (err, departament) {
-        if (departament) {
-          Management.find(function (err, management) {
-            res.render("admin/add_departament", {
-              name,
-              chief,
-              description,
-              schedule,
-              contacts,
-              nameMen: management,
-            });
-          });
-        } else {
-          var newDepartment = new Departament({
-            name,
-            chief,
-            description,
-            schedule,
-            contacts,
-            nameMen,
-          });
-          newDepartment.save(function (err) {
-            if (err) {
-              return console.log(err);
-            }
-            req.flash("success", "departament добавлен");
-            res.redirect("/admin/admin_departament");
-          });
-        }
+    var newDepartment = new Departament({
+      name,
+      chief,
+      description,
+      schedule,
+      contacts,
+      nameMen,
+    });
+    newDepartment.save(function (err) {
+      if (err) {
+        return console.log(err);
       }
-    );
+      req.flash("success", "departament добавлен");
+      res.redirect("/admin/admin_departament");
+    });
   }
 });
 
@@ -118,7 +86,6 @@ router.get("/edit-departament/:id", isAdmin, function (req, res) {
   Management.find(function (err, management) {
     Departament.findById(req.params.id, function (err, departament) {
       const fullName = management?.find((el) => el.id === departament?.nameMen);
-      console.log(departament);
       if (err) {
         console.log(err);
         res.render("admin/admin_departament");
@@ -133,7 +100,7 @@ router.get("/edit-departament/:id", isAdmin, function (req, res) {
           contacts: departament.contacts,
           management: fullName?.fullName,
           nameMen: management,
-          nameMenChecked: departament.nameMen
+          nameMenChecked: departament.nameMen,
         });
       }
     });
@@ -144,56 +111,30 @@ router.get("/edit-departament/:id", isAdmin, function (req, res) {
  * POST edit product
  */
 router.post("/edit-departament/:id", function (req, res) {
-  var name = req.body.name;
-  var id = req.params.id;
-  var chief = req.body.chief;
-  var description = req.body.description;
-  var schedule = req.body.schedule;
-  var contacts = req.body.contacts;
-  var nameMen = req.body.nameMen;
-  var errors = req.validationErrors();
-
+  const errors = req.validationErrors();
+  const { name, id, chief, description, schedule, contacts, nameMen } =
+    req.body;
   if (errors) {
     req.session.errors = errors;
     res.redirect("/admin/admin_departament/edit-departament/" + id);
   } else {
-    Departament.findOne(
-      {
-        name,
-        chief,
-        description,
-        schedule,
-        contacts,
-        nameMen,
-        _id: { $ne: id },
-      },
-      function (err, departament) {
-        if (err) {
-          console.log(err);
-        }
-        if (departament) {
-          res.redirect("/admin/admin_departament/edit-departament/" + id);
-        } else {
-          Departament.findById(id, function (err, departament) {
-            if (err) return console.log(err);
+    Departament.findById(id, function (err, departament) {
+      if (err) return console.log(err);
 
-            departament.name = name;
-            departament.chief = chief;
-            departament.description = description;
-            departament.schedule = schedule;
-            departament.contacts = contacts;
-            departament.nameMen = nameMen;
-            departament.save(function (err) {
-              if (err) return console.log(err);
+      departament.name = name;
+      departament.chief = chief;
+      departament.description = description;
+      departament.schedule = schedule;
+      departament.contacts = contacts;
+      departament.nameMen = nameMen;
+      departament.save(function (err) {
+        if (err) return console.log(err);
 
-              req.flash("success", "продукция отредактировна!");
-              alert("Пост отредактирован");
-              res.redirect("/admin/admin_departament/");
-            });
-          });
-        }
-      }
-    );
+        req.flash("success", "продукция отредактировна!");
+        alert("Пост отредактирован");
+        res.redirect("/admin/admin_departament/");
+      });
+    });
   }
 });
 

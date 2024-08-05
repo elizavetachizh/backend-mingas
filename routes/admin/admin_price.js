@@ -32,32 +32,20 @@ router.post("/add-prices", (req, res) => {
   var description = req.body.description;
   var errors = req.validationErrors();
   if (errors) {
-    console.log("errors1", errors);
     res.render("admin/add_prices", {
       errors,
+    });
+  } else {
+    var newPrices = new Prices({
       name,
       description,
     });
-  } else {
-    Prices.findOne({ name, description }, function (err, prices) {
-      if (prices) {
-        res.render("admin/add_prices", {
-          name,
-          description,
-        });
-      } else {
-        var newPrices = new Prices({
-          name,
-          description,
-        });
-        newPrices.save(function (err) {
-          if (err) {
-            return console.log(`err`, err);
-          }
-          req.flash("success", "Пост добавлен");
-          res.redirect("/admin/admin_prices");
-        });
+    newPrices.save(function (err) {
+      if (err) {
+        return console.log(`err`, err);
       }
+      req.flash("success", "Пост добавлен");
+      res.redirect("/admin/admin_prices");
     });
   }
 });
@@ -100,28 +88,19 @@ router.post("/edit-prices/:id", function (req, res) {
     req.session.errors = errors;
     res.redirect("/admin/admin_prices/edit-prices/" + id);
   } else {
-    Prices.findOne({ name }, function (err, prices) {
-      if (err) {
-        console.log(err);
-      }
-      if (prices) {
+    Prices.findById(id, function (err, prices) {
+      if (err) return console.log(err);
+
+      prices.name = name;
+      prices.description = description;
+
+      prices.save(function (err) {
+        if (err) return console.log(err);
+
+        req.flash("success", "prices отредактирован!");
+        alert("prices отредактирован");
         res.redirect("/admin/admin_prices");
-      } else {
-        Prices.findById(id, function (err, prices) {
-          if (err) return console.log(err);
-
-          prices.name = name;
-          prices.description = description;
-
-          prices.save(function (err) {
-            if (err) return console.log(err);
-
-            req.flash("success", "prices отредактирован!");
-            alert("prices отредактирован");
-            res.redirect("/admin/admin_prices");
-          });
-        });
-      }
+      });
     });
   }
 });

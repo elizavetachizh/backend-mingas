@@ -55,35 +55,21 @@ router.post("/add-mainpost", (req, res) => {
 
   var errors = req.validationErrors();
   if (errors) {
-    console.log(errors);
     res.render("/admin/add_mainpost", {
       errors,
+    });
+  } else {
+    var newPosts = new mainPosts({
       name,
       type,
       description,
     });
-  } else {
-    mainPosts.findOne({ name, type, description }, function (err, posts) {
-      if (posts) {
-        res.render("/admin/add_mainpost", {
-          name,
-          type,
-          description,
-        });
-      } else {
-        var newPosts = new mainPosts({
-          name,
-          type,
-          description,
-        });
-        newPosts.save(function (err) {
-          if (err) {
-            return console.log(err);
-          }
-          req.flash("success", "Пост добавлен");
-          res.redirect("/admin/admin_mainpost");
-        });
+    newPosts.save(function (err) {
+      if (err) {
+        return console.log(err);
       }
+      req.flash("success", "Пост добавлен");
+      res.redirect("/admin/admin_mainpost");
     });
   }
 });
@@ -129,27 +115,18 @@ router.post("/edit-mainpost/:id", function (req, res) {
     req.session.errors = errors;
     res.redirect("/admin/admin_mainpost/edit-mainpost/" + id);
   } else {
-    mainPosts.findOne({ name, type, description }, function (err, posts) {
-      if (err) {
-        console.log(err);
-      }
-      if (posts) {
-        res.redirect("/admin/admin_mainpost");
-      } else {
-        mainPosts.findById(id, function (err, posts) {
-          if (err) return console.log(err);
-          posts.name = name;
-          posts.description = description;
-          posts.type = type;
-          posts.save(function (err) {
-            if (err) return console.log(err);
+    mainPosts.findById(id, function (err, posts) {
+      if (err) return console.log(err);
+      posts.name = name;
+      posts.description = description;
+      posts.type = type;
+      posts.save(function (err) {
+        if (err) return console.log(err);
 
-            req.flash("success", "пост отредактирован!");
-            alert("Пост отредактирован");
-            res.redirect("/admin/admin_mainpost/edit-mainpost/" + id);
-          });
-        });
-      }
+        req.flash("success", "пост отредактирован!");
+        alert("Пост отредактирован");
+        res.redirect("/admin/admin_mainpost/edit-mainpost/" + id);
+      });
     });
   }
 });

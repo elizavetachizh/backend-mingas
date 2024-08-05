@@ -56,6 +56,9 @@ router.post("/add-administration", (req, res) => {
     console.log(errors);
     res.render("admin/add_administration", {
       errors,
+    });
+  } else {
+    var administrativeServices = new AdministrativeServices({
       uniqueName,
       maximumImplementationPeriod,
       certificateValidityPeriod,
@@ -65,52 +68,14 @@ router.post("/add-administration", (req, res) => {
       type,
       typeAdministrativeService,
     });
-  } else {
-    AdministrativeServices.findOne(
-      {
-        uniqueName,
-        maximumImplementationPeriod,
-        certificateValidityPeriod,
-        boardSize,
-        documents,
-        contactInform,
-        type,
-        typeAdministrativeService,
-      },
-      function (err, administration) {
-        if (administration) {
-          res.render("admin/add_administration", {
-            uniqueName,
-            maximumImplementationPeriod,
-            certificateValidityPeriod,
-            boardSize,
-            documents,
-            contactInform,
-            type,
-            typeAdministrativeService,
-          });
-        } else {
-          var administrativeServices = new AdministrativeServices({
-            uniqueName,
-            maximumImplementationPeriod,
-            certificateValidityPeriod,
-            boardSize,
-            documents,
-            contactInform,
-            type,
-            typeAdministrativeService,
-          });
-          administrativeServices.save(function (err) {
-            if (err) {
-              return console.log(err);
-            }
-
-            req.flash("success", "document добавлен");
-            res.redirect("/admin/admin_administration");
-          });
-        }
+    administrativeServices.save(function (err) {
+      if (err) {
+        return console.log(err);
       }
-    );
+
+      req.flash("success", "document добавлен");
+      res.redirect("/admin/admin_administration");
+    });
   }
 });
 
@@ -168,49 +133,25 @@ router.post("/edit-administration/:id", function (req, res) {
     req.session.errors = errors;
     res.redirect("/admin/admin_administration/edit-administration/" + id);
   } else {
-    AdministrativeServices.findOne(
-      {
-        uniqueName,
-        maximumImplementationPeriod,
-        certificateValidityPeriod,
-        boardSize,
-        documents,
-        contactInform,
-        type,
-        typeAdministrativeService,
-      },
-      function (err, administration) {
-        if (err) {
-          console.log(err);
-        }
-        if (administration) {
-          res.redirect("/admin/admin_administration");
-        } else {
-          AdministrativeServices.findById(id, function (err, administration) {
-            if (err) return console.log(err);
+    AdministrativeServices.findById(id, function (err, administration) {
+      if (err) return console.log(err);
 
-            administration.uniqueName = uniqueName;
-            administration.maximumImplementationPeriod =
-              maximumImplementationPeriod;
-            administration.certificateValidityPeriod =
-              certificateValidityPeriod;
-            administration.boardSize = boardSize;
-            administration.documents = documents;
-            administration.contactInform = contactInform;
-            administration.type = type;
-            administration.typeAdministrativeService =
-              typeAdministrativeService;
-            administration.save(function (err) {
-              if (err) return console.log(err);
+      administration.uniqueName = uniqueName;
+      administration.maximumImplementationPeriod = maximumImplementationPeriod;
+      administration.certificateValidityPeriod = certificateValidityPeriod;
+      administration.boardSize = boardSize;
+      administration.documents = documents;
+      administration.contactInform = contactInform;
+      administration.type = type;
+      administration.typeAdministrativeService = typeAdministrativeService;
+      administration.save(function (err) {
+        if (err) return console.log(err);
 
-              req.flash("success", "пост отредактирован!");
-              alert("Пост отредактирован");
-              res.redirect("/admin/admin_administration/");
-            });
-          });
-        }
-      }
-    );
+        req.flash("success", "пост отредактирован!");
+        alert("Пост отредактирован");
+        res.redirect("/admin/admin_administration/");
+      });
+    });
   }
 });
 

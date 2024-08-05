@@ -33,46 +33,24 @@ router.post("/add-description", function (req, res) {
   req
     .checkBody("nameDescription", "nameDescription должен быть заполненым")
     .notEmpty();
-  var inform = req.body.inform;
-  var nameDescription = req.body.nameDescription;
-  var errors = req.validationErrors();
+  const { inform, nameDescription } = req.body;
+  const errors = req.validationErrors();
 
   if (errors) {
-    console.log(errors);
     res.render("admin/add_description", {
       errors,
+    });
+  } else {
+    const description = new Description({
       inform,
       nameDescription,
     });
-  } else {
-    Description.findOne(
-      {
-        inform,
-        nameDescription,
-
-      },
-      function (err, description) {
-        if (description) {
-          res.render("admin/add_description", {
-            inform,
-            nameDescription,
-
-          });
-        } else {
-          var description = new Description({
-            inform,
-            nameDescription,
-
-          });
-          description.save(function (err) {
-            if (err) {
-              return console.log(err);
-            }
-            res.redirect("/admin/admin_description");
-          });
-        }
+    description.save(function (err) {
+      if (err) {
+        return console.log(err);
       }
-    );
+      res.redirect("/admin/admin_description");
+    });
   }
 });
 
@@ -118,32 +96,20 @@ router.post("/edit-description/:id", function (req, res) {
     console.log(errors);
     res.redirect("/admin/admin_description/edit-description/" + id);
   } else {
-    Description.findOne(
-      { nameDescription: nameDescription, inform: inform, _id: { $ne: id } },
-      function (err, description) {
-        if (err) {
-          console.log(err);
-        }
-        if (description) {
-          res.redirect("/admin/admin_description/edit-description/" + id);
-        } else {
-          Description.findById(id, function (err, description) {
-            if (err) return console.log(err);
+    Description.findById(id, function (err, description) {
+      if (err) return console.log(err);
 
-            description.nameDescription = nameDescription;
-            description.inform = inform;
+      description.nameDescription = nameDescription;
+      description.inform = inform;
 
-            description.save(function (err) {
-              if (err) return console.log(err);
+      description.save(function (err) {
+        if (err) return console.log(err);
 
-              req.flash("success", "продукция отредактировна!");
-              alert("Пост отредактирован");
-              res.redirect("/admin/admin_description");
-            });
-          });
-        }
-      }
-    );
+        req.flash("success", "продукция отредактировна!");
+        alert("Пост отредактирован");
+        res.redirect("/admin/admin_description");
+      });
+    });
   }
 });
 
