@@ -48,10 +48,7 @@ router.get("/add-mainpost", isAdmin, function (req, res) {
 router.post("/add-mainpost", (req, res) => {
   req.checkBody("name", "Описание должно быть заполненым").notEmpty();
   req.checkBody("description", "Картинка должна быть загружена").notEmpty();
-
-  var name = req.body.name;
-  var description = req.body.description;
-  const type = req.body.type;
+  const { name, description, type } = req.body;
 
   var errors = req.validationErrors();
   if (errors) {
@@ -84,7 +81,6 @@ router.get("/edit-mainpost/:id", isAdmin, function (req, res) {
 
   mainPosts.findById(req.params.id, function (err, posts) {
     if (err) {
-      console.log(err);
       res.render("admin/admin_mainpost");
     } else {
       res.render("admin/edit_mainpost", {

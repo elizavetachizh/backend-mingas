@@ -21,8 +21,7 @@ router.post("/", (req, res) => {
       rejectUnauthorized: false,
     },
   });
-  console.log(req.body);
-  var maillist = ["chizhem@mingas.by"];
+  var maillist =  ["kc@mingas.by", "ssta@mingas.by", "chizhem@mingas.by"];
 
   const mailOptionsFormQuestionForEntity = {
     from: req.body.name, // sender address
