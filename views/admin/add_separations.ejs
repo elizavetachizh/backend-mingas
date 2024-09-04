@@ -5,20 +5,13 @@
         <input type="text" class="form-control" id="separation" name="separation" value="<%= separation %>" placeholder="separation">
     </div>
 
-<!--    <div class="form-group">-->
-<!--        <label for="documents">Необходимые документы</label>-->
-<!--        <input type="text" class="form-control" id="documents" name="documents" value="<%= documents %>" placeholder="documents">-->
-<!--    </div>-->
-
+    <h4 >Выберете документы</h4>
     <div class="form-group">
-        <label for="">Предложенные документы</label>
-            <ul class="list-without-dots">
-                <% separations.forEach(function(info){ %>
-                    <li>
-                            <input type="checkbox" name="documents" value="<%= info._id %>" > <%= info.name %></input>
-                        </li>
-                <% }); %>
-            </ul>
+            <% documents.forEach((info)=>{ %>
+                <input type="checkbox" name="documents" id="document<%= info._id %>" value="<%= info._id %>" >
+                <label for="document<%= info._id %>"><%= info.name %></label><br>
+            <% }); %>
+
     </div>
 
     <button class="btn btn-default">Добавить</button>

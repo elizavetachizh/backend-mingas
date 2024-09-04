@@ -1,19 +1,17 @@
-const upload = require("../middleware/upload");
-const { MongoClient, GridFSBucket, ObjectId } = require("mongodb");
-const keys = require("../keys");
+import uploadFilesMiddleware from "../middleware/upload.js";
+import { MongoClient, GridFSBucket, ObjectId } from "mongodb";
+import { keys } from "../keys/index.js";
 const mongoClient = new MongoClient(keys.MONGODB_URI);
 
-const home = (req, res) => {
+export const home = async (req, res) => {
   var files = "";
-  // var type = "";
-  res.render("admin/add_photos", {
+  await res.render("admin/add_photos", {
     files,
-    // type,
   });
 };
-const uploadFiles = async (req, res) => {
+export const uploadFiles = async (req, res) => {
   try {
-    await upload(req, res);
+    await uploadFilesMiddleware(req, res);
     if (req.file.length <= 0) {
       return res
         .status(400)
@@ -37,21 +35,17 @@ const uploadFiles = async (req, res) => {
   }
 };
 
-const getListFiles = async (req, res) => {
+export const getListFiles = async (req, res) => {
   try {
     const database = mongoClient.db(keys.database);
     const images = database.collection(keys.imgBucket + ".files");
     const cursor = images.find({});
 
     if ((await cursor.count()) === 0) {
-      return res.status(500).send({
+      return res.status(500).render("admin/admin_photos", {
         message: "No files found!",
       });
     }
-
-    cursor.forEach((doc) => {
-      console.log(doc.filename)
-    });
 
     let fileInfos = [];
     await cursor.forEach((doc) => {
@@ -71,7 +65,7 @@ const getListFiles = async (req, res) => {
   }
 };
 
-const download = async (req, res) => {
+export const download = async (req, res) => {
   try {
     const database = mongoClient.db(keys.database);
     const bucket = new GridFSBucket(database, {
@@ -98,7 +92,7 @@ const download = async (req, res) => {
   }
 };
 
-const deleteInfo = async (req, res) => {
+export const deleteInfo = async (req, res) => {
   try {
     const database = mongoClient.db(keys.database);
     const bucket = new GridFSBucket(database, {
@@ -114,12 +108,4 @@ const deleteInfo = async (req, res) => {
       message: error.message,
     });
   }
-};
-
-module.exports = {
-  uploadFiles,
-  getListFiles,
-  download,
-  home,
-  deleteInfo,
 };

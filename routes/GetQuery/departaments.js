@@ -1,7 +1,7 @@
-const express = require("express");
-const router = express.Router();
-const Departament = require("../../models/departaments");
-router.get("/", function (req, res) {
+import express from 'express';
+const departamentRouter = express.Router();
+import Departament from "../../models/departaments.js";
+departamentRouter.get("/", function (req, res) {
   const queryNameMen = req.query.nameMen;
   const queryName = req.query.name;
   if (queryNameMen) {
@@ -19,14 +19,14 @@ router.get("/", function (req, res) {
   }
 });
 
-router.get("/:id", function (req, res) {
+departamentRouter.get("/:id", function (req, res) {
   Departament.findById(req.params.id, function (err, department) {
     if (err) return console.log(err);
     res.send(department);
   });
 });
 
-router.get("/search/:key", async (req, res) => {
+departamentRouter.get("/search/:key", async (req, res) => {
   let result = await Departament.find({
     $or: [
       {
@@ -36,4 +36,4 @@ router.get("/search/:key", async (req, res) => {
   });
   res.send(result);
 });
-module.exports = router;
+export default departamentRouter;

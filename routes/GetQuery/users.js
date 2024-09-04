@@ -1,15 +1,15 @@
-var express = require("express");
-var router = express.Router();
-var passport = require("passport");
-var bcrypt = require("bcryptjs");
+import express from "express";
+const adminUsersRouter = express.Router();
+import passport from "passport";
+import bcrypt from "bcryptjs";
 
 // Get Users model
-var User = require("../../models/user");
+import User from "../../models/user.js";
 
 /*
  * GET register
  */
-router.get("/register", function (req, res) {
+adminUsersRouter.get("/register", function (req, res) {
   res.render("register", {
     title: "Register",
   });
@@ -18,7 +18,7 @@ router.get("/register", function (req, res) {
 /*
  * POST register
  */
-router.post("/register", function (req, res) {
+adminUsersRouter.post("/register", function (req, res) {
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
@@ -77,7 +77,7 @@ router.post("/register", function (req, res) {
 /*
  * GET login
  */
-router.get("/login", function (req, res) {
+adminUsersRouter.get("/login", function (req, res) {
   if (res.locals.user) res.redirect("/admin");
   res.render("login", {
     title: "Log in",
@@ -87,7 +87,7 @@ router.get("/login", function (req, res) {
 /*
  * POST login
  */
-router.post("/login", function (req, res, next) {
+adminUsersRouter.post("/login", function (req, res, next) {
   req.checkBody("username", "Username is required!").notEmpty();
   req.checkBody("password", "Password is required!").notEmpty();
   passport.authenticate("local", {
@@ -100,7 +100,7 @@ router.post("/login", function (req, res, next) {
 /*
  * GET logout
  */
-router.get("/logout", function (req, res, next) {
+adminUsersRouter.get("/logout", function (req, res, next) {
   req.logout(function (err) {
     if (err) {
       return next(err);
@@ -111,4 +111,4 @@ router.get("/logout", function (req, res, next) {
 });
 
 // Exports
-module.exports = router;
+export default adminUsersRouter;

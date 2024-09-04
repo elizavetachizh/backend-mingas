@@ -14,33 +14,13 @@
         <label for="type">Тип - 1: физ.лица, тип -2: юр. лица</label>
         <input type="text" class="form-control" id="type" name="type" value="<%= type %>" placeholder="type">
     </div>
+<div class="form-group">
+    <% description.forEach(service => { %>
+        <input type="checkbox" id="service<%= service._id %>" name="description" value="<%= service._id %>">
+        <label for="service<%= service._id %>"><%= service.nameDescription %></label><br>
+    <% }) %>
+</div>
 
-    <div class="form-group">
-        <label for="description">Айдишники необходимых пунктов</label>
-        <input type="text" class="form-control" id="description" name="description" value="<%= description %>" placeholder="description">
-    </div>
-
-    <div class="form-group">
-        <label for="">Предложенные статьи</label>
-        <table>
-            <thead>
-            <tr>
-                <th class="table-for-posts">Id на услугу</th>
-                <th class="table-for-posts">Название услуги</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td></td>
-            </tr>
-            <% generalDescription.map(function(post){ %>
-                <tr>
-                    <td class="table-for-posts"><%= post._id %> </td>
-                    <td class="table-for-posts"><%= post.nameDescription %></td>
-                </tr>
-            <% }); %>
-            </tbody></table>
-    </div>
     <button class="btn btn-default">Добавить</button>
 
     <% if (errors) {%>

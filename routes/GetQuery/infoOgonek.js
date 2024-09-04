@@ -1,8 +1,8 @@
-const express = require("express");
-const router = express.Router();
-const Branches = require("../../models/branches");
+import express from "express"
+const ogonekRouter = express.Router();
+import Branches from "../../models/branches/index.js";
 
-router.get("/", function (req, res) {
+ogonekRouter.get("/", function (req, res) {
   const typeBranch = req.query.typeBranch;
   if (typeBranch) {
     Branches.find({ typeBranch }, function (err, info) {
@@ -15,4 +15,4 @@ router.get("/", function (req, res) {
   }
 });
 
-module.exports = router;
+export default ogonekRouter;

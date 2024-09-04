@@ -1,10 +1,10 @@
-const express = require("express");
-const router = express.Router();
-const RegulatoryDoc = require("../../models/regulatoryDocuments");
+import express from "express";
+const documentsRouter = express.Router();
+import RegulatoryDoc from "../../models/regulatoryDocuments.js";
 
-router.get("/", function (req, res) {
+documentsRouter.get("/", function (req, res) {
   RegulatoryDoc.find(function (err, docs) {
     res.send(docs);
   });
 });
-module.exports = router;
+export default documentsRouter;

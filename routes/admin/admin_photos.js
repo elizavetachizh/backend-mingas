@@ -1,11 +1,18 @@
-const express = require("express");
-const router = express.Router();
-const uploadController = require("../../controllers/upload");
-const { isAdmin } = require("../../config/auth");
-router.get("/", isAdmin, uploadController.home);
-router.post("/", uploadController.uploadFiles);
-router.get("/files", uploadController.getListFiles);
-router.get("/files/:name", uploadController.download);
-router.get("/delete/:id", uploadController.deleteInfo);
+import express from "express";
+import {
+  home,
+  uploadFiles,
+  getListFiles,
+  download,
+  deleteInfo,
+} from "../../controllers/upload.js";
+const adminPhotosRouter = express.Router();
+import { isAdmin } from "../../config/auth.js";
 
-module.exports = router;
+adminPhotosRouter.get("/", isAdmin, home);
+adminPhotosRouter.post("/", uploadFiles);
+adminPhotosRouter.get("/files", getListFiles);
+adminPhotosRouter.get("/files/:name", download);
+adminPhotosRouter.get("/delete/:id", deleteInfo);
+
+export default adminPhotosRouter;

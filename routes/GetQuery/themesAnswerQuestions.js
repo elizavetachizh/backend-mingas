@@ -1,7 +1,8 @@
-const express = require("express");
-const ThemeOfAskedQuestions = require("../../models/themeOfAskedQuestions");
-const router = express.Router();
-router.get("/", function (req, res) {
+// const express = require("express");
+import express from "express"
+import ThemeOfAskedQuestions from "../../models/themeOfAskedQuestions.js"
+const themesQuestionsRouter = express.Router();
+themesQuestionsRouter.get("/", function (req, res) {
   var count;
   const title = req.query.title;
 
@@ -29,7 +30,7 @@ router.get("/", function (req, res) {
   }
 });
 
-router.get("/:id", function (req, res) {
+themesQuestionsRouter.get("/:id", function (req, res) {
   ThemeOfAskedQuestions.findById(req.params.id)
     .populate("questionAnswer")
     .exec(function (err, themes) {
@@ -40,7 +41,7 @@ router.get("/:id", function (req, res) {
     });
 });
 
-router.get("/search/:key", async (req, res) => {
+themesQuestionsRouter.get("/search/:key", async (req, res) => {
   await ThemeOfAskedQuestions.find({
     $or: [
       {
@@ -57,4 +58,4 @@ router.get("/search/:key", async (req, res) => {
     });
 });
 
-module.exports = router;
+export default themesQuestionsRouter;

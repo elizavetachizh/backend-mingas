@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const { isAdmin } = require("../../config/auth");
-var alert = require("alert");
-const Corruption = require("../../models/corruption");
-router.get("/", isAdmin, function (req, res) {
+import express from "express";
+const corruptionAdminRouter = express.Router();
+import { isAdmin } from "../../config/auth.js";
+import alert from "alert";
+import Corruption from "../../models/corruption.js";
+corruptionAdminRouter.get("/", isAdmin, function (req, res) {
   var count;
   Corruption.count(function (err, c) {
     count = c;
@@ -19,7 +19,7 @@ router.get("/", isAdmin, function (req, res) {
 /*
  * GET add product
  */
-router.get("/add-element", isAdmin, function (req, res) {
+corruptionAdminRouter.get("/add-element", isAdmin, function (req, res) {
   var link = "";
   var name = "";
   res.render("admin/add_corruption", {
@@ -28,7 +28,7 @@ router.get("/add-element", isAdmin, function (req, res) {
   });
 });
 
-router.post("/add-element", (req, res) => {
+corruptionAdminRouter.post("/add-element", (req, res) => {
   var link = req.body.link;
   var name = req.body.name;
   var errors = req.validationErrors();
@@ -65,13 +65,12 @@ router.post("/add-element", (req, res) => {
 /*
  * GET edit product
  */
-router.get("/edit-element/:id", isAdmin, function (req, res) {
+corruptionAdminRouter.get("/edit-element/:id", isAdmin, function (req, res) {
   var errors;
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
 
   Corruption.findById(req.params.id, function (err, post) {
-    // console.log(post);
     if (err) {
       console.log(err);
       res.render("admin/admin_corruption");
@@ -89,7 +88,7 @@ router.get("/edit-element/:id", isAdmin, function (req, res) {
 /*
  * POST edit product
  */
-router.post("/edit-element/:id", function (req, res) {
+corruptionAdminRouter.post("/edit-element/:id", function (req, res) {
   var link = req.body.link;
   var name = req.body.name;
   var id = req.params.id;
@@ -101,7 +100,6 @@ router.post("/edit-element/:id", function (req, res) {
     res.redirect("/admin/admin_element/edit-element/" + id);
   } else {
     Corruption.findOne({ link, name }, function (err, post) {
-      // console.log("post2", post);
       if (err) {
         console.log(err);
       }
@@ -129,7 +127,7 @@ router.post("/edit-element/:id", function (req, res) {
 /*
  * GET delete product
  */
-router.get("/delete-element/:id", isAdmin, function (req, res) {
+corruptionAdminRouter.get("/delete-element/:id", isAdmin, function (req, res) {
   var id = req.params.id;
   Corruption.findByIdAndRemove(id, function (err) {
     if (err) return console.log(err);
@@ -139,4 +137,4 @@ router.get("/delete-element/:id", isAdmin, function (req, res) {
   });
 });
 
-module.exports = router;
+export default corruptionAdminRouter;

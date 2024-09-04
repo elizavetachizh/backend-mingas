@@ -5,25 +5,12 @@
         <input type="text" class="form-control" id="title" name="title" value="<%= title %>" placeholder="title">
     </div>
 
+    <h4>Добавление вопросов</h4>
     <div class="form-group">
-        <label for="">Выбранные вопросы</label>
-        <ul class="list-without-dots">
-            <% listOfQuestionAnswer.map(function(dep){ %>
-                <% questionAnswer.map(function(el){ %>
-                    <% if(el.toString() === dep._id.toString()) { %>
-                        <li><%= dep.question %></li>
-                    <% }%>
-                <% }); %>
-            <% }); %>
-        </ul>
-    </div>
-    <div class="form-group">
-        <label for="">Добавление вопросов</label>
-        <ul class="list-without-dots">
-            <% listOfQuestionAnswer.forEach(function(dep){ %>
-                <li>  <input type="checkbox" name="question" value="<%= dep._id %>" > <%= dep.question %></input></li>
-            <% }); %>
-        </ul>
+        <% listOfQuestionAnswer.forEach(function(dep){ %>
+            <input type="checkbox" name="question" id="question<%= dep._id %>" value="<%= dep._id %>" <%= questionAnswer.some(s => s._id.equals(dep._id)) ? 'checked' : '' %> >
+            <label for="question<%= dep._id %>"><%= dep.question %></label><br>
+        <% }); %>
     </div>
     <button class="btn btn-default">Добавить</button>
 

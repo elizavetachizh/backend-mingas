@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-
+// const mongoose = require("mongoose");
+import mongoose from 'mongoose'
 const DepartamentsSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -23,4 +23,4 @@ const DepartamentsSchema = new mongoose.Schema({
 
 const Departament = mongoose.model("Departament", DepartamentsSchema);
 
-module.exports = Departament;
+export default  Departament;

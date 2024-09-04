@@ -5,38 +5,39 @@
 <form method="post" action="/admin/admin_administration/edit-administration/<%= id %>">
 
     <div class="form-group">
-        <label for="uniqueName"> имя</label>
+        <label for="uniqueName">Наименование административной услуги</label>
         <textarea  class="form-control" name="uniqueName" id="uniqueName"  placeholder="uniqueName"><%= uniqueName %></textarea>
     </div>
 
     <div class="form-group">
-        <label for="maximumImplementationPeriod">maximumImplementationPeriod</label>
+        <label for="maximumImplementationPeriod">Максимальный срок осуществления административной процедуры</label>
         <textarea  class="form-control" id="maximumImplementationPeriod" name="maximumImplementationPeriod"  placeholder="maximumImplementationPeriod"><%= maximumImplementationPeriod %></textarea>
     </div>
 
     <div class="form-group">
-        <label for="certificateValidityPeriod">certificateValidityPeriod</label>
+        <label for="certificateValidityPeriod">Срок действия документов</label>
         <textarea  class="form-control" id="certificateValidityPeriod" name="certificateValidityPeriod"  placeholder="certificateValidityPeriod"><%= certificateValidityPeriod %></textarea>
     </div>
     <div class="form-group">
-        <label for="">boardSize</label>
+        <label for="">Размер платы, взимаемой при осуществлении административной процедуры</label>
         <textarea  class="form-control" id="boardSize" name="boardSize"  placeholder="boardSize"><%= boardSize %></textarea>
     </div>
     <div class="form-group">
-        <label for="">documents</label>
+        <label for="">Необходимые документы</label>
         <textarea  class="form-control" name="documents" id="documents"  placeholder="documents"><%= documents %></textarea>
     </div>
     <div class="form-group">
-        <label for="">contactInform</label>
+        <label for="">Контактная информация</label>
         <textarea id="ta"  class="form-control" name="contactInform" id="contactInform"  placeholder="contactInform"><%= contactInform %></textarea>
     </div>
     <div class="form-group">
-        <label for="">type</label>
+        <label for="">Для кого административная процедура (1 - физ. лица
+            2 - юр. лица)</label>
         <input type="text" class="form-control" id="type" name="type" value="<%= type %>">
     </div>
 
     <div class="form-group">
-        <label for="">typeAdministrativeService</label>
+        <label for="">Тип адм. услуги для физ.лиц</label>
         <input type="text" class="form-control" id="typeAdministrativeService" name="typeAdministrativeService" value="<%= typeAdministrativeService %>">
     </div>
 

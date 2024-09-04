@@ -1,8 +1,8 @@
-const express = require("express");
-const router = express.Router();
-const Posts = require("../../models/posts");
+import express from "express";
+const postsRouter = express.Router();
+import Posts from "../../models/posts.js";
 
-router.get("/", function (req, res) {
+postsRouter.get("/", function (req, res) {
   let count;
   const pageOptions = {
     page: parseInt(req.query.page) || 0,
@@ -30,11 +30,11 @@ router.get("/", function (req, res) {
 /*
  * GET edit page
  */
-router.get("/:link", function (req, res) {
+postsRouter.get("/:link", function (req, res) {
   Posts.findById(req.params.link, function (err, post) {
     if (err) return console.log(err);
     res.send(post);
   });
 });
 
-module.exports = router;
+export default postsRouter;

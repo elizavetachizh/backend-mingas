@@ -1,11 +1,12 @@
-const express = require("express");
-const Page = require("../../models/page");
-const router = express.Router();
+// const express = require("express");
+import express from "express";
+import Page from "../../models/page.js";
+const pageSlugRouter = express.Router();
 
 /*
  * GET /
  */
-router.get("/", function (req, res) {
+pageSlugRouter.get("/", function (req, res) {
   Page.findOne({ slug: "home" }, function (err, page) {
     if (err) console.log(err);
 
@@ -16,7 +17,7 @@ router.get("/", function (req, res) {
   });
 });
 
-router.get("/:slug", function (req, res) {
+pageSlugRouter.get("/:slug", function (req, res) {
   var slug = req.params.slug;
 
   Page.findOne({ slug: slug }, function (err, page) {
@@ -32,4 +33,4 @@ router.get("/:slug", function (req, res) {
     }
   });
 });
-module.exports = router;
+export default pageSlugRouter;

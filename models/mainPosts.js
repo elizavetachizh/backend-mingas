@@ -1,7 +1,6 @@
-var mongoose = require("mongoose");
-
+import mongoose from "mongoose"
 // Page Schema
-var mainPostsSchema = mongoose.Schema({
+const mainPostsSchema = mongoose.Schema({
   name: {
     type: String,
   },
@@ -13,5 +12,5 @@ var mainPostsSchema = mongoose.Schema({
   },
 });
 
-const mainPosts = mongoose.model("mainPosts", mainPostsSchema);
-module.exports = mainPosts;
+const MainPosts = mongoose.model("MainPosts", mainPostsSchema);
+export default MainPosts;

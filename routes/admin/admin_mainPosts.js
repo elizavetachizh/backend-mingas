@@ -1,16 +1,16 @@
-const express = require("express");
-const router = express.Router();
-const { isAdmin } = require("../../config/auth");
-var alert = require("alert");
-const mainPosts = require("../../models/mainPosts");
-router.get("/", isAdmin, async (req, res) => {
+import express from "express";
+const adminMainPostsRouter = express.Router();
+import { isAdmin } from "../../config/auth.js";
+import alert from "alert";
+import MainPosts from "../../models/mainPosts.js";
+adminMainPostsRouter.get("/", isAdmin, async (req, res) => {
   var count;
-  mainPosts.count(function (err, c) {
+  MainPosts.count(function (err, c) {
     count = c;
   });
   const page = req.query.page || 0;
 
-  await mainPosts
+  await MainPosts
     .find({
       name: { $regex: req.query.search || "" },
     })
@@ -33,7 +33,7 @@ router.get("/", isAdmin, async (req, res) => {
 /*
  * GET add product
  */
-router.get("/add-mainpost", isAdmin, function (req, res) {
+adminMainPostsRouter.get("/add-mainpost", isAdmin, function (req, res) {
   var name = "";
   var description = "";
   var type = "";
@@ -45,7 +45,7 @@ router.get("/add-mainpost", isAdmin, function (req, res) {
   });
 });
 
-router.post("/add-mainpost", (req, res) => {
+adminMainPostsRouter.post("/add-mainpost", (req, res) => {
   req.checkBody("name", "Описание должно быть заполненым").notEmpty();
   req.checkBody("description", "Картинка должна быть загружена").notEmpty();
   const { name, description, type } = req.body;
@@ -56,7 +56,7 @@ router.post("/add-mainpost", (req, res) => {
       errors,
     });
   } else {
-    var newPosts = new mainPosts({
+    var newPosts = new MainPosts({
       name,
       type,
       description,
@@ -74,12 +74,12 @@ router.post("/add-mainpost", (req, res) => {
 /*
  * GET edit product
  */
-router.get("/edit-mainpost/:id", isAdmin, function (req, res) {
+adminMainPostsRouter.get("/edit-mainpost/:id", isAdmin, function (req, res) {
   var errors;
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
 
-  mainPosts.findById(req.params.id, function (err, posts) {
+  MainPosts.findById(req.params.id, function (err, posts) {
     if (err) {
       res.render("admin/admin_mainpost");
     } else {
@@ -97,7 +97,7 @@ router.get("/edit-mainpost/:id", isAdmin, function (req, res) {
 /*
  * POST edit product
  */
-router.post("/edit-mainpost/:id", function (req, res) {
+adminMainPostsRouter.post("/edit-mainpost/:id", function (req, res) {
   req.checkBody("name", "Описание должно быть заполненым").notEmpty();
   req.checkBody("description", "Описание должно быть заполненым").notEmpty();
 
@@ -111,7 +111,7 @@ router.post("/edit-mainpost/:id", function (req, res) {
     req.session.errors = errors;
     res.redirect("/admin/admin_mainpost/edit-mainpost/" + id);
   } else {
-    mainPosts.findById(id, function (err, posts) {
+    MainPosts.findById(id, function (err, posts) {
       if (err) return console.log(err);
       posts.name = name;
       posts.description = description;
@@ -130,9 +130,9 @@ router.post("/edit-mainpost/:id", function (req, res) {
 /*
  * GET delete product
  */
-router.get("/delete-mainpost/:id", isAdmin, function (req, res) {
+adminMainPostsRouter.get("/delete-mainpost/:id", isAdmin, function (req, res) {
   var id = req.params.id;
-  mainPosts.findByIdAndRemove(id, function (err) {
+  MainPosts.findByIdAndRemove(id, function (err) {
     if (err) return console.log(err);
 
     req.flash("success", "Page deleted!");
@@ -140,4 +140,4 @@ router.get("/delete-mainpost/:id", isAdmin, function (req, res) {
   });
 });
 
-module.exports = router;
+export default adminMainPostsRouter;

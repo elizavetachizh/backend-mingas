@@ -1,10 +1,10 @@
-const express = require("express");
-const router = express.Router();
-const Management = require("../../models/management");
-router.get("/", function (req, res) {
-  Management.find(function (err, management) {
-    res.send(management);
-  });
+import express from "express";
+const managementRouter = express.Router();
+import Management from "../../models/management.js";
+managementRouter.get("/", async function (req, res) {
+  const management = await Management.find().populate("department");
+
+  res.send(management);
 });
 
-module.exports = router;
+export default managementRouter;

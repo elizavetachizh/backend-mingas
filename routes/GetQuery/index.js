@@ -1,9 +1,9 @@
-var express = require("express");
-const Page = require("../../models/page");
-var router = express.Router();
+import express from "express";
+import Page from "../../models/page.js";
+var adminRouter = express.Router();
 
 /* GET home page. */
-router.get("/", function (req, res) {
+adminRouter.get("/", function (req, res) {
   Page.findOne({ slug: "home" }, function (err, page) {
     if (err) console.log(err);
 
@@ -13,4 +13,4 @@ router.get("/", function (req, res) {
     });
   });
 });
-module.exports = router;
+export default adminRouter;

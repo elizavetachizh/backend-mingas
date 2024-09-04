@@ -1,78 +1,82 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-const mongoose = require("mongoose");
-const keys = require("./keys/index");
-const expressLayouts = require("express-ejs-layouts");
-const flash = require("connect-flash");
-const session = require("express-session");
-var passport = require("passport");
-const bodyParser = require("body-parser");
-const expressValidator = require("express-validator");
+import createError from "http-errors";
+import express from "express";
+import expressMessages from "express-messages";
+import path from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import mongoose from "mongoose";
+import { keys } from "./keys/index.js";
+import expressLayouts from "express-ejs-layouts";
+import flash from "connect-flash";
+import session from "express-session";
+import passport from "passport";
+import bodyParser from "body-parser";
+import expressValidator from "express-validator";
+import Passport from "./config/passport.js";
 //Routers
-const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
-const questionsRouter = require("./routes/questions");
-const questionsForEntityRouter = require("./routes/questionsForEntityRouter");
-const cylindersRouter = require("./routes/cylindersRouter");
-const feedbackRouter = require("./routes/feedbackRouter");
-const telemetriaRouter = require("./routes/telemetriaRouter");
-const repairRouter = require("./routes/repairRouter");
-const maintenanceRouter = require("./routes/maintenanceRouter");
-const verificationRouter = require("./routes/verificationRouter");
-const adminRouter = require("./routes/GetQuery");
-const newFeedback = require("./routes/newFormFeedBack")
+import indexRouter from "./routes/index.js";
+import usersRouter from "./routes/users.js";
+import questionsRouter from "./routes/questions.js";
+import questionsForEntityRouter from "./routes/questionsForEntityRouter.js";
+import cylindersRouter from "./routes/cylindersRouter.js";
+import feedbackRouter from "./routes/feedbackRouter.js";
+import telemetriaRouter from "./routes/telemetriaRouter.js";
+import repairRouter from "./routes/repairRouter.js";
+import maintenanceRouter from "./routes/maintenanceRouter.js";
+import verificationRouter from "./routes/verificationRouter.js";
+import adminRouter from "./routes/GetQuery/index.js";
+import newFeedback from "./routes/newFormFeedBack.js";
 
 //RoutersAdmin
-const postsAdminRouter = require("./routes/admin/admin_posts");
-const corruptionAdminRouter = require("./routes/admin/admin_corruption");
-const adminUsersRouter = require("./routes/GetQuery/users");
-const postsRouter = require("./routes/GetQuery/posts");
-const managementAdminRouter = require("./routes/admin/admin_management");
-const departamentAdminRouter = require("./routes/admin/admin_departaments");
-const tendersAdminRouter = require("./routes/admin/admin_tenders");
-const tendersRouter = require("./routes/GetQuery/tenders");
-const mainArticleAdminRouter = require("./routes/admin/admin_mainArticle");
-const articlesRouter = require("./routes/GetQuery/articles");
-const managementRouter = require("./routes/GetQuery/management");
-const departamentRouter = require("./routes/GetQuery/departaments");
-const adminServicesRouter = require("./routes/admin/admin_services");
-const adminDescriptionRouter = require("./routes/admin/admin_descriptionServices");
-const DescriptionRouter = require("./routes/GetQuery/descriptionGet");
-const ServicesRouter = require("./routes/GetQuery/services");
-const adminMainPostsRouter = require("./routes/admin/admin_mainPosts");
-const mainPostsRouter = require("./routes/GetQuery/mainPost");
-const adminDocumentsRouter = require("./routes/admin/admin_regulatoryDoc");
-const documentsRouter = require("./routes/GetQuery/regulatoryDoc");
-const adminSeparationsRouter = require("./routes/admin/admin_separationDocs");
-const documentsSeparationsRouter = require("./routes/GetQuery/documents");
-const adminAnswerQuestionsRouter = require("./routes/admin/admin_askedQuestions");
-const answerQuestionsRouter = require("./routes/GetQuery/answerQuestion");
-const adminThemesQuestionsRouter = require("./routes/admin/admin_themeOfAskedQuestions");
-const themesQuestionsRouter = require("./routes/GetQuery/themesAnswerQuestions");
-const adminPricesRouter = require("./routes/admin/admin_price");
-const pricesRouter = require("./routes/GetQuery/prices");
-const corruptionRouter = require("./routes/GetQuery/corruption");
-const adminAdministrativeServicesRouter = require("./routes/admin/admin_AdministrativeServices");
-const administrativeServicesRouter = require("./routes/GetQuery/administrativeServices");
-const pageSlugRouter = require("./routes/GetQuery/pageSlug");
-const adminPageRouter = require("./routes/admin/admin_pages");
-const adminTableRouter = require("./routes/admin/admin_table");
-const tableRouter = require("./routes/GetQuery/tables");
-const adminPhotosRouter = require("./routes/admin/admin_photos");
-const adminOgonekRouter = require("./routes/admin/admin_ogonek");
-const ogonekRouter = require("./routes/GetQuery/infoOgonek");
-const adminTVRouter = require("./routes/admin/admin_mingasTV");
-const TVRouter = require("./routes/GetQuery/TV");
-const adminDocumentsEDIRouter = require("./routes/admin/admin_edi");
-const documentsEDIRouter = require("./routes/GetQuery/documentsEDI");
-
-const cors = require("cors");
-var app = express();
+import postsAdminRouter from "./routes/admin/admin_posts.js";
+import corruptionAdminRouter from "./routes/admin/admin_corruption.js";
+import adminUsersRouter from "./routes/GetQuery/users.js";
+import postsRouter from "./routes/GetQuery/posts.js";
+import managementAdminRouter from "./routes/admin/admin_management.js";
+import departamentAdminRouter from "./routes/admin/admin_departaments.js";
+import tendersAdminRouter from "./routes/admin/admin_tenders.js";
+import tendersRouter from "./routes/GetQuery/tenders.js";
+import mainArticleAdminRouter from "./routes/admin/admin_mainArticle.js";
+import articlesRouter from "./routes/GetQuery/articles.js";
+import managementRouter from "./routes/GetQuery/management.js";
+import departamentRouter from "./routes/GetQuery/departaments.js";
+import adminServicesRouter from "./routes/admin/admin_services.js";
+import adminDescriptionRouter from "./routes/admin/admin_descriptionServices.js";
+import DescriptionRouter from "./routes/GetQuery/descriptionGet.js";
+import ServicesRouter from "./routes/GetQuery/services.js";
+import adminMainPostsRouter from "./routes/admin/admin_mainPosts.js";
+import mainPostsRouter from "./routes/GetQuery/mainPost.js";
+import adminDocumentsRouter from "./routes/admin/admin_regulatoryDoc.js";
+import documentsRouter from "./routes/GetQuery/regulatoryDoc.js";
+import adminSeparationsRouter from "./routes/admin/admin_separationDocs.js";
+import documentsSeparationsRouter from "./routes/GetQuery/documents.js";
+import adminAnswerQuestionsRouter from "./routes/admin/admin_askedQuestions.js";
+import answerQuestionsRouter from "./routes/GetQuery/answerQuestion.js";
+import adminThemesQuestionsRouter from "./routes/admin/admin_themeOfAskedQuestions.js";
+import themesQuestionsRouter from "./routes/GetQuery/themesAnswerQuestions.js";
+import adminPricesRouter from "./routes/admin/admin_price.js";
+import pricesRouter from "./routes/GetQuery/prices.js";
+import corruptionRouter from "./routes/GetQuery/corruption.js";
+import adminAdministrativeServicesRouter from "./routes/admin/admin_AdministrativeServices.js";
+import administrativeServicesRouter from "./routes/GetQuery/administrativeServices.js";
+import pageSlugRouter from "./routes/GetQuery/pageSlug.js";
+import adminPageRouter from "./routes/admin/admin_pages.js";
+import adminTableRouter from "./routes/admin/admin_table.js";
+import tableRouter from "./routes/GetQuery/tables.js";
+import adminPhotosRouter from "./routes/admin/admin_photos.js";
+import adminOgonekRouter from "./routes/admin/admin_ogonek.js";
+import ogonekRouter from "./routes/GetQuery/infoOgonek.js";
+import adminTVRouter from "./routes/admin/admin_mingasTV.js";
+import TVRouter from "./routes/GetQuery/TV.js";
+import adminDocumentsEDIRouter from "./routes/admin/admin_edi.js";
+import documentsEDIRouter from "./routes/GetQuery/documentsEDI.js";
+import adminGratitudeRouter from "./routes/admin/admin_gratitude.js";
+import gratitudeRouter from "./routes/GetQuery/gratitude.js";
+import cors from "cors";
+import { fileURLToPath } from "url";
+const app = express();
 //for site
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: 4000000000 }));
 // parse application/x-www-form-urlencoded
@@ -91,6 +95,8 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((error) => console.log(error));
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -104,11 +110,8 @@ app.use(expressLayouts);
 
 app.use(logger("dev"));
 app.use(express.json());
-// app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-
-app.use(flash());
 
 app.use(
   session({
@@ -156,14 +159,14 @@ app.use(
 );
 
 // Express Messages middleware
-app.use(require("connect-flash")());
+app.use(flash());
 app.use(function (req, res, next) {
-  res.locals.messages = require("express-messages")(req, res);
+  res.locals.messages = expressMessages(req, res);
   next();
 });
 
 // Passport Config
-require("./config/passport")(passport);
+Passport(passport);
 // Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
@@ -229,6 +232,8 @@ app.use("/admin/upload", adminPhotosRouter);
 app.use("/admin/TV", TVRouter);
 app.use("/admin/edi", adminDocumentsEDIRouter);
 app.use("/admin/documents_edi", documentsEDIRouter);
+app.use("/admin/gratitude", adminGratitudeRouter);
+app.use("/admin/gratitude_get", gratitudeRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -238,4 +243,4 @@ app.listen(port, () => {
   console.log(`server start on port ${port}`);
 });
 
-module.exports = app;
+export default app;

@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const { isAdmin } = require("../../config/auth");
-var alert = require("alert");
-const AdministrativeServices = require("../../models/administrativeServices");
-router.get("/", isAdmin, function (req, res) {
+import express from "express"
+const adminAdministrativeServicesRouter = express.Router();
+import {isAdmin} from "../../config/auth.js"
+import alert from "alert"
+import AdministrativeServices from  "../../models/administrativeServices.js"
+adminAdministrativeServicesRouter.get("/", isAdmin, function (req, res) {
   var count;
   AdministrativeServices.count(function (err, c) {
     count = c;
@@ -19,7 +19,7 @@ router.get("/", isAdmin, function (req, res) {
 /*
  * GET add product
  */
-router.get("/add-administration", isAdmin, function (req, res) {
+adminAdministrativeServicesRouter.get("/add-administration", isAdmin, function (req, res) {
   var uniqueName = "";
   var maximumImplementationPeriod = "";
   var certificateValidityPeriod = "";
@@ -40,7 +40,7 @@ router.get("/add-administration", isAdmin, function (req, res) {
   });
 });
 
-router.post("/add-administration", (req, res) => {
+adminAdministrativeServicesRouter.post("/add-administration", (req, res) => {
   req.checkBody("uniqueName", "Название должно быть заполненым").notEmpty();
   var uniqueName = req.body.uniqueName;
   var maximumImplementationPeriod = req.body.maximumImplementationPeriod;
@@ -82,7 +82,7 @@ router.post("/add-administration", (req, res) => {
 /*
  * GET edit product
  */
-router.get("/edit-administration/:id/", function (req, res) {
+adminAdministrativeServicesRouter.get("/edit-administration/:id/", function (req, res) {
   var errors;
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
@@ -115,7 +115,7 @@ router.get("/edit-administration/:id/", function (req, res) {
 /*
  * POST edit product
  */
-router.post("/edit-administration/:id", function (req, res) {
+adminAdministrativeServicesRouter.post("/edit-administration/:id", function (req, res) {
   req.checkBody("uniqueName", "Название должно быть заполненым").notEmpty();
 
   var uniqueName = req.body.uniqueName;
@@ -158,7 +158,7 @@ router.post("/edit-administration/:id", function (req, res) {
 /*
  * GET delete product
  */
-router.get("/delete-administration/:id", isAdmin, function (req, res) {
+adminAdministrativeServicesRouter.get("/delete-administration/:id", isAdmin, function (req, res) {
   var id = req.params.id;
   AdministrativeServices.findByIdAndRemove(id, function (err) {
     if (err) return console.log(err);
@@ -168,4 +168,4 @@ router.get("/delete-administration/:id", isAdmin, function (req, res) {
   });
 });
 
-module.exports = router;
+export default adminAdministrativeServicesRouter;

@@ -1,12 +1,14 @@
-var express = require("express");
-var router = express.Router();
-const nodemailer = require("nodemailer");
+import express from "express";
+const cylindersRouter = express.Router();
+
+// const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 /* GET users listing. */
-router.get("/", function (req, res, next) {
+cylindersRouter.get("/", function (req, res, next) {
   res.send(req.body);
 });
 
-router.post("/", (req, res) => {
+cylindersRouter.post("/", (req, res) => {
   const transporterQuestionsForEntity = nodemailer.createTransport({
     secure: true,
     host: "ms2.g-cloud.by",
@@ -60,4 +62,4 @@ router.post("/", (req, res) => {
     }
   );
 });
-module.exports = router;
+export default cylindersRouter;

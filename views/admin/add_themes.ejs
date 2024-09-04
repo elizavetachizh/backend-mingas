@@ -5,15 +5,12 @@
         <input type="text" class="form-control" id="title" name="title" value="<%= title %>" placeholder="title">
     </div>
 
+    <h4>Выберете необходимые вопросы</h4>
     <div class="form-group">
-        <label for="">Предложенные вопросы</label>
-            <ul class="list-without-dots">
-                <% arrayOfAsks.forEach(function(dep){ %>
-                    <li><label>
-                            <input type="checkbox" name="question" value="<%= dep._id %>" > <%= dep.question %></input>
-                        </label></li>
-                <% }); %>
-            </ul>
+        <% arrayOfAsks.forEach(dep => { %>
+            <input type="checkbox" name="question" id="question<%= dep._id %>" value="<%= dep._id %>" >
+            <label for="question<%= dep._id %>"><%= dep.question %></label><br>
+            <% }); %>
     </div>
     <button class="btn btn-default">Добавить</button>
 

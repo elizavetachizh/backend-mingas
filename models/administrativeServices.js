@@ -1,7 +1,6 @@
-var mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 // Category Schema
-var AdministrativeServicesSchema = mongoose.Schema({
+const AdministrativeServicesSchema = mongoose.Schema({
   uniqueName: {
     type: String,
   },
@@ -32,4 +31,4 @@ const AdministrativeServices = mongoose.model(
   "AdministrativeServices",
   AdministrativeServicesSchema
 );
-module.exports = AdministrativeServices;
+export default AdministrativeServices;

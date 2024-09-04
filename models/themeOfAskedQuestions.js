@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-
+// const mongoose = require("mongoose");
+import mongoose from "mongoose"
 const ThemeOfAskedQuestionsSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -15,4 +15,4 @@ const ThemeOfAskedQuestions = mongoose.model(
   ThemeOfAskedQuestionsSchema
 );
 
-module.exports = ThemeOfAskedQuestions;
+export default ThemeOfAskedQuestions;

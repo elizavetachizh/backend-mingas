@@ -29,21 +29,16 @@
         <label for="contacts">Контакты</label>
         <textarea name="contacts" class="form-control" id="contacts" cols="30" rows="10" placeholder="contacts"><%= contacts %></textarea>
     </div>
-    <div class="form-group">
 
-        <% if (management) { %>
-            <p class="form-control"><%= management %></p>
-            <% } else {%>
-            <p></p>
-        <% }%>
-    </div>
     <div class="form-group">
         <label for="nameMen">Выбрать руководителя</label>
+
         <ul class="list-without-dots">
-            <% nameMen.map(function(men){ %>
-                <li>  <input type="radio" id="nameMen" name="nameMen" value="<%= men._id %>"><%= men.fullName %></input></li>
+            <% management.map(function(men){ %>
+               <li> <input type="radio" id="nameMen" name="nameMen" <%= men._id.equals(nameMenChecked) ? 'checked' : '' %> value="<%= men._id %>"><%= men.fullName %></li>
             <% }); %>
         </ul>
+
     </div>
 
     <button class="btn btn-default">Сохранить</button>

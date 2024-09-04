@@ -1,17 +1,17 @@
-exports.isUser = function(req, res, next) {
+export function isUser(req, res, next) {
   if (req.isAuthenticated()) {
     next();
   } else {
-    req.flash('danger', 'Please log in.');
-    res.redirect('/admin/users/login');
+    req.flash("danger", "Please log in.");
+    res.redirect("/admin/users/login");
   }
 }
 
-exports.isAdmin = function(req, res, next) {
+export function isAdmin(req, res, next) {
   if (req.isAuthenticated() && res.locals.user.admin === 1) {
     next();
   } else {
-    req.flash('danger', 'Пожалуйста, войдите как администратор.');
-    res.redirect('/admin/users/login');
+    req.flash("danger", "Пожалуйста, войдите как администратор.");
+    res.redirect("/admin/users/login");
   }
 }

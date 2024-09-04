@@ -2,6 +2,7 @@
   "name": "api",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "start": "node app.js",
     "start:80": "set PORT=80&&node app.js",
@@ -42,6 +43,7 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "prettier": "^2.8.1",
+    "url": "^0.11.4",
     "util": "^0.12.5"
   }
 }

@@ -1,7 +1,6 @@
-var mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 // Category Schema
-var TendersSchema = mongoose.Schema({
+const TendersSchema = mongoose.Schema({
   content: {
     type: String,
     required: true,
@@ -9,4 +8,4 @@ var TendersSchema = mongoose.Schema({
 });
 
 const Tenders = mongoose.model("Tenders", TendersSchema);
-module.exports = Tenders;
+export default Tenders;

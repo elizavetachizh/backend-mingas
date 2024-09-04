@@ -1,9 +1,9 @@
-var express = require("express");
-var router = express.Router();
+import express from "express";
+const indexRouter = express.Router();
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
+indexRouter.get("/", function (req, res, next) {
   // res.send("Панель администратора");
   res.redirect("/admin");
 });
-module.exports = router;
+export default indexRouter;

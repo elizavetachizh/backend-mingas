@@ -1,7 +1,6 @@
-var mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 // Category Schema
-var ServicesSchema = mongoose.Schema({
+const ServicesSchema = mongoose.Schema({
   image: {
     type: String,
   },
@@ -20,4 +19,4 @@ var ServicesSchema = mongoose.Schema({
 });
 
 const Services = mongoose.model("Services", ServicesSchema);
-module.exports = Services;
+export default Services;

@@ -1,19 +1,13 @@
-var mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 // Category Schema
-var DescriptionSchema = mongoose.Schema({
+const DescriptionSchema = mongoose.Schema({
   nameDescription: {
     type: String,
   },
   inform: {
     type: String,
   },
-
-  services: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Services",
-  },
 });
 
 const Description = mongoose.model("Description", DescriptionSchema);
-module.exports = Description;
+export default Description;

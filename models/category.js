@@ -1,7 +1,6 @@
-var mongoose = require("mongoose");
-
+import mongoose from "mongoose"
 // Category Schema
-var CategorySchema = mongoose.Schema({
+const CategorySchema = mongoose.Schema({
   title: {
     type: String,
     required: true,

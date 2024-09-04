@@ -1,12 +1,13 @@
-var express = require("express");
-var router = express.Router();
-const nodemailer = require("nodemailer");
+// var express = require("express");
+import express from "express";
+const repairRouter = express.Router();
+import nodemailer from "nodemailer";
 /* GET users listing. */
-router.get("/", function (req, res, next) {
+repairRouter.get("/", function (req, res, next) {
   res.send(req.body);
 });
 
-router.post("/", (req, res) => {
+repairRouter.post("/", (req, res) => {
   const transporterRepair = nodemailer.createTransport({
     secure: true,
     host: "ms2.g-cloud.by",
@@ -23,8 +24,8 @@ router.post("/", (req, res) => {
   var maillist = ["kc@mingas.by", "chizhem@mingas.by"];
   const mailOptionsRepair = {
     from: req.body.email, // sender address
-   // to: "elizavetka.chizh@gmail.com", //for me
-      to: maillist, // for site
+    // to: "elizavetka.chizh@gmail.com", //for me
+    to: maillist, // for site
     subject: "Заявка на ремонт газового оборудования", // Subject line
     text: req.body.name,
     html: `
@@ -59,4 +60,4 @@ router.post("/", (req, res) => {
     }
   });
 });
-module.exports = router;
+export default repairRouter;

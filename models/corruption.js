@@ -1,14 +1,13 @@
-var mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 // Page Schema
-var CorruptionSchema = mongoose.Schema({
-    link: {
-        type: String,
-    },
-    name: {
-        type: String,
-    },
+const CorruptionSchema = mongoose.Schema({
+  link: {
+    type: String,
+  },
+  name: {
+    type: String,
+  },
 });
 
 const Corruption = mongoose.model("Corruption", CorruptionSchema);
-module.exports = Corruption;
+export default Corruption;

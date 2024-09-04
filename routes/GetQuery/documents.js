@@ -1,7 +1,7 @@
-const express = require("express");
-const SeparationDocs = require("../../models/separationDocuments");
-const router = express.Router();
-router.get("/", function (req, res) {
+import express from "express";
+import SeparationDocs from "../../models/separationDocuments.js";
+const documentsSeparationsRouter = express.Router();
+documentsSeparationsRouter.get("/", function (req, res) {
   var count;
   SeparationDocs.count(function (err, c) {
     count = c;
@@ -15,4 +15,4 @@ router.get("/", function (req, res) {
       res.send(documents);
     });
 });
-module.exports = router;
+export default documentsSeparationsRouter;

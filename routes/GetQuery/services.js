@@ -1,7 +1,7 @@
-const express = require("express");
-const Services = require("../../models/services");
-const router = express.Router();
-router.get("/", function (req, res) {
+import express from "express";
+import Services from "../../models/services.js";
+const ServicesRouter = express.Router();
+ServicesRouter.get("/", function (req, res) {
   Services.find({}, { name: 1, type: 1, image: 1 }).exec(function (
     err,
     services
@@ -13,7 +13,7 @@ router.get("/", function (req, res) {
   });
 });
 
-router.get("/:id", function (req, res) {
+ServicesRouter.get("/:id", function (req, res) {
   Services.findById(req.params.id)
     .populate({ path: "description", select: "inform nameDescription" })
     .exec(function (err, services) {
@@ -24,4 +24,4 @@ router.get("/:id", function (req, res) {
     });
 });
 
-module.exports = router;
+export default ServicesRouter;

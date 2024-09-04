@@ -1,7 +1,6 @@
-var mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 // Category Schema
-var SeparationDocsSchema = mongoose.Schema({
+const SeparationDocsSchema = mongoose.Schema({
   separation: {
     type: String,
   },
@@ -14,4 +13,4 @@ var SeparationDocsSchema = mongoose.Schema({
 });
 
 const SeparationDocs = mongoose.model("SeparationDocs", SeparationDocsSchema);
-module.exports = SeparationDocs;
+export default SeparationDocs;

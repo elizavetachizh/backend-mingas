@@ -1,12 +1,12 @@
-var express = require("express");
-var router = express.Router();
-const nodemailer = require("nodemailer");
+import express from "express";
+const maintenanceRouter = express.Router();
+import nodemailer from "nodemailer";
 /* GET users listing. */
-router.get("/", function (req, res, next) {
+maintenanceRouter.get("/", function (req, res, next) {
   res.send(req.body);
 });
 
-router.post("/", (req, res) => {
+maintenanceRouter.post("/", (req, res) => {
   const transporterRepair = nodemailer.createTransport({
     secure: true,
     host: "ms2.g-cloud.by",
@@ -57,4 +57,4 @@ router.post("/", (req, res) => {
     }
   });
 });
-module.exports = router;
+export default maintenanceRouter;

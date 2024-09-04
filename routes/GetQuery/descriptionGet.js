@@ -1,7 +1,9 @@
-const express = require("express");
-const Description = require("../../models/descriptionServices");
-const router = express.Router();
-router.get("/", function (req, res) {
+// const express = require("express");
+import express from "express";
+// const Description = require("../../models/descriptionServices.js");
+import Description from "../../models/descriptionServices.js";
+const DescriptionRouter = express.Router();
+DescriptionRouter.get("/", function (req, res) {
   Description.find(function (err, description) {
     if (err) {
       console.log(err);
@@ -9,7 +11,7 @@ router.get("/", function (req, res) {
     res.send(description);
   });
 });
-router.get("/:id", function (req, res) {
+DescriptionRouter.get("/:id", function (req, res) {
   Description.findById(req.params.id, function (err, description) {
     if (err) {
       console.log(err);
@@ -17,4 +19,4 @@ router.get("/:id", function (req, res) {
     res.send(description);
   });
 });
-module.exports = router;
+export default DescriptionRouter;

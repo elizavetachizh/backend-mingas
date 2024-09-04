@@ -15,13 +15,11 @@
             <input type="text" class="form-control" id="position" name="position" value="<%= position %>" placeholder="position">
         </div>
            <div class="form-group">
-                                  <label for="department">department</label>
-<ul class="list-without-dots">
-                                      <% department.map(function(dep){ %>
-                                        <li>  <input type="checkbox" name="department" id="department" value="<%= dep.name %>"/><%= dep.name %></li>
-                                      <% }); %>
-</ul>
-                              </div>
+               <% department.forEach(dep => { %>
+                  <input type="checkbox" name="department" id="department<%= dep._id %>" value="<%= dep._id %>">
+                   <label for="department<%= dep._id %>"><%= dep.name %></label><br>
+               <% }); %>
+           </div>
 
  <div class="form-group">
         <label for="img">Картинка</label>

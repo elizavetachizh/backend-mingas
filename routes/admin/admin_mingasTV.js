@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const { isAdmin } = require("../../config/auth");
-var alert = require("alert");
-const MingasTV = require("../../models/mingasTV");
-router.get("/", isAdmin, function (req, res) {
+import express from "express";
+const adminTVRouter = express.Router();
+import { isAdmin } from "../../config/auth.js";
+import alert from "alert";
+import MingasTV from "../../models/mingasTV.js";
+adminTVRouter.get("/", isAdmin, function (req, res) {
   var count;
   MingasTV.count(function (err, c) {
     count = c;
@@ -19,7 +19,7 @@ router.get("/", isAdmin, function (req, res) {
 /*
  * GET add product
  */
-router.get("/add-info", isAdmin, function (req, res) {
+adminTVRouter.get("/add-info", isAdmin, function (req, res) {
   var name = "";
   var link = "";
   res.render("admin/add_TV", {
@@ -28,7 +28,7 @@ router.get("/add-info", isAdmin, function (req, res) {
   });
 });
 
-router.post("/add-info", (req, res) => {
+adminTVRouter.post("/add-info", (req, res) => {
   req.checkBody("name", "Название должно быть заполненым").notEmpty();
   req.checkBody("link", "Ссылка должна быть заполнена").notEmpty();
 
@@ -59,7 +59,7 @@ router.post("/add-info", (req, res) => {
 /*
  * GET edit product
  */
-router.get("/edit-info/:id", isAdmin, function (req, res) {
+adminTVRouter.get("/edit-info/:id", isAdmin, function (req, res) {
   var errors;
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
@@ -82,7 +82,7 @@ router.get("/edit-info/:id", isAdmin, function (req, res) {
 /*
  * POST edit product
  */
-router.post("/edit-info/:id", function (req, res) {
+adminTVRouter.post("/edit-info/:id", function (req, res) {
   req.checkBody("name", "Название должно быть заполненым").notEmpty();
   req.checkBody("link", "Ссылка должна быть заполнена").notEmpty();
 
@@ -114,7 +114,7 @@ router.post("/edit-info/:id", function (req, res) {
 /*
  * GET delete product
  */
-router.get("/delete-info/:id", isAdmin, function (req, res) {
+adminTVRouter.get("/delete-info/:id", isAdmin, function (req, res) {
   var id = req.params.id;
   MingasTV.findByIdAndRemove(id, function (err) {
     if (err) return console.log(err);
@@ -124,4 +124,4 @@ router.get("/delete-info/:id", isAdmin, function (req, res) {
   });
 });
 
-module.exports = router;
+export default adminTVRouter;

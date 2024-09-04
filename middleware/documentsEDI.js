@@ -1,7 +1,7 @@
-const util = require("util");
-const multer = require("multer");
-const { GridFsStorage } = require("multer-gridfs-storage");
-const keys = require("../keys/index");
+import util from "util";
+import multer from "multer";
+import { GridFsStorage } from "multer-gridfs-storage";
+import { keys } from "../keys/index.js";
 var storage = new GridFsStorage({
   url: keys.MONGODB_URI,
   options: { useNewUrlParser: true, useUnifiedTopology: true },
@@ -22,12 +22,11 @@ var storage = new GridFsStorage({
     return {
       bucketName: "documents",
       filename: file.originalname,
-      url:
-        `https://back.mingas.by/admin/edi/files/${file.originalname}`,
+      url: `https://back.mingas.by/admin/edi/files/${file.originalname}`,
     };
   },
 });
 
 var uploadFiles = multer({ storage }).single("file");
 var uploadFilesMiddleware = util.promisify(uploadFiles);
-module.exports = uploadFilesMiddleware;
+export default uploadFilesMiddleware;

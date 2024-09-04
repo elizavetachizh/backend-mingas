@@ -1,12 +1,12 @@
-const express = require("express");
-const router = express.Router();
-const Tenders = require("../../models/tenders");
+import express from "express";
+const tendersRouter = express.Router();
+import Tenders from "../../models/tenders.js";
 
-router.get("/", function (req, res) {
+tendersRouter.get("/", function (req, res) {
   Tenders.find()
     .sort({ _id: -1 })
     .exec(function (err, tenders) {
       res.send(tenders);
     });
 });
-module.exports = router;
+export default tendersRouter;

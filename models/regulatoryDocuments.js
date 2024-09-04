@@ -1,7 +1,6 @@
-var mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 // Page Schema
-var RegulatoryDocSchema = mongoose.Schema({
+const RegulatoryDocSchema = mongoose.Schema({
   separation: {
     type: String,
   },
@@ -17,4 +16,4 @@ var RegulatoryDocSchema = mongoose.Schema({
 });
 
 const RegulatoryDoc = mongoose.model("RegulatoryDoc", RegulatoryDocSchema);
-module.exports = RegulatoryDoc;
+export default RegulatoryDoc;

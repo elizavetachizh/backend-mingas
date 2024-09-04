@@ -1,13 +1,12 @@
-var express = require("express");
-var router = express.Router();
-const nodemailer = require("nodemailer");
-const inlineBase64 = require("nodemailer-plugin-inline-base64");
-
+import express from "express";
+const usersRouter = express.Router();
+import nodemailer from "nodemailer";
+import inlineBase64 from "nodemailer-plugin-inline-base64";
 /* GET users listing. */
-router.get("/", function (req, res, next) {
+usersRouter.get("/", function (req, res, next) {
   res.send(req.body);
 });
-router.post("/", (req, res) => {
+usersRouter.post("/", (req, res) => {
   const transporter = nodemailer.createTransport({
     secure: true,
     host: "ms2.g-cloud.by",
@@ -67,4 +66,4 @@ router.post("/", (req, res) => {
     }
   });
 });
-module.exports = router;
+export default usersRouter;

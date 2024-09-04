@@ -1,8 +1,8 @@
-const express = require("express");
-const Table = require("../../models/tableReceptionSchedule");
+import express from "express"
+import Table from "../../models/tableReceptionSchedule.js"
 
-const router = express.Router();
-router.get("/", function (req, res) {
+const tableRouter = express.Router();
+tableRouter.get("/", function (req, res) {
   Table.find(function (err, documents) {
     if (err) {
       console.log(err);
@@ -10,4 +10,4 @@ router.get("/", function (req, res) {
     res.send(documents);
   });
 });
-module.exports = router;
+export default tableRouter;

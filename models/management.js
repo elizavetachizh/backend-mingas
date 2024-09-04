@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const ManagementSchema = new mongoose.Schema({
   fullName: {
     type: String,
@@ -12,14 +12,14 @@ const ManagementSchema = new mongoose.Schema({
   image: {
     type: String,
   },
-  idDepartment: {
-    type: [],
-  },
-  department: {
-    type: [],
-  },
+  department: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Departament",
+    },
+  ],
 });
 
 const Management = mongoose.model("Management", ManagementSchema);
 
-module.exports = Management;
+export default Management;

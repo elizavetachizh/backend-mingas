@@ -1,12 +1,12 @@
-var express = require("express");
-var router = express.Router();
-const nodemailer = require("nodemailer");
+import express from "express";
+const telemetriaRouter = express.Router();
+import nodemailer from "nodemailer";
 /* GET users listing. */
-router.get("/", function (req, res, next) {
+telemetriaRouter.get("/", function (req, res, next) {
   res.send(req.body);
 });
 
-router.post("/", (req, res) => {
+telemetriaRouter.post("/", (req, res) => {
   const transporterFeedback = nodemailer.createTransport({
     secure: true,
     host: "ms2.g-cloud.by",
@@ -20,14 +20,10 @@ router.post("/", (req, res) => {
       rejectUnauthorized: false,
     },
   });
-  var maillist = [
-    "seug@mingas.by",
-    "ssta@mingas.by",
-    "chizhem@mingas.by",
-  ];
+  var maillist = ["seug@mingas.by", "ssta@mingas.by", "chizhem@mingas.by"];
   const mailOptionsFormQuestionForEntity = {
     from: req.body.email, // sender address
-     to: maillist, // for site
+    to: maillist, // for site
     //to: "elizavetka.chizh@gmail.com", // for me
     subject: "Заявка на получение доступа к телеметрии", // Subject line
     text: req.body.name,
@@ -55,12 +51,18 @@ router.post("/", (req, res) => {
         });
       } else {
         if (info) {
-          res.json({ status: true, respMesg: "Форма успешно отправлена, спасибо за вашу заявку!" });
+          res.json({
+            status: true,
+            respMesg: "Форма успешно отправлена, спасибо за вашу заявку!",
+          });
         } else {
-          res.json({ status: false, respMesg: "Ваша заявка обрабатывается, немного подождите!" });
+          res.json({
+            status: false,
+            respMesg: "Ваша заявка обрабатывается, немного подождите!",
+          });
         }
       }
     }
   );
 });
-module.exports = router;
+export default telemetriaRouter;

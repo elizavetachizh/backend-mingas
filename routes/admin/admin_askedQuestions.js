@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const { isAdmin } = require("../../config/auth");
-var alert = require("alert");
-const AskedQuestions = require("../../models/askedQuestions");
-router.get("/", isAdmin, function (req, res) {
+import express from "express";
+const adminAnswerQuestionsRouter = express.Router();
+import { isAdmin } from "../../config/auth.js";
+import alert from "alert";
+import AskedQuestions from "../../models/askedQuestions.js";
+adminAnswerQuestionsRouter.get("/", isAdmin, function (req, res) {
   var count;
   AskedQuestions.count(function (err, c) {
     count = c;
@@ -19,7 +19,7 @@ router.get("/", isAdmin, function (req, res) {
 /*
  * GET add product
  */
-router.get("/add-questions", isAdmin, function (req, res) {
+adminAnswerQuestionsRouter.get("/add-questions", isAdmin, function (req, res) {
   var question = "";
   var answer = "";
   res.render("admin/add_questions", {
@@ -28,7 +28,7 @@ router.get("/add-questions", isAdmin, function (req, res) {
   });
 });
 
-router.post("/add-questions", (req, res) => {
+adminAnswerQuestionsRouter.post("/add-questions", (req, res) => {
   req.checkBody("question", "Название должно быть заполненым").notEmpty();
   req.checkBody("answer", "Описание должно быть заполненым").notEmpty();
 
@@ -60,30 +60,34 @@ router.post("/add-questions", (req, res) => {
 /*
  * GET edit product
  */
-router.get("/edit-questions/:id", isAdmin, function (req, res) {
-  var errors;
-  if (req.session.errors) errors = req.session.errors;
-  req.session.errors = null;
+adminAnswerQuestionsRouter.get(
+  "/edit-questions/:id",
+  isAdmin,
+  function (req, res) {
+    var errors;
+    if (req.session.errors) errors = req.session.errors;
+    req.session.errors = null;
 
-  AskedQuestions.findById(req.params.id, function (err, questions) {
-    if (err) {
-      console.log(err);
-      res.render("admin/admin_questions");
-    } else {
-      res.render("admin/edit_questions", {
-        errors,
-        question: questions.question,
-        answer: questions.answer,
-        id: questions._id,
-      });
-    }
-  });
-});
+    AskedQuestions.findById(req.params.id, function (err, questions) {
+      if (err) {
+        console.log(err);
+        res.render("admin/admin_questions");
+      } else {
+        res.render("admin/edit_questions", {
+          errors,
+          question: questions.question,
+          answer: questions.answer,
+          id: questions._id,
+        });
+      }
+    });
+  }
+);
 
 /*
  * POST edit product
  */
-router.post("/edit-questions/:id", function (req, res) {
+adminAnswerQuestionsRouter.post("/edit-questions/:id", function (req, res) {
   req.checkBody("question", "Название должно быть заполненым").notEmpty();
   req.checkBody("answer", "Описание должно быть заполненым").notEmpty();
 
@@ -115,14 +119,18 @@ router.post("/edit-questions/:id", function (req, res) {
 /*
  * GET delete product
  */
-router.get("/delete-questions/:id", isAdmin, function (req, res) {
-  var id = req.params.id;
-  AskedQuestions.findByIdAndRemove(id, function (err) {
-    if (err) return console.log(err);
+adminAnswerQuestionsRouter.get(
+  "/delete-questions/:id",
+  isAdmin,
+  function (req, res) {
+    var id = req.params.id;
+    AskedQuestions.findByIdAndRemove(id, function (err) {
+      if (err) return console.log(err);
 
-    req.flash("success", "questions deleted!");
-    res.redirect("/admin/admin_questions/");
-  });
-});
+      req.flash("success", "questions deleted!");
+      res.redirect("/admin/admin_questions/");
+    });
+  }
+);
 
-module.exports = router;
+export default adminAnswerQuestionsRouter;

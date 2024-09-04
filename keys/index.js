@@ -1,10 +1,12 @@
-module.exports = {
+export const keys = {
   MONGODB_URI:
     "mongodb+srv://elizavetachizh:mwSF7rcHYSd0XO2Z@cluster0.ct1ltqh.mongodb.net/?retryWrites=true&w=majority",
   SESSION_SECRET: "some secret value",
   database: "test",
   imgBucket: "photos",
-  documentsBucket: "documents"
+  documentsBucket: "documents",
+  gratitudeBucket: "gratitude",
+  pricesBucket: "prices",
 };
 // MONGODB_URI:
 //     "mongodb+srv://elizavetachizh:mwSF7rcHYSd0XO2Z@cluster0.ct1ltqh.mongodb.net/?retryWrites=true&w=majority",

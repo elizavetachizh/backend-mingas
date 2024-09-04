@@ -1,5 +1,4 @@
-const mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 const AskedQuestionsSchema = new mongoose.Schema({
   question: {
     type: String,
@@ -13,4 +12,4 @@ const AskedQuestionsSchema = new mongoose.Schema({
 
 const AskedQuestions = mongoose.model("AskedQuestions", AskedQuestionsSchema);
 
-module.exports = AskedQuestions;
+export default AskedQuestions;

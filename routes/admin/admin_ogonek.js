@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const { isAdmin } = require("../../config/auth");
-var alert = require("alert");
-const Branches = require("../../models/branches");
-router.get("/", isAdmin, function (req, res) {
+import express from "express";
+const adminOgonekRouter = express.Router();
+import { isAdmin } from "../../config/auth.js";
+import alert from "alert";
+import Branches from "../../models/branches/index.js";
+adminOgonekRouter.get("/", isAdmin, function (req, res) {
   var count;
   Branches.count(function (err, c) {
     count = c;
@@ -15,11 +15,10 @@ router.get("/", isAdmin, function (req, res) {
     });
   });
 });
-
 /*
- * GET add product
+ * GET add productx
  */
-router.get("/add-info", isAdmin, function (req, res) {
+adminOgonekRouter.get("/add-info", isAdmin, function (req, res) {
   var content = "";
   var title = "";
   var typeBranch = "";
@@ -30,7 +29,7 @@ router.get("/add-info", isAdmin, function (req, res) {
   });
 });
 
-router.post("/add-info", (req, res) => {
+adminOgonekRouter.post("/add-info", (req, res) => {
   req.checkBody("title", "Название должно быть заполненым").notEmpty();
   var content = req.body.content;
   var title = req.body.title;
@@ -69,18 +68,17 @@ router.post("/add-info", (req, res) => {
     });
   }
 });
-
 /*
  * GET edit product
  */
-router.get("/edit-info/:id", isAdmin, function (req, res) {
+adminOgonekRouter.get("/edit-info/:id", isAdmin, function (req, res) {
   var errors;
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
 
   Branches.findById(req.params.id, function (err, info) {
     // console.log(tender);
-    console.log(info)
+    console.log(info);
     if (err) {
       console.log(err);
       res.render("admin/admin_info_ogonek");
@@ -95,11 +93,10 @@ router.get("/edit-info/:id", isAdmin, function (req, res) {
     }
   });
 });
-
 /*
  * POST edit product
  */
-router.post("/edit-info/:id", function (req, res) {
+adminOgonekRouter.post("/edit-info/:id", function (req, res) {
   req.checkBody("content", "Описание должно быть заполненым").notEmpty();
 
   var content = req.body.content;
@@ -141,7 +138,7 @@ router.post("/edit-info/:id", function (req, res) {
 /*
  * GET delete product
  */
-router.get("/delete-info/:id", isAdmin, function (req, res) {
+adminOgonekRouter.get("/delete-info/:id", isAdmin, function (req, res) {
   var id = req.params.id;
   Branches.findByIdAndRemove(id, function (err) {
     if (err) return console.log(err);
@@ -151,4 +148,4 @@ router.get("/delete-info/:id", isAdmin, function (req, res) {
   });
 });
 
-module.exports = router;
+export default adminOgonekRouter;

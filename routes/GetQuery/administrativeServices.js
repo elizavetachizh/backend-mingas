@@ -1,10 +1,10 @@
-const express = require("express");
-const router = express.Router();
-const AdministrativeServices = require("../../models/administrativeServices");
+import express from "express";
+const administrativeServicesRouter = express.Router();
+import AdministrativeServices from "../../models/administrativeServices.js";
 
-router.get("/", function (req, res) {
-    AdministrativeServices.find(function (err, administration) {
-        res.send(administration);
-    });
+administrativeServicesRouter.get("/", function (req, res) {
+  AdministrativeServices.find(function (err, administration) {
+    res.send(administration);
+  });
 });
-module.exports = router;
+export default administrativeServicesRouter;

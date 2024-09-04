@@ -1,13 +1,13 @@
-var express = require("express");
-var router = express.Router();
-const nodemailer = require("nodemailer");
-const inlineBase64 = require("nodemailer-plugin-inline-base64");
+import express from "express";
+const questionsRouter = express.Router();
+import nodemailer from "nodemailer";
+import inlineBase64 from "nodemailer-plugin-inline-base64";
 /* GET users listing. */
-router.get("/", function (req, res, next) {
+questionsRouter.get("/", function (req, res, next) {
   res.send(req.body);
 });
 
-router.post("/", (req, res) => {
+questionsRouter.post("/", (req, res) => {
   const transporterQuestions = nodemailer.createTransport({
     secure: true,
     host: "ms2.g-cloud.by",
@@ -21,11 +21,7 @@ router.post("/", (req, res) => {
       rejectUnauthorized: false,
     },
   });
-  var maillist = [
-    "kc@mingas.by",
-    "root@mingas.by",
-    "chizhem@mingas.by",
-  ];
+  var maillist = ["kc@mingas.by", "root@mingas.by", "chizhem@mingas.by"];
   const info = req.body.information;
   const mailOptionsFormQuestion = {
     from: req.body.email, // sender address
@@ -62,7 +58,6 @@ router.post("/", (req, res) => {
     mailOptionsFormQuestion,
     function (error, info) {
       if (error) {
-        console.log(error);
         res.status(400).json({
           status: false,
           respMesg: "Завяка не отправлена, попробуйте еще раз!",
@@ -77,4 +72,4 @@ router.post("/", (req, res) => {
     }
   );
 });
-module.exports = router;
+export default questionsRouter;

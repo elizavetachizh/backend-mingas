@@ -1,7 +1,6 @@
-var mongoose = require("mongoose");
-
+import mongoose from "mongoose"
 // Page Schema
-var PostsSchema = mongoose.Schema({
+const PostsSchema = mongoose.Schema({
   link: {
     type: String,
   },
@@ -17,4 +16,4 @@ var PostsSchema = mongoose.Schema({
 });
 
 const Posts = mongoose.model("Posts", PostsSchema);
-module.exports = Posts;
+export default Posts;

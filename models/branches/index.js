@@ -1,7 +1,6 @@
-var mongoose = require("mongoose");
-
+import mongoose from "mongoose";
 // Category Schema
-var BranchesSchema = mongoose.Schema({
+const BranchesSchema = mongoose.Schema({
   title: {
     type: String,
   },
@@ -14,4 +13,4 @@ var BranchesSchema = mongoose.Schema({
 });
 
 const Branches = mongoose.model("Branches", BranchesSchema);
-module.exports = Branches;
+export default Branches;

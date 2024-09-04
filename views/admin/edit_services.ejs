@@ -2,23 +2,23 @@
 <a href="/admin/admin_services" class="btn btn-primary">Назад ко всем услугам</a>
 <br><br>
 
-<form method="post" action="/admin/admin_services/edit-services/<%= id %>" >
+<form method="post" action="/admin/admin_services/edit-services/<%= service._id %>" >
 
     <div class="form-group">
         <label for="name">Название услуги</label>
-        <input type="text" class="form-control" id="name" name="name" value="<%= name %>" placeholder="name">
+        <input type="text" class="form-control" id="name" name="name" value="<%= service.name %>" placeholder="name">
     </div>
     <div class="form-group">
         <label for="type">Тип - 1: физ.лица, тип -2: юр. лица</label>
-        <input type="text" class="form-control" id="type" name="type" value="<%= type %>" placeholder="type">
+        <input type="text" class="form-control" id="type" name="type" value="<%= service.type %>" placeholder="type">
     </div>
     <div class="form-group">
         <label for="">Current Image</label>
         <p>
-            <% if (image === "") { %>
+            <% if (service.image === "") { %>
         <p></p>
             <% } else {%>
-                <img id="noimage" src="/public/images/<%= image %>" alt="">
+                <img id="noimage" src="/public/images/<%= service.image %>" alt="">
             <% } %>
         </p>
     </div>
@@ -28,32 +28,16 @@
         <input type="file" class="form-control" name="image" id="img">
         <img src="#" id="imgPreview" alt="">
     </div>
-
+    <% if (Array.isArray(description)) { %>
     <div class="form-group">
-        <label for="description">Айдишники необходимых пунктов</label>
-        <input type="text" class="form-control" id="description" name="description" value="<%= description %>" placeholder="description">
-    </div>
-
-    <div class="form-group">
-        <label for="">Предложенные статьи</label>
-        <table>
-            <thead>
-            <tr>
-                <th class="table-for-posts">Id на услугу</th>
-                <th class="table-for-posts">Название услуги</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td></td>
-            </tr>
-            <% generalDescription.map(function(post){ %>
-                <tr>
-                    <td class="table-for-posts"><%= post._id %> </td>
-                    <td class="table-for-posts"><%= post.nameDescription %></td>
-                </tr>
-            <% }); %>
-            </tbody></table>
+        <% description.forEach(des => { %>
+            <input type="checkbox" id="service<%= des._id %>" name="description" value="<%= des._id %>"
+                    <%= service.description.some(s => s._id.equals(des._id)) ? 'checked' : '' %>>
+            <label for="service<%= des._id %>"><%= des.nameDescription %></label><br>
+        <% }) %>
+            <% } else { %>
+                <p>Нет ни одной услуги для выбора, необходимо создать во вкладке "Информация услуг"</p>
+            <% } %>
     </div>
 
     <button class="btn btn-default">Сохранить</button>

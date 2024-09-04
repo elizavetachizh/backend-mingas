@@ -1,10 +1,12 @@
-const express = require("express");
-const router = express.Router();
-const Page = require("../../models/page");
-const auth = require("../../config/auth");
-const isAdmin = auth.isAdmin;
+// const express = require("express");
+import express from "express";
+const adminPageRouter = express.Router();
+// const Page = require("../../models/page");
+import Page from "../../models/page.js";
+// const auth = require("../../config/auth");
+import { isAdmin } from "../../config/auth.js";
 
-router.get("/", isAdmin, function (req, res) {
+adminPageRouter.get("/", isAdmin, function (req, res) {
   Page.find({})
     .sort({ sorting: 1 })
     .exec(function (err, pages) {
@@ -13,7 +15,7 @@ router.get("/", isAdmin, function (req, res) {
       });
     });
 });
-router.get("/add_page", isAdmin, function (req, res) {
+adminPageRouter.get("/add_page", isAdmin, function (req, res) {
   var title = "";
   var slug = "";
   var content = "";
@@ -24,7 +26,7 @@ router.get("/add_page", isAdmin, function (req, res) {
   });
 });
 
-router.post("/add_page", (req, res) => {
+adminPageRouter.post("/add_page", (req, res) => {
   req.checkBody("title", "Заголовок должен быть заполненым").notEmpty();
   req.checkBody("content", "Контент должен быть заполненым").notEmpty();
 
@@ -94,7 +96,7 @@ router.post("/add_page", (req, res) => {
 /*
  * GET edit page
  */
-router.get("/edit-page/:id", isAdmin, function (req, res) {
+adminPageRouter.get("/edit-page/:id", isAdmin, function (req, res) {
   Page.findById(req.params.id, function (err, page) {
     if (err) return console.log(err);
     res.render("admin/edit_page", {
@@ -109,7 +111,7 @@ router.get("/edit-page/:id", isAdmin, function (req, res) {
 /*
  * POST edit page
  */
-router.post("/edit-page/:id", function (req, res) {
+adminPageRouter.post("/edit-page/:id", function (req, res) {
   req.checkBody("title", "Title must have a value.").notEmpty();
   req.checkBody("content", "Content must have a value.").notEmpty();
 
@@ -178,7 +180,7 @@ router.post("/edit-page/:id", function (req, res) {
 /*
  * GET delete page
  */
-router.get("/delete-page/:id", isAdmin, function (req, res) {
+adminPageRouter.get("/delete-page/:id", isAdmin, function (req, res) {
   Page.findByIdAndRemove(req.params.id, function (err) {
     if (err) return console.log(err);
 
@@ -197,4 +199,4 @@ router.get("/delete-page/:id", isAdmin, function (req, res) {
   });
 });
 
-module.exports = router;
+export default adminPageRouter;

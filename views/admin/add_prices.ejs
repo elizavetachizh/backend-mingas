@@ -1,15 +1,16 @@
-<form method="post" action="/admin/admin_prices/add-prices/" >
+<form method="post" action="/admin/admin_prices/add-prices" enctype="multipart/form-data">
 
     <div class="form-group">
-        <label for="img">Документ</label>
-        <input type="file" class="form-control" name="description" id="img">
+        <label for="input-files">Файл</label>
+        <input
+                type="file"
+                name="file"
+                id="input-files"
+                class="form-control-file border"
+                value="<%= files %>"
+        />
     </div>
-
-    <div class="form-group">
-        <label for="name">Имя</label>
-        <input type="text" class="form-control" id="name" name="name" value="<%= name %>" placeholder="name">
-    </div>
-
+    <h5>Форматы файлов: webp, pdf, msword</h5>
     <button class="btn btn-default">Добавить</button>
 
     <% if (errors) {%>

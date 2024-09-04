@@ -94,7 +94,20 @@
   </footer>
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="//cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
-    <script src="/js/main.js"></script>
+<!-- Подключаем CKEditor 4 через CDN -->
+<script src="https://cdn.ckeditor.com/4.21.0/standard-all/ckeditor.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('#ta').forEach(function (textarea) {
+      if (!textarea.classList.contains('ckeditor-initialized')) {
+        CKEDITOR.replace(textarea, {
+          extraPlugins: 'embed,autoembed', // Подключаем плагины
+          embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}', // Используем iFrame.ly для встраивания видео
+        });
+        textarea.classList.add('ckeditor-initialized');
+      }
+    });
+  });
+</script>
   </body>
 </html>

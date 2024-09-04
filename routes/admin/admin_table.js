@@ -1,10 +1,10 @@
-const express = require("express");
-const router = express.Router();
-const Table = require("../../models/tableReceptionSchedule");
-const { isAdmin } = require("../../config/auth");
-const alert = require("alert");
+import express from "express";
+const adminTableRouter = express.Router();
+import Table from "../../models/tableReceptionSchedule.js";
+import { isAdmin } from "../../config/auth.js";
+import alert from "alert";
 
-router.get("/", isAdmin, function (req, res) {
+adminTableRouter.get("/", isAdmin, function (req, res) {
   var count;
   Table.count(function (err, c) {
     count = c;
@@ -23,7 +23,7 @@ router.get("/", isAdmin, function (req, res) {
 /*
  * GET add product
  */
-router.get("/add-table", isAdmin, function (req, res) {
+adminTableRouter.get("/add-table", isAdmin, function (req, res) {
   const name = "";
   res.render("admin/add_table", {
     name,
@@ -33,7 +33,7 @@ router.get("/add-table", isAdmin, function (req, res) {
 /*
  * GET add product
  */
-router.post("/add-table", function (req, res) {
+adminTableRouter.post("/add-table", function (req, res) {
   const name = req.body.name;
 
   const errors = req.validationErrors();
@@ -57,7 +57,7 @@ router.post("/add-table", function (req, res) {
 /*
  * GET edit product
  */
-router.get("/edit-table/:id", isAdmin, function (req, res) {
+adminTableRouter.get("/edit-table/:id", isAdmin, function (req, res) {
   var errors;
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
@@ -80,7 +80,7 @@ router.get("/edit-table/:id", isAdmin, function (req, res) {
 /*
  * POST edit product
  */
-router.post("/edit-table/:id", function (req, res) {
+adminTableRouter.post("/edit-table/:id", function (req, res) {
   req.checkBody("name", "Описание должно быть заполненым").notEmpty();
   var name = req.body.name;
   var id = req.params.id;
@@ -107,7 +107,7 @@ router.post("/edit-table/:id", function (req, res) {
 /*
  * GET delete product
  */
-router.get("/delete-table/:id", isAdmin, function (req, res) {
+adminTableRouter.get("/delete-table/:id", isAdmin, function (req, res) {
   var id = req.params.id;
   Table.findByIdAndRemove(id, function (err) {
     if (err) return console.log(err);
@@ -117,4 +117,4 @@ router.get("/delete-table/:id", isAdmin, function (req, res) {
   });
 });
 
-module.exports = router;
+export default adminTableRouter;

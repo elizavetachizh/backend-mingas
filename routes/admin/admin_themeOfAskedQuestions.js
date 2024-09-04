@@ -1,11 +1,11 @@
-const express = require("express");
-const router = express.Router();
-const { isAdmin } = require("../../config/auth");
-const alert = require("alert");
-const ThemeOfAskedQuestions = require("../../models/themeOfAskedQuestions");
-const AskedQuestions = require("../../models/askedQuestions");
+import express from "express";
+const adminThemesQuestionsRouter = express.Router();
+import { isAdmin } from "../../config/auth.js";
+import alert from "alert";
+import ThemeOfAskedQuestions from "../../models/themeOfAskedQuestions.js";
+import AskedQuestions from "../../models/askedQuestions.js";
 
-router.get("/", isAdmin, function (req, res) {
+adminThemesQuestionsRouter.get("/", isAdmin, function (req, res) {
   var count;
   ThemeOfAskedQuestions.count(function (err, c) {
     count = c;
@@ -25,7 +25,7 @@ router.get("/", isAdmin, function (req, res) {
 /*
  * GET add product
  */
-router.get("/add-themes", isAdmin, function (req, res) {
+adminThemesQuestionsRouter.get("/add-themes", isAdmin, function (req, res) {
   var title = "";
   var questionAnswer = [];
   AskedQuestions.find(function (err, arrayOfAsks) {
@@ -39,7 +39,7 @@ router.get("/add-themes", isAdmin, function (req, res) {
   });
 });
 
-router.post("/add-themes", function (req, res) {
+adminThemesQuestionsRouter.post("/add-themes", function (req, res) {
   const title = req.body.title;
   const questionAnswer = req.body.question;
   var errors = req.validationErrors();
@@ -77,32 +77,36 @@ router.post("/add-themes", function (req, res) {
 /*
  * GET edit product
  */
-router.get("/edit-themes/:id", isAdmin, function (req, res) {
-  var errors;
-  if (req.session.errors) errors = req.session.errors;
-  req.session.errors = null;
-  AskedQuestions.find(function (err, questions) {
-    ThemeOfAskedQuestions.findById(req.params.id, function (err, themes) {
-      if (err) {
-        console.log(err);
-        res.render("admin/admin_themes");
-      } else {
-        res.render("admin/edit_themes", {
-          errors,
-          title: themes.title,
-          questionAnswer: themes.questionAnswer,
-          id: themes._id,
-          listOfQuestionAnswer: questions,
-        });
-      }
+adminThemesQuestionsRouter.get(
+  "/edit-themes/:id",
+  isAdmin,
+  function (req, res) {
+    var errors;
+    if (req.session.errors) errors = req.session.errors;
+    req.session.errors = null;
+    AskedQuestions.find(function (err, questions) {
+      ThemeOfAskedQuestions.findById(req.params.id, function (err, themes) {
+        if (err) {
+          console.log(err);
+          res.render("admin/admin_themes");
+        } else {
+          res.render("admin/edit_themes", {
+            errors,
+            title: themes.title,
+            questionAnswer: themes.questionAnswer,
+            id: themes._id,
+            listOfQuestionAnswer: questions,
+          });
+        }
+      });
     });
-  });
-});
+  }
+);
 
 /*
  * POST edit product
  */
-router.post("/edit-themes/:id", function (req, res) {
+adminThemesQuestionsRouter.post("/edit-themes/:id", function (req, res) {
   req.checkBody("title", "Название должно быть заполненым").notEmpty();
 
   const title = req.body.title;
@@ -130,14 +134,18 @@ router.post("/edit-themes/:id", function (req, res) {
 /*
  * GET delete product
  */
-router.get("/delete-themes/:id", isAdmin, function (req, res) {
-  var id = req.params.id;
-  ThemeOfAskedQuestions.findByIdAndRemove(id, function (err) {
-    if (err) return console.log(err);
+adminThemesQuestionsRouter.get(
+  "/delete-themes/:id",
+  isAdmin,
+  function (req, res) {
+    var id = req.params.id;
+    ThemeOfAskedQuestions.findByIdAndRemove(id, function (err) {
+      if (err) return console.log(err);
 
-    req.flash("success", "themes deleted!");
-    res.redirect("/admin/admin_themes/");
-  });
-});
+      req.flash("success", "themes deleted!");
+      res.redirect("/admin/admin_themes/");
+    });
+  }
+);
 
-module.exports = router;
+export default adminThemesQuestionsRouter;

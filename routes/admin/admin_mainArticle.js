@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
-const { isAdmin } = require("../../config/auth");
-var alert = require("alert");
-const mainArticle = require("../../models/mainArticles");
-router.get("/", isAdmin, function (req, res) {
+import express from "express";
+const mainArticleAdminRouter = express.Router();
+import { isAdmin } from "../../config/auth.js";
+import alert from "alert";
+import mainArticle from "../../models/mainArticles.js";
+mainArticleAdminRouter.get("/", isAdmin, function (req, res) {
   var count;
   mainArticle.count(function (err, c) {
     count = c;
@@ -15,11 +15,10 @@ router.get("/", isAdmin, function (req, res) {
     });
   });
 });
-
 /*
  * GET add product
  */
-router.get("/add-article", isAdmin, function (req, res) {
+mainArticleAdminRouter.get("/add-article", isAdmin, function (req, res) {
   var content = "";
   var button = "";
   var link = "";
@@ -32,7 +31,7 @@ router.get("/add-article", isAdmin, function (req, res) {
   });
 });
 
-router.post("/add-article", (req, res) => {
+mainArticleAdminRouter.post("/add-article", (req, res) => {
   // req.checkBody("content", "Описание должно быть заполненым").notEmpty();
   // req.checkBody("image", "Картинка должна быть загружена").notEmpty();
   var content = req.body.content;
@@ -64,11 +63,10 @@ router.post("/add-article", (req, res) => {
     });
   }
 });
-
 /*
  * GET edit product
  */
-router.get("/edit-article/:id", isAdmin, function (req, res) {
+mainArticleAdminRouter.get("/edit-article/:id", isAdmin, function (req, res) {
   var errors;
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
@@ -89,11 +87,10 @@ router.get("/edit-article/:id", isAdmin, function (req, res) {
     }
   });
 });
-
 /*
  * POST edit product
  */
-router.post("/edit-article/:id", function (req, res) {
+mainArticleAdminRouter.post("/edit-article/:id", function (req, res) {
   var content = req.body.content;
   var image = req.body.image;
   var id = req.params.id;
@@ -121,11 +118,10 @@ router.post("/edit-article/:id", function (req, res) {
     });
   }
 });
-
 /*
  * GET delete product
  */
-router.get("/delete-article/:id", isAdmin, function (req, res) {
+mainArticleAdminRouter.get("/delete-article/:id", isAdmin, function (req, res) {
   var id = req.params.id;
   mainArticle.findByIdAndRemove(id, function (err) {
     if (err) return console.log(err);
@@ -135,4 +131,4 @@ router.get("/delete-article/:id", isAdmin, function (req, res) {
   });
 });
 
-module.exports = router;
+export default mainArticleAdminRouter;

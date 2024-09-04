@@ -4,10 +4,6 @@
 
 <form method="post" action="/admin/admin_posts/edit-post/<%= id %>" >
 
-    <div class="form-group">
-        <label for="link">Ссылка</label>
-        <input type="text" class="form-control" id="link" name="link" value="<%= link %>" placeholder="Ссылка">
-    </div>
 
     <div class="form-group">
         <label for="content">Описание</label>
@@ -23,5 +19,13 @@
         <label for="date">Дата добавления</label>
         <input type="date" class="form-control" name="date" id="date" value="<%= date %>">
     </div>
+
+    <label for="link">Выберете статью:</label>
+    <select class="form-control"  id="link" name="link">
+        <% mainPosts.forEach(post => { %>
+            <option value="<%= post._id %>" <%= post._id.equals(link) ? 'selected' : '' %>><%= post.name %></option>
+        <% }) %>
+    </select><br><br>
+
     <button class="btn btn-default">Сохранить</button>
 </form>

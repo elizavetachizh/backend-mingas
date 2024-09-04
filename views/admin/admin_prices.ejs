@@ -1,32 +1,33 @@
-<h2 class="page-title">prices</h2>
-<a href="/admin/admin_prices/add-prices" class="btn btn-primary">Добавить новую prices</a>
-<br><br>
+<div>
 
+<h2 class="page-title">Прейскуранты</h2>
+<a href="/admin/admin_prices/add-prices" class="btn btn-primary">Загрузить новый прейскурант (pdf, word)</a>
+<br><br>
+<% if (count > 0) { %>
 <table class="table table-striped sorting">
 
     <thead>
     <tr class="home">
-        <th>description</th>
-        <th>name</th>
-        <th>edit</th>
-        <th>delete</th>
+        <th>Документ</th>
+        <th>Скачать</th>
+        <th>Удалить</th>
     </tr>
     </thead>
     <tbody>
-    <% prices.forEach(function(price){ %>
+    <% files.forEach(price => { %>
         <tr>
-            <td>
-                 <a href="https://back.mingas.by/public/images/<%= price.description %>"><%= price.description %></a>
-            </td>
-            <td><%= price.name %></td>
-
-            <td><a href="/admin/admin_prices/edit-prices/<%= price._id %>">edit</a></td>
-            <td><a class="confirmDeletion" href="/admin/admin_prices/delete-prices/<%= price._id %>">delete</a></td>
+            <td><p><%= price.name %></p></td>
+            <td><a href="/admin/admin_prices/<%= price.name %>">Скачать</a></td>
+            <td><a class="confirmDeletion" href="/admin/admin_prices/delete-prices/<%= price.id %>">Удалить</a></td>
         </tr>
     <% }); %>
     </tbody>
 </table>
+<% } else {%>
+    <h3 class="text-center">Нет ни одного файла</h3>
+<% }%>
 
+</div>
 
 
 

@@ -1,9 +1,9 @@
-const express = require("express");
-const keys = require("../../keys");
-const { MongoClient } = require("mongodb");
-const router = express.Router();
+import express from "express";
+import { keys } from "../../keys/index.js";
+import { MongoClient } from "mongodb";
+const documentsEDIRouter = express.Router();
 const mongoClient = new MongoClient(keys.MONGODB_URI);
-router.get("/", async function (req, res) {
+documentsEDIRouter.get("/", async function (req, res) {
   const database = mongoClient.db(keys.database);
   const images = database.collection(keys.documentsBucket + ".files");
   const cursor = images.find().sort({ _id: -1 });
@@ -17,4 +17,4 @@ router.get("/", async function (req, res) {
   });
   res.send(files);
 });
-module.exports = router;
+export default documentsEDIRouter;

@@ -1,6 +1,8 @@
-const upload = require("../middleware/documentsEDI");
-const { MongoClient, GridFSBucket, ObjectId } = require("mongodb");
-const keys = require("../keys");
+// const upload = require("../middleware/documentsEDI");
+import uploadFilesMiddleware from "../middleware/documentsEDI.js"
+// const { MongoClient, GridFSBucket, ObjectId } = require("mongodb");
+import { MongoClient, GridFSBucket, ObjectId } from "mongodb"
+import { keys } from "keys/index.js";
 const mongoClient = new MongoClient(keys.MONGODB_URI);
 
 const home = (req, res) => {
@@ -9,10 +11,9 @@ const home = (req, res) => {
     files,
   });
 };
-const uploadFiles = async (req, res) => {
+export const uploadFiles = async (req, res) => {
   try {
-    await upload(req, res);
-    console.log(req);
+    await uploadFilesMiddleware(req, res);
     if (req.file.length <= 0) {
       return res
         .status(400)
@@ -36,7 +37,7 @@ const uploadFiles = async (req, res) => {
   }
 };
 
-const getListFiles = async (req, res) => {
+export const getListFiles = async (req, res) => {
   try {
     const database = mongoClient.db(keys.database);
     const images = database.collection(keys.documentsBucket + ".files");
@@ -61,7 +62,7 @@ const getListFiles = async (req, res) => {
   }
 };
 
-const download = async (req, res) => {
+export const download = async (req, res) => {
   try {
     const database = mongoClient.db(keys.database);
     const bucket = new GridFSBucket(database, {
@@ -69,7 +70,6 @@ const download = async (req, res) => {
     });
 
     let downloadStream = bucket.openDownloadStreamByName(req.params.name);
-    console.log(downloadStream);
     downloadStream.on("data", function (data) {
       return res.status(200).write(data);
     });
@@ -88,7 +88,7 @@ const download = async (req, res) => {
   }
 };
 
-const deleteInfo = async (req, res) => {
+export const deleteInfo = async (req, res) => {
   try {
     const database = mongoClient.db(keys.database);
     const bucket = new GridFSBucket(database, {
@@ -106,10 +106,3 @@ const deleteInfo = async (req, res) => {
   }
 };
 
-module.exports = {
-  uploadFiles,
-  getListFiles,
-  download,
-  home,
-  deleteInfo,
-};
