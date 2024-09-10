@@ -1,6 +1,7 @@
 import alert from "alert";
 import Posts from "../models/posts.js";
 import MainPosts from "../models/mainPosts.js";
+import mongoose from "mongoose";
 
 export const getPosts = async (req, res) => {
   const page = req.query.page || 0;
@@ -23,25 +24,26 @@ export const getPosts = async (req, res) => {
 };
 
 export const createPosts = async (req, res) => {
-  req.checkBody("link", "Название должно быть заполненым").notEmpty();
-  req.checkBody("content", "Описание должно быть заполненым").notEmpty();
+  // req.checkBody("link", "Название должно быть заполненым").notEmpty();
+  // req.checkBody("content", "Описание должно быть заполненым").notEmpty();
 
-  var link = req.body.link;
-  var content = req.body.content;
+  const link = req.body.link;
+  const textLink = req.body.text
+  const content = req.body.content;
+  const article = mongoose.Types.ObjectId.isValid(link) && await MainPosts.findById(link).select("name").lean();
   var image = req.body.image
     ? req.body.image
     : "https://back.mingas.by/public/images/background_new.webp";
   var date = req.body.date;
   var errors = req.validationErrors();
-
   if (errors) {
     res.render("admin/add_posts", {
       errors,
     });
   } else {
     var newPost = await new Posts({
-      link,
-      content,
+      link: textLink.trim() || link,
+      content: content.trim() || article.name,
       image,
       date,
     });

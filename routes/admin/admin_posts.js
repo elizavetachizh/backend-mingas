@@ -14,6 +14,7 @@ postsAdminRouter.get("/add-post", isAdmin, function (req, res) {
   var link = "";
   var content = "";
   var image = "";
+  const text = ''
   var date = new Date();
   MainPosts.find({}, { name: 1 })
     .sort({ _id: -1 })
@@ -22,6 +23,7 @@ postsAdminRouter.get("/add-post", isAdmin, function (req, res) {
       res.render("admin/add_posts", {
         link,
         content,
+        text,
         image,
         date,
         mainPosts,

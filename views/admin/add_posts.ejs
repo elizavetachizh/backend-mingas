@@ -6,11 +6,6 @@
 <form method="post" action="/admin/admin_posts/add-post/" >
 
     <div class="form-group">
-        <label for="content">Описание</label>
-      <input type="text" class="form-control" id="content" name="content" value="<%= content %>" placeholder="Описание">
-    </div>
-
-    <div class="form-group">
         <label for="image">Картинка</label>
         <input type="text" class="form-control" id="image" name="image" value="<%= image %>">
     </div>
@@ -22,10 +17,19 @@
     <div class="form-group">
         <label for="link">Выберете статью:</label>
         <select class="form-control" id="link" name="link">
+            <option>Выберете статью:</option>
             <% mainPosts.forEach(post => { %>
                 <option value="<%= post._id %>"><%= post.name %></option>
             <% }) %>
         </select>
+    </div>
+        <div class="form-group">
+            <label for="content">Либо введите название статьи в случае необходимости, если же нет, то название заполнится автоматически по выбранной статье</label>
+          <input type="text" class="form-control" id="content" name="content" value="<%= content %>" placeholder="Описание">
+        </div>
+    <div class="form-group">
+        <label for="text-link">В случае невыбранной статьи, введите ссылку вручную</label>
+        <input class="form-control" id="text-link"  type="text" name="text" value="<%= text %>">
     </div>
     <button class="btn btn-default">Добавить</button>
 
