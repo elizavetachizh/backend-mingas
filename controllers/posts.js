@@ -42,7 +42,7 @@ export const createPosts = async (req, res) => {
     });
   } else {
     var newPost = await new Posts({
-      link: textLink.trim() || link,
+      link: textLink.trim() || `https://mingas.by/posts/${link}`,
       content: content.trim() || article.name,
       image,
       date,
