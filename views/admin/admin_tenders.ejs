@@ -7,8 +7,8 @@
     <thead>
       <tr class="home">
                   <th>Содержание</th>
-                  <th>edit</th>
-                  <th>delete</th>
+                  <th>Редактировать</th>
+                  <th>Удалить</th>
               </tr>
     </thead>
      <tbody>
@@ -16,12 +16,12 @@
             <tr>
                 <td><%= tender.content %></td>
 
-                <td><a href="/admin/admin_tenders/edit-tender/<%= tender._id %>">edit</a></td>
-                <td><a class="confirmDeletion" href="/admin/admin_tenders/delete-tender/<%= tender._id %>">delete</a></td>
+                <td><a href="/admin/admin_tenders/edit-tender/<%= tender._id %>">Редактировать</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_tenders/delete-tender/<%= tender._id %>">Удалить</a></td>
             </tr>
             <% }); %>
         </tbody>
 </table>
 <% } else {%>
-<h3 class="text-center">Нет ни одного созданного поста</h3>
+<h3 class="text-center">Нет ни одного созданного тендера</h3>
 <% }%>

@@ -72,6 +72,8 @@ import adminDocumentsEDIRouter from "./routes/admin/admin_edi.js";
 import documentsEDIRouter from "./routes/GetQuery/documentsEDI.js";
 import adminGratitudeRouter from "./routes/admin/admin_gratitude.js";
 import gratitudeRouter from "./routes/GetQuery/gratitude.js";
+import adminVacanciesRouter from "./routes/admin/admin_vacancies.js";
+import vacanciesRouter from "./routes/GetQuery/vacancies.js";
 import cors from "cors";
 import { fileURLToPath } from "url";
 const app = express();
@@ -190,50 +192,56 @@ app.use("/admin", adminRouter);
 app.use("/submit-survey", newFeedback);
 
 //admin
-app.use("/admin/users", adminUsersRouter);
 app.use("/admin/admin_posts", postsAdminRouter);
 app.use("/admin/admin_corruption", corruptionAdminRouter);
-app.use("/admin/posts", postsRouter);
-app.use("/admin/corruption", corruptionRouter);
-app.use("/admin/tenders", tendersRouter);
 app.use("/admin/admin_management", managementAdminRouter);
 app.use("/admin/admin_tenders", tendersAdminRouter);
 app.use("/admin/admin_departament", departamentAdminRouter);
-app.use("/admin/articles", articlesRouter);
 app.use("/admin/admin_article", mainArticleAdminRouter);
-app.use("/admin/management", managementRouter);
-app.use("/admin/departament", departamentRouter);
 app.use("/admin/admin_services", adminServicesRouter);
 app.use("/admin/admin_description", adminDescriptionRouter);
 app.use("/admin/admin_mainpost", adminMainPostsRouter);
 app.use("/admin/admin_ogonek", adminOgonekRouter);
 app.use("/admin/admin_TV", adminTVRouter);
-app.use("/admin/description", DescriptionRouter);
-app.use("/admin/services", ServicesRouter);
-app.use("/admin/mainposts", mainPostsRouter);
 app.use("/admin/admin_documents", adminDocumentsRouter);
-app.use("/admin/documents", documentsRouter);
 app.use("/admin/admin_separations", adminSeparationsRouter);
-app.use("/admin/documents_separation", documentsSeparationsRouter);
 app.use("/admin/admin_questions", adminAnswerQuestionsRouter);
-app.use("/admin/questions", answerQuestionsRouter);
 app.use("/admin/admin_themes", adminThemesQuestionsRouter);
-app.use("/admin/themes", themesQuestionsRouter);
 app.use("/admin/admin_prices", adminPricesRouter);
-app.use("/admin/prices", pricesRouter);
-app.use("/admin/table", tableRouter);
-app.use("/admin/ogonek", ogonekRouter);
 app.use("/admin/admin_administration", adminAdministrativeServicesRouter);
 app.use("/admin/administration", administrativeServicesRouter);
 app.use("/admin/admin_table", adminTableRouter);
 app.use("/page", pageSlugRouter);
 app.use("/admin_page", adminPageRouter);
+app.use("/admin/admin_vacancies", adminVacanciesRouter);
+
+
+//for user
+app.use("/admin/vacancies", vacanciesRouter);
+app.use("/admin/users", adminUsersRouter);
 app.use("/admin/upload", adminPhotosRouter);
 app.use("/admin/TV", TVRouter);
 app.use("/admin/edi", adminDocumentsEDIRouter);
 app.use("/admin/documents_edi", documentsEDIRouter);
 app.use("/admin/gratitude", adminGratitudeRouter);
-app.use("/admin/gratitude_get", gratitudeRouter)
+app.use("/admin/gratitude_get", gratitudeRouter);
+app.use("/admin/posts", postsRouter);
+app.use("/admin/corruption", corruptionRouter);
+app.use("/admin/tenders", tendersRouter);
+app.use("/admin/articles", articlesRouter);
+app.use("/admin/management", managementRouter);
+app.use("/admin/departament", departamentRouter);
+app.use("/admin/description", DescriptionRouter);
+app.use("/admin/services", ServicesRouter);
+app.use("/admin/mainposts", mainPostsRouter);
+app.use("/admin/documents", documentsRouter);
+app.use("/admin/documents_separation", documentsSeparationsRouter);
+app.use("/admin/questions", answerQuestionsRouter);
+app.use("/admin/themes", themesQuestionsRouter);
+app.use("/admin/prices", pricesRouter);
+app.use("/admin/table", tableRouter);
+app.use("/admin/ogonek", ogonekRouter);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
