@@ -28,5 +28,5 @@ var storage = new GridFsStorage({
 });
 
 var uploadFiles = multer({ storage }).single("file");
-var uploadFilesMiddleware = util.promisify(uploadFiles);
-export default uploadFilesMiddleware;
+var uploadEDIFilesMiddleware = util.promisify(uploadFiles);
+export default uploadEDIFilesMiddleware;

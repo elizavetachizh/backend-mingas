@@ -242,6 +242,7 @@ app.use("/admin/prices", pricesRouter);
 app.use("/admin/table", tableRouter);
 app.use("/admin/ogonek", ogonekRouter);
 
+app.use("/admin/gratitude_get", gratitudeRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

@@ -1,11 +1,9 @@
-// const upload = require("../middleware/documentsEDI");
-import uploadFilesMiddleware from "../middleware/documentsEDI.js"
-// const { MongoClient, GridFSBucket, ObjectId } = require("mongodb");
 import { MongoClient, GridFSBucket, ObjectId } from "mongodb"
-import { keys } from "keys/index.js";
+import uploadEDIFilesMiddleware from "../middleware/documentsEDI.js";
+import { keys } from "../keys/index.js";
 const mongoClient = new MongoClient(keys.MONGODB_URI);
 
-const home = (req, res) => {
+export const home = (req, res) => {
   var files = "";
   res.render("admin/add_edi", {
     files,
@@ -13,7 +11,7 @@ const home = (req, res) => {
 };
 export const uploadFiles = async (req, res) => {
   try {
-    await uploadFilesMiddleware(req, res);
+    await uploadEDIFilesMiddleware(req, res);
     if (req.file.length <= 0) {
       return res
         .status(400)
