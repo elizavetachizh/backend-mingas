@@ -23,12 +23,18 @@
             <% }) %>
         </select>
     </div>
-        <div class="form-group">
-            <label for="content">Либо введите название статьи в случае необходимости, если же нет, то название заполнится автоматически по выбранной статье</label>
+
+    <div class="form-group">
+        <label for="name">Имя (указать в случае, если на картинке нет текста)</label>
+        <input type="text" class="form-control"  id="name" name="name" placeholder="name">
+    </div>
+
+    <div class="form-group">
+            <label for="content">Заголовок статьи (указать в случае, если не была выбрана статья, в противном случае название заполнится автоматически по выбранной статье)</label>
           <input type="text" class="form-control" id="content" name="content" value="<%= content %>" placeholder="Описание">
         </div>
     <div class="form-group">
-        <label for="text-link">В случае невыбранной статьи, введите ссылку вручную</label>
+        <label for="text-link">Ссылка на статью (указать в случае, если не была выбрана статья, в противном случае название заполнится автоматически по выбранной статье)</label>
         <input class="form-control" id="text-link"  type="text" name="text" value="<%= text %>">
     </div>
     <button class="btn btn-default">Добавить</button>

@@ -54,7 +54,6 @@ import adminAnswerQuestionsRouter from "./routes/admin/admin_askedQuestions.js";
 import answerQuestionsRouter from "./routes/GetQuery/answerQuestion.js";
 import adminThemesQuestionsRouter from "./routes/admin/admin_themeOfAskedQuestions.js";
 import themesQuestionsRouter from "./routes/GetQuery/themesAnswerQuestions.js";
-import adminPricesRouter from "./routes/admin/admin_price.js";
 import pricesRouter from "./routes/GetQuery/prices.js";
 import corruptionRouter from "./routes/GetQuery/corruption.js";
 import adminAdministrativeServicesRouter from "./routes/admin/admin_AdministrativeServices.js";
@@ -74,8 +73,11 @@ import adminGratitudeRouter from "./routes/admin/admin_gratitude.js";
 import gratitudeRouter from "./routes/GetQuery/gratitude.js";
 import adminVacanciesRouter from "./routes/admin/admin_vacancies.js";
 import vacanciesRouter from "./routes/GetQuery/vacancies.js";
+import pricesAdminRouter from "./routes/admin/admin_prices.js";
+
 import cors from "cors";
 import { fileURLToPath } from "url";
+
 const app = express();
 //for site
 const port = process.env.PORT || 3000;
@@ -207,7 +209,7 @@ app.use("/admin/admin_documents", adminDocumentsRouter);
 app.use("/admin/admin_separations", adminSeparationsRouter);
 app.use("/admin/admin_questions", adminAnswerQuestionsRouter);
 app.use("/admin/admin_themes", adminThemesQuestionsRouter);
-app.use("/admin/admin_prices", adminPricesRouter);
+app.use("/admin/admin_prices", pricesAdminRouter);
 app.use("/admin/admin_administration", adminAdministrativeServicesRouter);
 app.use("/admin/administration", administrativeServicesRouter);
 app.use("/admin/admin_table", adminTableRouter);

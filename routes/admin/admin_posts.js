@@ -16,6 +16,7 @@ postsAdminRouter.get("/add-post", isAdmin, function (req, res) {
   var image = "";
   const text = ''
   var date = new Date();
+  var name = "";
   MainPosts.find({}, { name: 1 })
     .sort({ _id: -1 })
     .limit(7)
@@ -27,6 +28,7 @@ postsAdminRouter.get("/add-post", isAdmin, function (req, res) {
         image,
         date,
         mainPosts,
+        name
       });
     });
 });

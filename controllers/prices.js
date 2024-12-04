@@ -46,7 +46,6 @@ export const getListPrices = async (req, res) => {
         message: "No files found!",
       });
     }
-    console.log(cursor)
     let files = [];
     await cursor.forEach((doc) => {
       files.push({
@@ -67,7 +66,6 @@ export const getListPrices = async (req, res) => {
 };
 
 export const download = async (req, res) => {
-  console.log(req.params.name)
   try {
     const database = mongoClient.db(keys.database);
     const bucket = new GridFSBucket(database, {

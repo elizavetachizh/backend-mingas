@@ -26,7 +26,7 @@ export const getPosts = async (req, res) => {
 export const createPosts = async (req, res) => {
   // req.checkBody("link", "Название должно быть заполненым").notEmpty();
   // req.checkBody("content", "Описание должно быть заполненым").notEmpty();
-
+  var name = req.body.name;
   const link = req.body.link;
   const textLink = req.body.text
   const content = req.body.content;
@@ -46,6 +46,7 @@ export const createPosts = async (req, res) => {
       content: content.trim() || article.name,
       image,
       date,
+      name
     });
     await newPost.save(function (err) {
       if (err) {
@@ -75,6 +76,7 @@ export const getPostsById = async (req, res) => {
       image: post.image,
       id: post._id,
       date: post.date,
+      name:post.name,
       mainPosts,
     });
   } catch (err) {
@@ -85,7 +87,6 @@ export const getPostsById = async (req, res) => {
 export const updatePost = async (req, res) => {
   req.checkBody("link", "Название должно быть заполненым").notEmpty();
   req.checkBody("content", "Описание должно быть заполненым").notEmpty();
-
   try {
     let errors = req.validationErrors();
     if (errors) {
@@ -99,6 +100,7 @@ export const updatePost = async (req, res) => {
           image: req.body.image,
           content: req.body.content,
           date: req.body.date,
+          name:req.body.name
         },
         { new: true }
       );

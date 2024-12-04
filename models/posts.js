@@ -7,6 +7,9 @@ const PostsSchema = mongoose.Schema({
   content: {
     type: String,
   },
+  name: {
+    type: String,
+  },
   image: {
     type: String,
   },

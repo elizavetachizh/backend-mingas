@@ -28,6 +28,7 @@ mainArticleAdminRouter.get("/add-article", isAdmin, function (req, res) {
     button,
     link,
     image,
+
   });
 });
 

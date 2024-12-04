@@ -1,0 +1,38 @@
+<div>
+
+    <h2 class="page-title">Прейскуранты</h2>
+    <a href="/admin/admin_prices/upload" class="btn btn-primary">Загрузить новый прейскурант (pdf, word)</a>
+    <br><br>
+    <% if (count > 0) { %>
+        <table class="table table-striped sorting">
+
+            <thead>
+            <tr class="home">
+                <th>Документ</th>
+                <th>Документ</th>
+                <th>ДАта</th>
+                <th>Скачать</th>
+                <th>Удалить</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% prices.forEach(price => { %>
+                <tr>
+                    <td><p><%= price.name %></p></td>
+                    <td><p><%= price.file %></p></td>
+                    <td><p><%= price.date %></p></td>
+                    <td><a href="/admin/admin_prices/edit-price/<%= price.id %>">Отредактировать</a></td>
+                    <td><a class="confirmDeletion" href="/admin/admin_prices/delete-price/<%= price.id %>">Удалить</a></td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    <% } else {%>
+        <h3 class="text-center">Нет ни одного файла</h3>
+    <% }%>
+
+</div>
+
+
+
+
