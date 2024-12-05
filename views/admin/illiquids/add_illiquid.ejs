@@ -1,4 +1,4 @@
-<form method="post" action="/admin/gratitude/upload" enctype="multipart/form-data">
+<form method="post" action="/admin/admin_illiquids/upload" enctype="multipart/form-data">
 
     <div class="form-group">
         <label for="input-files">Файл</label>
@@ -13,6 +13,11 @@
         <label for="name">Имя:</label>
         <input type="text" name="name" id="name"  class="form-control"  required>
     </div>
+    <div class="form-group">
+        <label for="date">Дата:</label>
+        <input type="date" name="date"  class="form-control"  id="date">
+    </div>
+
     <button class="btn btn-default">Добавить</button>
 
     <% if (errors) {%>
@@ -22,4 +27,21 @@
             </div>
         <% });%>
     <% }%>
+
 </form>
+
+<script>
+
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $("#img").change(function() {
+    readURL(this);
+  });
+
+</script>

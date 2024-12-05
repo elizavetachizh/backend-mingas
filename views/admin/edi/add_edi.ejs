@@ -1,4 +1,4 @@
-<form method="post" action="/admin/edi/create" enctype="multipart/form-data">
+<form method="post" action="/admin/edi/upload" enctype="multipart/form-data">
 
     <div class="form-group">
         <label for="input-files">Файл</label>
@@ -7,8 +7,15 @@
                 name="file"
                 id="input-files"
                 class="form-control-file border"
-                value="<%= files %>"
         />
+    </div>
+    <div class="form-group">
+        <label for="name">Имя:</label>
+        <input type="text" name="name" id="name"  class="form-control"  required>
+    </div>
+    <div class="form-group">
+        <label for="date">Месяц:</label>
+        <input type="month" name="date"  class="form-control"  id="date">
     </div>
     <button class="btn btn-default">Добавить</button>
 

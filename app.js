@@ -74,9 +74,13 @@ import gratitudeRouter from "./routes/GetQuery/gratitude.js";
 import adminVacanciesRouter from "./routes/admin/admin_vacancies.js";
 import vacanciesRouter from "./routes/GetQuery/vacancies.js";
 import pricesAdminRouter from "./routes/admin/admin_prices.js";
+import adminIlliquidsRouter from "./routes/admin/admin_illiquids.js";
+import illiquidsRouter from "./routes/GetQuery/illiquids.js";
 
 import cors from "cors";
 import { fileURLToPath } from "url";
+
+
 
 const app = express();
 //for site
@@ -216,14 +220,14 @@ app.use("/admin/admin_table", adminTableRouter);
 app.use("/page", pageSlugRouter);
 app.use("/admin_page", adminPageRouter);
 app.use("/admin/admin_vacancies", adminVacanciesRouter);
-
+app.use("/admin/admin_illiquids", adminIlliquidsRouter)
+app.use("/admin/edi", adminDocumentsEDIRouter);
 
 //for user
 app.use("/admin/vacancies", vacanciesRouter);
 app.use("/admin/users", adminUsersRouter);
 app.use("/admin/upload", adminPhotosRouter);
 app.use("/admin/TV", TVRouter);
-app.use("/admin/edi", adminDocumentsEDIRouter);
 app.use("/admin/documents_edi", documentsEDIRouter);
 app.use("/admin/gratitude", adminGratitudeRouter);
 app.use("/admin/gratitude_get", gratitudeRouter);
@@ -243,7 +247,7 @@ app.use("/admin/themes", themesQuestionsRouter);
 app.use("/admin/prices", pricesRouter);
 app.use("/admin/table", tableRouter);
 app.use("/admin/ogonek", ogonekRouter);
-
+app.use("/admin/illiquids", illiquidsRouter)
 app.use("/admin/gratitude_get", gratitudeRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

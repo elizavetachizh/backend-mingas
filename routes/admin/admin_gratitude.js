@@ -1,18 +1,40 @@
 import express from "express";
 import {
-  home,
-  getListGratitude,
-  download,
-  deleteInfo,
-  uploadGratitude,
+  uploadGratitude, getGratitudes, getGratitudeById, updateGratitude, deleteGratitude
 } from "../../controllers/gratitude.js";
-const adminGratitudeRouter = express.Router();
 import { isAdmin } from "../../config/auth.js";
+import multer from "multer";
+import fs from "fs-extra"
+const adminGratitudeRouter = express.Router();
 
-adminGratitudeRouter.get("/create", isAdmin, home);
-adminGratitudeRouter.post("/create", uploadGratitude);
-adminGratitudeRouter.get("/", getListGratitude);
-adminGratitudeRouter.get("/:name", download);
-adminGratitudeRouter.get("/delete/:id", deleteInfo);
+// Настройка загрузки файлов с помощью Multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = 'doc/gratitude';
+    if (!fs.existsSync(dir)){
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname); // Добавляем дату к имени файла
+  },
+});
+
+const upload = multer({ storage });
+
+adminGratitudeRouter.get("/", isAdmin, getGratitudes);
+adminGratitudeRouter.get("/upload", isAdmin, function (req, res) {
+  var content = "";
+  res.render("admin/gratitude/add_gratitude", {
+    content,
+  });
+});
+adminGratitudeRouter.post("/upload", upload.single("file"), uploadGratitude);
+adminGratitudeRouter.get("/edit-gratitude/:id", getGratitudeById);
+adminGratitudeRouter.post("/edit-gratitude/:id", updateGratitude);
+adminGratitudeRouter.get("/delete/:id", deleteGratitude);
 
 export default adminGratitudeRouter;
+
+

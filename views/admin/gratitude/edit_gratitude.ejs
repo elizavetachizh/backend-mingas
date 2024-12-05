@@ -1,5 +1,8 @@
-<form method="post" action="/admin/gratitude/upload" enctype="multipart/form-data">
+<h2 class="page-title">Редактирование</h2>
+<a href="/admin/gratitude" class="btn btn-primary">Назад</a>
+<br><br>
 
+<form method="post" action="/admin/gratitude/edit-gratitude/<%= id %>">
     <div class="form-group">
         <label for="input-files">Файл</label>
         <input
@@ -13,7 +16,8 @@
         <label for="name">Имя:</label>
         <input type="text" name="name" id="name"  class="form-control"  required>
     </div>
-    <button class="btn btn-default">Добавить</button>
+
+    <button class="btn btn-default">Сохранить</button>
 
     <% if (errors) {%>
         <% errors.forEach(function(error) { %>

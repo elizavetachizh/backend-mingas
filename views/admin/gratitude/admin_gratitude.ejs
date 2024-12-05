@@ -1,5 +1,5 @@
 <div>
-    <a href="/admin/gratitude/create" class="btn btn-primary">Загрузить новый файл (jpeg, webp, png)</a>
+    <a href="/admin/gratitude/upload" class="btn btn-primary">Загрузить новый файл (jpeg, webp, png)</a>
     <br><br>
 
     <% if (count > 0) { %>
@@ -15,7 +15,8 @@
         <% files.forEach(function(element){ %>
             <tr>
                 <td><p><%= element.name %></p></td>
-                <td><a href="/admin/gratitude/<%= element.name %>">скачать</a></td>
+                <td><p><%= element.file %></p></td>
+                <td><a href="/admin/gratitude/edit-gratitude/<%= element.id %>">Отредактировать</a></td>
                 <td><a href="/admin/gratitude/delete/<%= element.id %>">удалить</a></td>
             </tr>
         <% }); %>
