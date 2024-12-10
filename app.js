@@ -76,9 +76,12 @@ import vacanciesRouter from "./routes/GetQuery/vacancies.js";
 import pricesAdminRouter from "./routes/admin/admin_prices.js";
 import adminIlliquidsRouter from "./routes/admin/admin_illiquids.js";
 import illiquidsRouter from "./routes/GetQuery/illiquids.js";
+import adminDocumentationRouter from "./routes/admin/admin_documentation.js";
 
 import cors from "cors";
 import { fileURLToPath } from "url";
+import documentationRouter from "./routes/GetQuery/documentation.js";
+
 
 
 
@@ -222,6 +225,7 @@ app.use("/admin_page", adminPageRouter);
 app.use("/admin/admin_vacancies", adminVacanciesRouter);
 app.use("/admin/admin_illiquids", adminIlliquidsRouter)
 app.use("/admin/edi", adminDocumentsEDIRouter);
+app.use("/admin/documentations", adminDocumentationRouter);
 
 //for user
 app.use("/admin/vacancies", vacanciesRouter);
@@ -249,6 +253,7 @@ app.use("/admin/table", tableRouter);
 app.use("/admin/ogonek", ogonekRouter);
 app.use("/admin/illiquids", illiquidsRouter)
 app.use("/admin/gratitude_get", gratitudeRouter);
+app.use("/admin/certificates", documentationRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

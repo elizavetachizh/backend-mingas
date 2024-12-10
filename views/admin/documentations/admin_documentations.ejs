@@ -1,0 +1,28 @@
+<div>
+    <a href="/admin/documentations/upload" class="btn btn-primary">Загрузить новый сертификат/аттестат (webp)</a>
+    <br><br>
+
+    <% if (count > 0) { %>
+        <table class="table table-striped sorting">
+            <thead>
+            <tr class="home">
+                <th>Документ</th>
+                <th>Скачать</th>
+                <th>Удалить</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% files.forEach(function(file){ %>
+                <tr>
+                    <td><p><%= file.date %></p></td>
+                    <td><a href="/admin/documentations/edit/<%= file.id %>">Отредактировать</a></td>
+                    <td><a href="/admin/documentations/delete/<%= file.id %>">удалить</a></td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    <% } else {%>
+        <h3 class="text-center">Нет ни одного файла</h3>
+    <% }%>
+</div>
+

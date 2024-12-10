@@ -1,5 +1,4 @@
 import alert from "alert";
-import path from "path";
 import Edi from "../models/edi.js";
 export const getDocuments = async (req, res) => {
   var count;
@@ -20,12 +19,7 @@ export const uploadDocument = async (req, res) => {
   req.checkBody("name", "Название должно быть заполненым").notEmpty();
   var name = req.body.name;
   var date = req.body.date;
-  console.log(date);
-  const fileName = req.file.filename; // Убедитесь, что здесь нет слешей
-  const uploadsDir = 'doc/edi'; // Папка для загрузок
-
-  // Используйте path.join для формирования пути
-  const filePath = path.join(uploadsDir, fileName);
+  const filePath = req.file.path; // Убедитесь, что здесь нет слешей
 
   var errors = req.validationErrors();
   if (errors) {

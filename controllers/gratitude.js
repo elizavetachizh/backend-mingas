@@ -1,5 +1,4 @@
 import alert from "alert";
-import path from "path";
 import Gratitude from "../models/gratitude.js";
 export const getGratitudes = async (req, res) => {
   var count;
@@ -19,12 +18,7 @@ export const getGratitudes = async (req, res) => {
 export const uploadGratitude = async (req, res) => {
   req.checkBody("name", "Название должно быть заполненым").notEmpty();
   var name = req.body.name;
-
-  const fileName = req.file.filename; // Убедитесь, что здесь нет слешей
-  const uploadsDir = 'doc/gratitude'; // Папка для загрузок
-
-  // Используйте path.join для формирования пути
-  const filePath = path.join(uploadsDir, fileName);
+  const filePath = req.file.path; // Убедитесь, что здесь нет слешей
 
   var errors = req.validationErrors();
   if (errors) {
@@ -51,9 +45,7 @@ export const getGratitudeById = async (req, res) => {
     var errors;
     if (req.session.errors) errors = req.session.errors;
     req.session.errors = null;
-    console.log(req.params);
     const gratitude = await Gratitude.findById(req.params.id);
-    console.log(gratitude);
     if (!gratitude) return res.status(404).json({ error: "User not found" });
     res.render("admin/gratitude/edit_gratitude", {
       errors,
