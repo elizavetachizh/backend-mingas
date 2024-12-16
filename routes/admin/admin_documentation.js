@@ -9,7 +9,7 @@ import {
   uploadDocument
 } from "../../controllers/documentations.js";
 
-const upload = multer({  dest: 'temp/' });
+const upload = multer({  dest: 'doc/' });
 
 adminDocumentationRouter.get("/", isAdmin, getDocuments);
 adminDocumentationRouter.get("/upload", isAdmin, function (req, res) {
