@@ -1,20 +1,29 @@
 <h2 class="page-title">Редактирование</h2>
-<a href="/admin/gratitude" class="btn btn-primary">Назад</a>
+<a href="/admin/newspapers" class="btn btn-primary">Назад</a>
 <br><br>
 
-<form method="post" action="/admin/gratitude/edit-gratitude/<%= id %>">
+<form method="post" action="/admin/edi/edit-newspaper/<%= id %>">
     <div class="form-group">
         <label for="input-files">Файл</label>
         <input
                 type="file"
                 name="file"
                 id="input-files"
-                class="form-control-file border"
+                class="form-control-file border" required
         />
     </div>
     <div class="form-group">
-        <label for="name">Имя:</label>
+        <label for="name">Наименование газеты:</label>
         <input type="text" name="name" id="name" value="<%= name %>" class="form-control"  required>
+    </div>
+
+    <div class="form-group">
+        <label for="date">Дата изменения:</label>
+        <input type="month" name="date"  class="form-control" value="<%= date %>"  id="date">
+    </div>
+    <div class="form-group">
+        <label for="archive">Архив:</label>
+        <input type="checkbox" name="archive"  <% if (archive) { %> checked <% } %> id="archive">
     </div>
 
     <button class="btn btn-default">Сохранить</button>

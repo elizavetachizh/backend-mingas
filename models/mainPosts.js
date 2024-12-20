@@ -10,6 +10,9 @@ const mainPostsSchema = mongoose.Schema({
   description: {
     type: String,
   },
+  images: {
+    type: String,
+  },
 });
 
 const MainPosts = mongoose.model("MainPosts", mainPostsSchema);

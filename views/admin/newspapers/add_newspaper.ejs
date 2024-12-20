@@ -1,0 +1,36 @@
+<form method="post" action="/admin/newspapers/upload" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="input-files">Файл</label>
+        <input
+                type="file"
+                name="file"
+                id="input-files"
+                class="form-control-file border" required
+        />
+    </div>
+    <div class="form-group">
+        <label for="name">Наименование газеты:</label>
+        <input type="text" name="name" id="name"  class="form-control"  required>
+    </div>
+    <div class="form-group">
+        <label for="date">Дата добавления:</label>
+        <input type="month" name="date"  class="form-control"  id="date">
+    </div>
+    <div class="form-group">
+        <label for="archive">Архив:</label>
+        <input type="checkbox" name="archive" id="archive">
+    </div>
+    <button class="btn btn-default">Добавить</button>
+
+    <% if (errors) {%>
+        <% errors.forEach(function(error) { %>
+            <div class="alert alert-danger">
+                <%= error.msg %>
+            </div>
+        <% });%>
+    <% }%>
+</form>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

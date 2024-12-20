@@ -81,9 +81,8 @@ import adminDocumentationRouter from "./routes/admin/admin_documentation.js";
 import cors from "cors";
 import { fileURLToPath } from "url";
 import documentationRouter from "./routes/GetQuery/documentation.js";
-
-
-
+import adminNewspapersRouter from "./routes/admin/admin_newspaper.js";
+import newspapersRouter from "./routes/GetQuery/newspapersGet.js";
 
 const app = express();
 //for site
@@ -223,9 +222,10 @@ app.use("/admin/admin_table", adminTableRouter);
 app.use("/page", pageSlugRouter);
 app.use("/admin_page", adminPageRouter);
 app.use("/admin/admin_vacancies", adminVacanciesRouter);
-app.use("/admin/admin_illiquids", adminIlliquidsRouter)
+app.use("/admin/admin_illiquids", adminIlliquidsRouter);
 app.use("/admin/edi", adminDocumentsEDIRouter);
 app.use("/admin/documentations", adminDocumentationRouter);
+app.use("/admin/newspapers", adminNewspapersRouter);
 
 //for user
 app.use("/admin/vacancies", vacanciesRouter);
@@ -251,9 +251,10 @@ app.use("/admin/themes", themesQuestionsRouter);
 app.use("/admin/prices", pricesRouter);
 app.use("/admin/table", tableRouter);
 app.use("/admin/ogonek", ogonekRouter);
-app.use("/admin/illiquids", illiquidsRouter)
+app.use("/admin/illiquids", illiquidsRouter);
 app.use("/admin/gratitude_get", gratitudeRouter);
-app.use("/admin/certificates", documentationRouter)
+app.use("/admin/certificates", documentationRouter);
+app.use("/admin/newspapers_get", newspapersRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

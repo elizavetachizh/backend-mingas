@@ -6,18 +6,24 @@
 <form method="post" action="/admin/admin_mainpost/add-mainpost" >
 
    <div class="form-group">
-          <label for="name">Название поста</label>
+          <label for="name">Заголовок поста</label>
           <input type="text" class="form-control" id="name" name="name" value="<%= name %>">
 
       </div>
     <div class="form-group">
-        <label for="type">type</label>
+        <label for="type">Тип статьи</label>
         <input type="text" class="form-control" id="type" name="type" value="<%= type %>" placeholder="type">
     </div>
      <div class="form-group">
-            <label for="ta">Информация по посту</label>
+            <label for="ta">Текст статьи</label>
             <textarea type="text" class="form-control" id="ta" name="description" placeholder="description"><%= description %></textarea>
         </div>
+
+    <div class="form-group">
+        <label for="ta-images">Картинки для статьи</label>
+        <textarea type="text" class="form-control" id="ta-images" name="images" placeholder="images"><%= images %></textarea>
+    </div>
+
     <button class="btn btn-default">Добавить</button>
 
           <% if (errors) {%>

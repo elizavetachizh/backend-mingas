@@ -6,17 +6,21 @@
 
 
      <div class="form-group">
-               <label for="name">name</label>
+               <label for="name">Заголовок поста</label>
               <input type="text" class="form-control" id="name" name="name" value="<%= name %>">
           </div>
     <div class="form-group">
-        <label for="type">type</label>
+        <label for="type">Тип статьи</label>
         <input type="text" class="form-control" id="type" name="type" value="<%= type %>" placeholder="type">
     </div>
             <div class="form-group">
-                  <label for="ta">description</label>
+                  <label for="ta">Текст статьи</label>
                   <textarea type="text" class="form-control" id="ta" name="description" placeholder="description"><%= description %></textarea>
               </div>
+    <div class="form-group">
+        <label for="ta-images">Картинки для статьи</label>
+        <textarea type="text" class="form-control" id="ta-images" name="images" placeholder="images"><%= images %></textarea>
+    </div>
 
     <button class="btn btn-default">Сохранить</button>
     <% if (errors) {%>

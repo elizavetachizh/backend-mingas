@@ -30,7 +30,7 @@ export const uploadDocument = async (req, res) => {
     const newDocument = await new Edi({
       name,
       date,
-      file:filePath,
+      file: filePath,
     });
     await newDocument.save(function (err) {
       if (err) {
@@ -76,7 +76,7 @@ export const updateDocument = async (req, res) => {
         new: true,
       });
       if (!price) return res.status(404).json({ error: "Не было найдено" });
-      alert("Прайс отредактирован");
+      alert("Документ успешно отредактирован");
       res.redirect("/admin/edi");
     }
   } catch (err) {
@@ -86,9 +86,9 @@ export const updateDocument = async (req, res) => {
 
 export const deleteDocument = async (req, res) => {
   try {
-    const tender = await Edi.findByIdAndDelete(req.params.id);
-    if (!tender) return res.status(404).json({ error: "User not found" });
-    alert("Прайс был удален");
+    const document = await Edi.findByIdAndDelete(req.params.id);
+    if (!document) return res.status(404).json({ error: "User not found" });
+    alert("Документ успешно удален");
     res.redirect("/admin/edi/");
   } catch (err) {
     res.status(500).json({ error: err.message });

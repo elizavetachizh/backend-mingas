@@ -1,0 +1,27 @@
+<div>
+    <h2 class="page-title">Корпоротивная газетв</h2>
+    <a href="/admin/newspapers/upload" class="btn btn-primary">Загрузить новую газету</a>
+    <table class="table table-striped sorting">
+
+    <thead>
+    <tr class="home">
+        <th>Наименование</th>
+        <th>Документ</th>
+        <th>Дата</th>
+        <th>Скачать</th>
+        <th>Удалить</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% newspapers.forEach(function(newspaper){ %>
+        <tr>
+            <td><p><%= newspaper.name %></p></td>
+            <td><p><%= newspaper.file %></p></td>
+            <td><p><%= newspaper.date %></p></td>
+            <td><a href="/admin/newspapers/edit-newspaper/<%= newspaper.id %>">Редактировать</a></td>
+            <td><a href="/admin/newspapers/delete/<%= newspaper.id %>">Удалить</a></td>
+        </tr>
+    <% }); %>
+    </tbody>
+    </table>
+</div>

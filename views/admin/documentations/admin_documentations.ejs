@@ -6,15 +6,23 @@
         <table class="table table-striped sorting">
             <thead>
             <tr class="home">
-                <th>Документ</th>
-                <th>Скачать</th>
+                <th>Файлы</th>
+                <th>Дата добавления</th>
+                <th>Тип файлов</th>
+                <th>Отредактировать</th>
                 <th>Удалить</th>
             </tr>
             </thead>
             <tbody>
             <% files.forEach(function(file){ %>
                 <tr>
-                    <td><p><%= file.date %></p></td>
+                    <td>
+                        <% file.filenames.forEach(function(element){ %>
+                            <p><%= element %></p>
+                        <% }); %>
+                    </td>
+                    <td><p><%= file.date.toISOString() %></p></td>
+                    <td><p><%= file.fileType %></p></td>
                     <td><a href="/admin/documentations/edit/<%= file.id %>">Отредактировать</a></td>
                     <td><a href="/admin/documentations/delete/<%= file.id %>">удалить</a></td>
                 </tr>

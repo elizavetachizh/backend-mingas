@@ -13,6 +13,7 @@ var storage = new GridFsStorage({
       "application/pdf",
       "application/msword",
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       "video/mp4",
     ];
     if (match.indexOf(file.mimetype) === -1) {

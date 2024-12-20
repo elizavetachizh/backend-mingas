@@ -48,7 +48,7 @@ export const getVacancyById = async (req, res) => {
     req.session.errors = null;
 
     const vacancy = await Vacancies.findById(req.params.id);
-    if (!vacancy) return res.status(404).json({ error: "User not found" });
+    if (!vacancy) return res.status(404).json({ error: "Вакансия не была найдена" });
     res.render("admin/vacancies/edit_vacancies", {
       errors,
       name: vacancy.name,

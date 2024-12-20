@@ -10,10 +10,9 @@ adminMainPostsRouter.get("/", isAdmin, async (req, res) => {
   });
   const page = req.query.page || 0;
 
-  await MainPosts
-    .find({
-      name: { $regex: req.query.search || "" },
-    })
+  await MainPosts.find({
+    name: { $regex: req.query.search || "" },
+  })
     .sort({ _id: -1 })
     .limit(5)
     .skip(page * 5)
@@ -34,21 +33,23 @@ adminMainPostsRouter.get("/", isAdmin, async (req, res) => {
  * GET add product
  */
 adminMainPostsRouter.get("/add-mainpost", isAdmin, function (req, res) {
-  var name = "";
-  var description = "";
-  var type = "";
+  const name = "";
+  const description = "";
+  const type = "";
+  const images = "";
 
   res.render("admin/add_mainpost", {
     name,
     type,
     description,
+    images,
   });
 });
 
 adminMainPostsRouter.post("/add-mainpost", (req, res) => {
   req.checkBody("name", "Описание должно быть заполненым").notEmpty();
   req.checkBody("description", "Картинка должна быть загружена").notEmpty();
-  const { name, description, type } = req.body;
+  const { name, description, type, images } = req.body;
 
   var errors = req.validationErrors();
   if (errors) {
@@ -60,6 +61,7 @@ adminMainPostsRouter.post("/add-mainpost", (req, res) => {
       name,
       type,
       description,
+      images,
     });
     newPosts.save(function (err) {
       if (err) {
@@ -88,6 +90,7 @@ adminMainPostsRouter.get("/edit-mainpost/:id", isAdmin, function (req, res) {
         name: posts.name,
         type: posts.type,
         description: posts.description,
+        images: posts.images,
         id: posts._id,
       });
     }
@@ -101,11 +104,9 @@ adminMainPostsRouter.post("/edit-mainpost/:id", function (req, res) {
   req.checkBody("name", "Описание должно быть заполненым").notEmpty();
   req.checkBody("description", "Описание должно быть заполненым").notEmpty();
 
-  var name = req.body.name;
-  var description = req.body.description;
-  var id = req.params.id;
-  var type = req.body.type;
-  var errors = req.validationErrors();
+  const { name, description, type, images } = req.body;
+  const id = req.params.id;
+  const errors = req.validationErrors();
 
   if (errors) {
     req.session.errors = errors;
