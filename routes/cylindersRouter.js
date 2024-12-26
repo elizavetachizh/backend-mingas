@@ -1,7 +1,5 @@
 import express from "express";
 const cylindersRouter = express.Router();
-
-// const nodemailer = require("nodemailer");
 import nodemailer from "nodemailer";
 /* GET users listing. */
 cylindersRouter.get("/", function (req, res, next) {
