@@ -1,6 +1,6 @@
-import express from "express"
+import express from "express";
 var verificationRouter = express.Router();
-import nodemailer from "nodemailer"
+import nodemailer from "nodemailer";
 /* GET users listing. */
 verificationRouter.get("/", function (req, res) {
   res.send(req.body);
@@ -12,8 +12,8 @@ verificationRouter.post("/", (req, res) => {
     host: "ms2.g-cloud.by",
     port: 465,
     auth: {
-      user: "chizhem@mingas.by",
-      pass: "JlUqVN5tv98T",
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
     tls: {
       // do not fail on invalid certs
@@ -23,8 +23,8 @@ verificationRouter.post("/", (req, res) => {
   var maillist = ["kc@mingas.by", "chizhem@mingas.by"];
   const mailOptionsRepair = {
     from: req.body.email, // sender address
-   // to: "chizhem@mingas.by", //for me
-     to: maillist, // for site
+    // to: "chizhem@mingas.by", //for me
+    to: maillist, // for site
     subject: "Заявка на снятие счётчика в поверку", // Subject line
     text: req.body.name,
     html: `

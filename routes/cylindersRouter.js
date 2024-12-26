@@ -14,8 +14,8 @@ cylindersRouter.post("/", (req, res) => {
     host: "ms2.g-cloud.by",
     port: 465,
     auth: {
-      user: "chizhem@mingas.by",
-      pass: "JlUqVN5tv98T",
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
     tls: {
       // do not fail on invalid certs
