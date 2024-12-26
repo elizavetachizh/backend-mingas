@@ -86,7 +86,7 @@ import newspapersRouter from "./routes/GetQuery/newspapersGet.js";
 
 const app = express();
 //for site
-const port = process.env.PORT || 3000;
+const port =  3000;
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: 4000000000 }));
 // parse application/x-www-form-urlencoded
