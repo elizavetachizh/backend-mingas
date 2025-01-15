@@ -2,7 +2,7 @@ import express from "express";
 const maintenanceRouter = express.Router();
 import nodemailer from "nodemailer";
 /* GET users listing. */
-maintenanceRouter.get("/", function (req, res, next) {
+maintenanceRouter.get("/", function (req, res) {
   res.send(req.body);
 });
 
@@ -46,7 +46,7 @@ maintenanceRouter.post("/", (req, res) => {
     if (error) {
       res.json({
         status: false,
-        respMesg: "Завяка не отправлена, попробуйте еще раз!",
+        respMesg: "Заявка не отправлена, попробуйте еще раз!",
       });
     }
     if (info) {

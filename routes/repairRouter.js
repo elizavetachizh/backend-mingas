@@ -3,7 +3,7 @@ import express from "express";
 const repairRouter = express.Router();
 import nodemailer from "nodemailer";
 /* GET users listing. */
-repairRouter.get("/", function (req, res, next) {
+repairRouter.get("/", function (req, res) {
   res.send(req.body);
 });
 
@@ -49,7 +49,7 @@ repairRouter.post("/", (req, res) => {
     if (error) {
       res.json({
         status: false,
-        respMesg: "Завяка не отправлена, попробуйте еще раз!",
+        respMesg: "Заявка не отправлена, попробуйте еще раз!",
       });
     }
     if (info) {

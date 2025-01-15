@@ -3,7 +3,7 @@ const questionsForEntityRouter = express.Router();
 import nodemailer from "nodemailer";
 import inlineBase64 from "nodemailer-plugin-inline-base64";
 /* GET users listing. */
-questionsForEntityRouter.get("/", function (req, res, next) {
+questionsForEntityRouter.get("/", function (req, res) {
   res.send(req.body);
 });
 
@@ -60,7 +60,7 @@ questionsForEntityRouter.post("/", (req, res) => {
       if (error) {
         res.json({
           status: false,
-          respMesg: "Завяка не отправлена, попробуйте еще раз!",
+          respMesg: "Заявка не отправлена, попробуйте еще раз!",
         });
       }
       if (info) {

@@ -1,7 +1,6 @@
 import alert from "alert";
 import Management from "../models/management.js";
 import Departament from "../models/departaments.js";
-import { _logFunc } from "nodemailer/lib/shared/index.js";
 
 export const getManagement = async (req, res) => {
   let count;
@@ -19,7 +18,7 @@ export const getManagement = async (req, res) => {
 export const createManagement = async (req, res) => {
   req.checkBody("fullName", "Название должно быть заполненым").notEmpty();
   req.checkBody("position", "Описание должно быть заполненым").notEmpty();
-  const { image, fullName, position } = req.body;
+  const { image, fullName, position, contact_phone } = req.body;
   const department = req.body.department || [];
   var errors = req.validationErrors();
   if (errors) {
@@ -32,6 +31,7 @@ export const createManagement = async (req, res) => {
       position,
       image,
       department,
+      contact_phone,
     });
     await management.save(function (err) {
       if (err) {
@@ -68,7 +68,7 @@ export const getManagementById = async (req, res) => {
 export const updateManagement = async (req, res) => {
   req.checkBody("fullName", "fullName должно быть заполненым").notEmpty();
   req.checkBody("position", "position должно быть заполненым").notEmpty();
-
+  console.log(req.body.contact_phone);
   try {
     const management = await Management.findByIdAndUpdate(
       req.params.id,
@@ -77,6 +77,7 @@ export const updateManagement = async (req, res) => {
         position: req.body.position,
         department: req.body.department || [],
         image: req.body.image,
+        contact_phone: req.body.contact_phone,
       },
       { new: true }
     );
@@ -90,6 +91,7 @@ export const updateManagement = async (req, res) => {
       error: err.message,
       fullName: req.body.fullName,
       position: req.body.position,
+      contact_phone: req.body.contact_phone,
       department,
       image: req.body.image,
     });

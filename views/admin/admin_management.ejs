@@ -4,23 +4,23 @@
 <br><br>
 
 <table class="table table-striped sorting">
-
     <thead>
       <tr class="home">
-                  <th>ФИО</th>
-                  <th>должность</th>
+          <th>ФИО</th>
+          <th>Должность</th>
+          <th>Контактный номер телефона</th>
           <th>Подразделения в подчинении</th>
-                  <th>Фото</th>
-                  <th>редактировать</th>
-                  <th>Удалить</th>
-              </tr>
+          <th>Фото</th>
+          <th>редактировать</th>
+          <th>Удалить</th>
+      </tr>
     </thead>
      <tbody>
-            <% management.forEach(function(men){ %>
-            <tr>
-                <td><%= men.fullName %></td>
-                <td><%= men.position %></td>
-
+     <% management.forEach(function(men){ %>
+         <tr>
+             <td><%= men.fullName %></td>
+             <td><%= men.position %></td>
+             <td><%= men.contact_phone %></td>
     <td>
   <% men.department.forEach(function(e){ %>
 

@@ -18,6 +18,9 @@ const ManagementSchema = new mongoose.Schema({
       ref: "Departament",
     },
   ],
+  contact_phone: {
+    type: String,
+  },
 });
 
 const Management = mongoose.model("Management", ManagementSchema);

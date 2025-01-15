@@ -1,7 +1,5 @@
-import Management from "../../models/management.js";
 import { isAdmin } from "../../config/auth.js";
 import express from "express";
-import alert from "alert";
 
 import Departament from "../../models/departaments.js";
 import {
@@ -15,15 +13,13 @@ const managementAdminRouter = express.Router();
 
 managementAdminRouter.get("/", isAdmin, getManagement);
 managementAdminRouter.get("/add-men", isAdmin, async (req, res) => {
-  var fullName = "";
-  var position = "";
-  var image = "";
   const department = await Departament.find();
   res.render("admin/add_management", {
-    fullName,
-    position,
-    image,
-    department,
+    fullName: "",
+    position: "",
+    image: "",
+    department: department,
+    contact_phone: "",
   });
 });
 managementAdminRouter.post("/add-men", createManagement);

@@ -46,7 +46,7 @@ verificationRouter.post("/", (req, res) => {
     if (error) {
       res.json({
         status: false,
-        respMesg: "Завяка не отправлена, попробуйте еще раз!",
+        respMesg: "Заявка не отправлена, попробуйте еще раз!",
       });
     }
     if (info) {

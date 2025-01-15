@@ -3,7 +3,7 @@ const usersRouter = express.Router();
 import nodemailer from "nodemailer";
 import inlineBase64 from "nodemailer-plugin-inline-base64";
 /* GET users listing. */
-usersRouter.get("/", function (req, res, next) {
+usersRouter.get("/", function (req, res) {
   res.send(req.body);
 });
 usersRouter.post("/", (req, res) => {
@@ -55,7 +55,7 @@ usersRouter.post("/", (req, res) => {
     if (error) {
       res.json({
         status: false,
-        respMesg: "Завяка не отправлена, попробуйте еще раз!",
+        respMesg: "Заявка не отправлена, попробуйте еще раз!",
       });
     }
     if (info) {

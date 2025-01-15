@@ -3,7 +3,7 @@ const questionsRouter = express.Router();
 import nodemailer from "nodemailer";
 import inlineBase64 from "nodemailer-plugin-inline-base64";
 /* GET users listing. */
-questionsRouter.get("/", function (req, res, next) {
+questionsRouter.get("/", function (req, res) {
   res.send(req.body);
 });
 
@@ -60,7 +60,7 @@ questionsRouter.post("/", (req, res) => {
       if (error) {
         res.status(400).json({
           status: false,
-          respMesg: "Завяка не отправлена, попробуйте еще раз!",
+          respMesg: "Заявка не отправлена, попробуйте еще раз!",
         });
       }
       if (info) {
