@@ -49,6 +49,8 @@ cylindersRouter.post("/", (req, res) => {
         res.json({
           status: false,
           respMesg: "Заявка не отправлена, попробуйте еще раз!",
+          responseCode: error.responseCode,
+          response: error.response,
         });
       }
       if (info) {
