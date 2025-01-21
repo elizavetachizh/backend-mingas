@@ -43,7 +43,8 @@ export const uploadDocument = async (req, res) => {
       filenames,
       paths:newPathes,
       date: new Date(),
-      fileType
+      fileType,
+      folder_index:dirIndex
     });
     await newFileEntry.save(function (err) {
       if (err) {
@@ -68,6 +69,7 @@ export const getDocumentById = async (req, res) => {
       files: document.files,
       date: document.date,
       fileType:document.fileType,
+      folder_index:document.folder_index,
       id: document._id,
     });
   } catch (err) {

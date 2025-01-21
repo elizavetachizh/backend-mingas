@@ -7,7 +7,12 @@
     <thead>
       <tr class="home">
           <th>Название</th>
-          <th>Содержание вакансии</th>
+          <th>Зарплата</th>
+          <th>Опыт работы</th>
+          <th>Характер работы</th>
+          <th>График работы</th>
+          <th>Рабочие часы</th>
+          <th>Формат работы</th>
           <th>Редактировать</th>
           <th>Удалить</th>
       </tr>
@@ -16,7 +21,12 @@
             <% vacancies.forEach(function(vacancy){ %>
             <tr>
                 <td><%= vacancy.name %></td>
-                <td><%= vacancy.description %></td>
+                <td><%= vacancy.salary %></td>
+                <td><%= vacancy.work_experience %></td>
+                <td><%= vacancy.nature_of_work %></td>
+                <td><%= vacancy.schedule %></td>
+                <td><%= vacancy.working_hours %></td>
+                <td><%= vacancy.work_format %></td>
                 <td><a href="/admin/admin_vacancies/edit-vacancy/<%= vacancy._id %>">Редактировать</a></td>
                 <td><a class="confirmDeletion" href="/admin/admin_vacancies/delete-vacancy/<%= vacancy._id %>">Удалить</a></td>
             </tr>

@@ -11,12 +11,19 @@ import {
 import Vacancies from "../../models/vacancies.js";
 adminVacanciesRouter.get("/", isAdmin, getVacancies);
 adminVacanciesRouter.get("/add-vacancies", isAdmin, function (req, res) {
-  var name = "";
-  var description = "";
   Vacancies.find({}).sort({ _id: -1 });
   res.render("admin/vacancies/add_vacancies", {
-    name,
-    description,
+    name: "",
+    description: "",
+    salary: "",
+    work_experience: "",
+    nature_of_work: "",
+    schedule: "",
+    working_hours: "",
+    work_format: "",
+    responsibilities:"",
+    requirements:"",
+    conditions:"",
   });
 });
 adminVacanciesRouter.post("/add-vacancy", createVacancies);

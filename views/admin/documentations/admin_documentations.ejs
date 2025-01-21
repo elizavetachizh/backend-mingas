@@ -7,7 +7,9 @@
             <thead>
             <tr class="home">
                 <th>Файлы</th>
+                <th>Пути файлов</th>
                 <th>Дата добавления</th>
+                <th>Номер папки</th>
                 <th>Тип файлов</th>
                 <th>Отредактировать</th>
                 <th>Удалить</th>
@@ -21,8 +23,14 @@
                             <p><%= element %></p>
                         <% }); %>
                     </td>
+                    <td>
+                        <% file.paths.forEach(function(element){ %>
+                            <p>https://mingas.by/<%= element %></p>
+                        <% }); %>
+                    </td>
                     <td><p><%= file.date.toISOString() %></p></td>
                     <td><p><%= file.fileType %></p></td>
+                    <td><p><%= file.folder_index %></p></td>
                     <td><a href="/admin/documentations/edit/<%= file.id %>">Отредактировать</a></td>
                     <td><a href="/admin/documentations/delete/<%= file.id %>">удалить</a></td>
                 </tr>

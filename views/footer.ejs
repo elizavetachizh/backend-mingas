@@ -10,10 +10,6 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/footers/">
 
-
-
-
-
 <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
@@ -108,6 +104,30 @@
       }
     });
     document.querySelectorAll('#ta-images').forEach(function (textarea) {
+      if (!textarea.classList.contains('ckeditor-initialized')) {
+        CKEDITOR.replace(textarea, {
+          embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}', // Используем iFrame.ly для встраивания видео
+        });
+        textarea.classList.add('ckeditor-initialized');
+      }
+    });
+    document.querySelector('#requirements').forEach(function (textarea) {
+      if (!textarea.classList.contains('ckeditor-initialized')) {
+        CKEDITOR.replace(textarea, {
+          embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}', // Используем iFrame.ly для встраивания видео
+        });
+        textarea.classList.add('ckeditor-initialized');
+      }
+    });
+    document.querySelector('#conditions').forEach(function (textarea) {
+      if (!textarea.classList.contains('ckeditor-initialized')) {
+        CKEDITOR.replace(textarea, {
+          embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}', // Используем iFrame.ly для встраивания видео
+        });
+        textarea.classList.add('ckeditor-initialized');
+      }
+    });
+    document.querySelector('#responsibilities').forEach(function (textarea) {
       if (!textarea.classList.contains('ckeditor-initialized')) {
         CKEDITOR.replace(textarea, {
           embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}', // Используем iFrame.ly для встраивания видео

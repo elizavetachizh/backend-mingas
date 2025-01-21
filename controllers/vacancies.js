@@ -18,8 +18,19 @@ export const getVacancies = async (req, res) => {
 
 export const createVacancies = async (req, res) => {
   req.checkBody("name", "Название должно быть заполненым").notEmpty();
-  req.checkBody("description", "Описание должно быть заполненым").notEmpty();
-  const { name, description } = req.body;
+  const {
+    name,
+    description,
+    salary,
+    work_experience,
+    nature_of_work,
+    schedule,
+    working_hours,
+    work_format,
+    responsibilities,
+    requirements,
+    conditions,
+  } = req.body;
   var errors = req.validationErrors();
 
   if (errors) {
@@ -30,6 +41,15 @@ export const createVacancies = async (req, res) => {
     const newVacancy = await new Vacancies({
       name,
       description,
+      salary,
+      work_experience,
+      nature_of_work,
+      schedule,
+      working_hours,
+      work_format,
+      responsibilities,
+      requirements,
+      conditions,
     });
     await newVacancy.save(function (err) {
       if (err) {
@@ -48,12 +68,22 @@ export const getVacancyById = async (req, res) => {
     req.session.errors = null;
 
     const vacancy = await Vacancies.findById(req.params.id);
-    if (!vacancy) return res.status(404).json({ error: "Вакансия не была найдена" });
+    if (!vacancy)
+      return res.status(404).json({ error: "Вакансия не была найдена" });
     res.render("admin/vacancies/edit_vacancies", {
       errors,
       name: vacancy.name,
       description: vacancy.description,
       id: vacancy._id,
+      salary: vacancy.salary,
+      work_experience: vacancy.work_experience,
+      nature_of_work: vacancy.nature_of_work,
+      schedule: vacancy.schedule,
+      working_hours: vacancy.working_hours,
+      work_format: vacancy.work_format,
+      responsibilities: vacancy.responsibilities,
+      requirements: vacancy.requirements,
+      conditions: vacancy.conditions,
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -63,7 +93,6 @@ export const getVacancyById = async (req, res) => {
 export const updateVacancy = async (req, res) => {
   try {
     req.checkBody("name", "Название должно быть заполненым").notEmpty();
-    req.checkBody("description", "Описание должно быть заполненым").notEmpty();
     var errors = req.validationErrors();
 
     if (errors) {
