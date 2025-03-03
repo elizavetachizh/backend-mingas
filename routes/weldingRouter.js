@@ -1,12 +1,12 @@
 import express from "express";
-const usersRouter = express.Router();
+const weldingRouter = express.Router();
 import nodemailer from "nodemailer";
 import inlineBase64 from "nodemailer-plugin-inline-base64";
 /* GET users listing. */
-usersRouter.get("/", function (req, res) {
+weldingRouter.get("/", function (req, res) {
   res.send(req.body);
 });
-usersRouter.post("/", (req, res) => {
+weldingRouter.post("/", (req, res) => {
   const transporter = nodemailer.createTransport({
     secure: true,
     host: "ms2.g-cloud.by",
@@ -21,24 +21,27 @@ usersRouter.post("/", (req, res) => {
     },
   });
   const file = req.body.information;
-  var maillist = ["kc@mingas.by", "chizhem@mingas.by"];
+  const maillist = ["kc@mingas.by", "chizhem@mingas.by"];
   const mailOptions = {
     from: req.body.email, // sender address
     to: maillist, //for site
-    subject: "Предоставление показаний счётчика газа", // Subject line
+    subject: "Выполнение работ с применением сварки", // Subject line
     text: req.body.name,
     html: `
         <div style="padding:10px;border-style: ridge">
-          <p>Тема: Предоставление показаний счётчика газа</p>
+          <p>Тема: Выполнение работ с применением сварки</p>
         <p>От ${req.body.name}</p>
         <h4>Сообщение:</h4>
         <ul>
             <li>ФИО: ${req.body.name}</li>
             <li>Email: ${req.body.email}</li>
+             <li>Лицевой счёт: ${req.body.personal_account}</li>
             <li>Контактный телефон: ${req.body.phone}</li>
-            <li>Адрес: ${req.body.address}</li>
-            <li>Лицевой счёт: ${req.body.text}</li>
-             <li>Показания: ${req.body.reading}</li>
+             <li>Адрес объекта: ${req.body.address}</li>
+             <li>Расположение переносимого участка газопровода: ${req.body.location}</li>
+               <li>Планируемое газовое оборудование: ${req.body.gas_equipment}</li>
+             <li>Выполнен ли потолок (стена) из горючих материалов: ${req.body.flammable_materials}</li>
+              <li>Способ обратной связи: ${req.body.feedback_method}</li>
             <img src="cid:uniq-name" alt="image"/>
         </ul>
         `,
@@ -65,4 +68,4 @@ usersRouter.post("/", (req, res) => {
     }
   });
 });
-export default usersRouter;
+export default weldingRouter;

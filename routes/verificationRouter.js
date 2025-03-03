@@ -1,5 +1,5 @@
 import express from "express";
-var verificationRouter = express.Router();
+const verificationRouter = express.Router();
 import nodemailer from "nodemailer";
 /* GET users listing. */
 verificationRouter.get("/", function (req, res) {

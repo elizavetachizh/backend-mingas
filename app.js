@@ -26,6 +26,7 @@ import maintenanceRouter from "./routes/maintenanceRouter.js";
 import verificationRouter from "./routes/verificationRouter.js";
 import adminRouter from "./routes/GetQuery/index.js";
 import newFeedback from "./routes/newFormFeedBack.js";
+import weldingRouter from "./routes/weldingRouter.js";
 
 //RoutersAdmin
 import postsAdminRouter from "./routes/admin/admin_posts.js";
@@ -86,7 +87,7 @@ import newspapersRouter from "./routes/GetQuery/newspapersGet.js";
 
 const app = express();
 //for site
-const port =  3000;
+const port = 3000;
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: 4000000000 }));
 // parse application/x-www-form-urlencoded
@@ -198,6 +199,7 @@ app.use("/maintenance", maintenanceRouter);
 app.use("/verification", verificationRouter);
 app.use("/admin", adminRouter);
 app.use("/submit-survey", newFeedback);
+app.use("/welding", weldingRouter);
 
 //admin
 app.use("/admin/admin_posts", postsAdminRouter);
