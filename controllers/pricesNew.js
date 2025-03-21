@@ -55,7 +55,6 @@ export const getPriceById = async (req, res) => {
     req.session.errors = null;
 
     const price = await Prices.findById(req.params.id);
-    console.log(price);
     if (!price) return res.status(404).json({ error: "User not found" });
     res.render("admin/prices/edit_price", {
       errors,

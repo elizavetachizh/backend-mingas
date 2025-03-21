@@ -49,7 +49,6 @@ export const getDocumentById = async (req, res) => {
     req.session.errors = null;
 
     const document = await Edi.findById(req.params.id);
-    console.log(document);
     if (!document) return res.status(404).json({ error: "User not found" });
     res.render("admin/edi/edit_edi", {
       errors,

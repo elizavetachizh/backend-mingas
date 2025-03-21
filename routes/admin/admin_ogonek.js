@@ -77,10 +77,7 @@ adminOgonekRouter.get("/edit-info/:id", isAdmin, function (req, res) {
   req.session.errors = null;
 
   Branches.findById(req.params.id, function (err, info) {
-    // console.log(tender);
-    console.log(info);
     if (err) {
-      console.log(err);
       res.render("admin/admin_info_ogonek");
     } else {
       res.render("admin/edit_info_ogonek", {
@@ -114,7 +111,6 @@ adminOgonekRouter.post("/edit-info/:id", function (req, res) {
         console.log(err);
       }
       if (info) {
-        // console.log("tender", tender);
         res.redirect("/admin/admin_ogonek");
       } else {
         Branches.findById(id, function (err, info) {

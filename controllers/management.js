@@ -68,7 +68,6 @@ export const getManagementById = async (req, res) => {
 export const updateManagement = async (req, res) => {
   req.checkBody("fullName", "fullName должно быть заполненым").notEmpty();
   req.checkBody("position", "position должно быть заполненым").notEmpty();
-  console.log(req.body.contact_phone);
   try {
     const management = await Management.findByIdAndUpdate(
       req.params.id,

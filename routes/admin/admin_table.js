@@ -63,7 +63,6 @@ adminTableRouter.get("/edit-table/:id", isAdmin, function (req, res) {
   req.session.errors = null;
 
   Table.findById(req.params.id, function (err, table) {
-    // console.log(tender);
     if (err) {
       console.log(err);
       res.render("admin/admin_table");

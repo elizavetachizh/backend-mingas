@@ -22,8 +22,6 @@ export const uploadFiles = async (req, res) => {
       res.redirect("/admin/upload/files");
     }
   } catch (error) {
-    console.log(error);
-
     if (error.code === "LIMIT_UNEXPECTED_FILE") {
       return res.status(400).send({
         message: "Too many files to upload.",
@@ -51,12 +49,17 @@ export const getListFiles = async (req, res) => {
     await cursor.forEach((doc) => {
       fileInfos.push({
         name: doc.filename,
+        uploadDate: doc.uploadDate,
         url: "https://back.mingas.by/admin/upload/files/" + doc.filename,
         id: doc._id,
       });
     });
+
+    const files = fileInfos.sort(
+      (a, b) => new Date(b.uploadDate) - new Date(a.uploadDate)
+    );
     res.status(200).render("admin/admin_photos", {
-      fileInfos,
+      fileInfos: files,
     });
   } catch (error) {
     return res.status(500).send({

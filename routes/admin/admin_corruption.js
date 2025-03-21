@@ -72,7 +72,6 @@ corruptionAdminRouter.get("/edit-element/:id", isAdmin, function (req, res) {
 
   Corruption.findById(req.params.id, function (err, post) {
     if (err) {
-      console.log(err);
       res.render("admin/admin_corruption");
     } else {
       res.render("admin/edit_corruption", {
