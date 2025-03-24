@@ -18,7 +18,7 @@ export const getManagement = async (req, res) => {
 export const createManagement = async (req, res) => {
   req.checkBody("fullName", "Название должно быть заполненым").notEmpty();
   req.checkBody("position", "Описание должно быть заполненым").notEmpty();
-  const { image, fullName, position, contact_phone } = req.body;
+  const { image, fullName, position, contact_phone, email } = req.body;
   const department = req.body.department || [];
   var errors = req.validationErrors();
   if (errors) {
@@ -32,6 +32,7 @@ export const createManagement = async (req, res) => {
       image,
       department,
       contact_phone,
+      email,
     });
     await management.save(function (err) {
       if (err) {
@@ -77,6 +78,7 @@ export const updateManagement = async (req, res) => {
         department: req.body.department || [],
         image: req.body.image,
         contact_phone: req.body.contact_phone,
+        email: req.body.email,
       },
       { new: true }
     );
@@ -91,6 +93,7 @@ export const updateManagement = async (req, res) => {
       fullName: req.body.fullName,
       position: req.body.position,
       contact_phone: req.body.contact_phone,
+      email: req.body.email,
       department,
       image: req.body.image,
     });

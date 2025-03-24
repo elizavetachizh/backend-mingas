@@ -21,6 +21,9 @@ const ManagementSchema = new mongoose.Schema({
   contact_phone: {
     type: String,
   },
+  email: {
+    type: String,
+  },
 });
 
 const Management = mongoose.model("Management", ManagementSchema);
