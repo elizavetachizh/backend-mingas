@@ -1,0 +1,34 @@
+<h2 class="page-title">Редактирование поста</h2>
+<a href="/admin/useful-resources" class="btn btn-primary">Назад ко всем постам</a>
+<br><br>
+
+<form method="post" action="/admin/useful-resources/edit/<%= id %>" >
+
+
+    <div class="form-group">
+        <label for="name">Имя</label>
+        <input type="text" class="form-control"  id="name" name="name" placeholder="name" value="<%= name %>">
+    </div>
+
+          <div class="form-group">
+               <label for="img">Измените ссылку на картинку </label>
+              <input type="text" class="form-control" name="image" id="img" value="<%= image %>">
+          </div>
+
+    <div class="form-group">
+        <label for="date">Дата добавления</label>
+        <input type="date" class="form-control" name="date" id="date" value="<%= date %>">
+    </div>
+    <div class="form-group">
+        <label for="text-link">Ссылка на статью (указать в случае, если статья не нашего сайта)</label>
+        <input class="form-control" id="text-link"  type="text" name="link" value="<%= link %>">
+    </div>
+    <div class="form-group">
+        <label for="ta">Текст статьи</label>
+        <textarea type="text" class="form-control" id="ta" name="content" placeholder="content"><%= content %></textarea>
+    </div>
+
+  <br>
+
+    <button class="btn btn-default">Сохранить</button>
+</form>

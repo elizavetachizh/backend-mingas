@@ -50,7 +50,6 @@ export const getNewspaperById = async (req, res) => {
     req.session.errors = null;
 
     const newspaper = await Newspapers.findById(req.params.id);
-    console.log(newspaper);
     if (!newspaper)
       return res.status(404).json({ error: "Газета не была найдена" });
     res.render("admin/newspapers/edit_newspaper", {

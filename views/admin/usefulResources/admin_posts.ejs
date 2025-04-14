@@ -1,0 +1,41 @@
+<h2 class="page-title">Посты</h2>
+<a href="/admin/useful-resources/add" class="btn btn-primary">Добавить новый пост</a>
+<br><br>
+<form method="GET" action="/admin/admin_posts/"><label for="search">Поиск по статьям</label>
+    <input type="text" name="search" id="search" placeholder="Поиск по статьям"/>
+    <button class="search-btn" type="submit">Поиск</button>
+</form>
+<% if (count > 0) { %>
+<div class="table-responsive">
+<table class="table table-striped sorting">
+
+    <thead>
+      <tr class="home">
+                  <th>Ссылка на пост</th>
+                  <th>Картинка для поста</th>
+                  <th>Контент для поста</th>
+                    <th>Дата создания</th>
+                  <th>edit</th>
+                  <th>delete</th>
+              </tr>
+    </thead>
+     <tbody>
+            <% posts.forEach(function(post){ %>
+            <tr>
+                <td><%= post.link %></td>
+               <td>
+                   <img class='img' id="noimage" src="<%= post.image %>">
+               </td>
+                <td><%= post.content %></td>
+                <td><%= post.date %></td>
+                <td><a href="/admin/useful-resources/edit/<%= post._id %>">edit</a></td>
+                <td><a class="confirmDeletion" href="/admin/useful-resources/delete/<%= post._id %>">delete</a></td>
+            </tr>
+            <% }); %>
+        </tbody>
+</table>
+</div>
+<% } else {%>
+<h3 class="text-center">Нет ни одного созданного поста</h3>
+<% }%>
+

@@ -1,0 +1,40 @@
+<h2 class="page-title">Добавить пост</h2>
+<br><br>
+<a href="/admin/useful-resources" class="btn btn-primary">Показать все посты</a>
+<br><br>
+
+<form method="post" action="/admin/useful-resources/add/" >
+
+    <div class="form-group">
+        <label for="image">Картинка</label>
+        <input type="text" class="form-control" id="image" name="image" value="<%= image %>">
+    </div>
+
+    <div class="form-group">
+        <label for="date">Дата добавления</label>
+        <input type="date" class="form-control" name="date" id="date" value="<%= date %>">
+    </div>
+
+    <div class="form-group">
+        <label for="name">Имя</label>
+        <input type="text" class="form-control"  id="name" name="name" placeholder="name">
+    </div>
+
+    <div class="form-group">
+        <label for="ta">Текст статьи</label>
+        <textarea type="text" class="form-control" id="ta" name="content" placeholder="content"><%= content %></textarea>
+    </div>
+    <div class="form-group">
+        <label for="text-link">Ссылка на статью (указать в случае, если статья не нашего сайта)</label>
+        <input class="form-control" id="text-link"  type="text" name="link" value="<%= link %>">
+    </div>
+    <button class="btn btn-default">Добавить</button>
+
+          <% if (errors) {%>
+              <% errors.forEach(function(error) { %>
+              <div class="alert alert-danger">
+                  <%= error.msg %>
+              </div>
+              <% });%>
+          <% }%>
+</form>

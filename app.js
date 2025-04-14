@@ -78,12 +78,15 @@ import pricesAdminRouter from "./routes/admin/admin_prices.js";
 import adminIlliquidsRouter from "./routes/admin/admin_illiquids.js";
 import illiquidsRouter from "./routes/GetQuery/illiquids.js";
 import adminDocumentationRouter from "./routes/admin/admin_documentation.js";
-
-import cors from "cors";
-import { fileURLToPath } from "url";
 import documentationRouter from "./routes/GetQuery/documentation.js";
 import adminNewspapersRouter from "./routes/admin/admin_newspaper.js";
 import newspapersRouter from "./routes/GetQuery/newspapersGet.js";
+import usefulResourcesAdminRouter from "./routes/admin/admin_useful_resources.js";
+import usefulResourcesRouter from "./routes/GetQuery/useful_resources.js";
+
+import cors from "cors";
+import { fileURLToPath } from "url";
+
 
 const app = express();
 //for site
@@ -228,6 +231,7 @@ app.use("/admin/admin_illiquids", adminIlliquidsRouter);
 app.use("/admin/edi", adminDocumentsEDIRouter);
 app.use("/admin/documentations", adminDocumentationRouter);
 app.use("/admin/newspapers", adminNewspapersRouter);
+app.use("/admin/useful-resources", usefulResourcesAdminRouter);
 
 //for user
 app.use("/admin/vacancies", vacanciesRouter);
@@ -257,6 +261,7 @@ app.use("/admin/illiquids", illiquidsRouter);
 app.use("/admin/gratitude_get", gratitudeRouter);
 app.use("/admin/certificates", documentationRouter);
 app.use("/admin/newspapers_get", newspapersRouter);
+app.use("/admin/useful_resources", usefulResourcesRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

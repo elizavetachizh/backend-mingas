@@ -55,7 +55,6 @@ export const getIlliquidById = async (req, res) => {
     req.session.errors = null;
 
     const illiquid = await Illiquid.findById(req.params.id);
-    console.log(illiquid);
     if (!illiquid) return res.status(404).json({ error: "User not found" });
     res.render("admin/illiquids/edit_illiquid", {
       errors,
