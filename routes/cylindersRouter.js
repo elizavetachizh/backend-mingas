@@ -46,6 +46,8 @@ cylindersRouter.post("/", (req, res) => {
     mailOptionsFormQuestionForEntity,
     function (error, info) {
       if (error) {
+        console.log(`info:`, info);
+        console.log(error);
         res.json({
           status: false,
           respMesg: "Заявка не отправлена, попробуйте еще раз!",
