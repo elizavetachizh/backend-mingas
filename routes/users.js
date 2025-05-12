@@ -8,7 +8,7 @@ usersRouter.get("/", function (req, res) {
 });
 usersRouter.post("/", (req, res) => {
   const transporter = nodemailer.createTransport({
-    secure: true,
+    secure: false,
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
     auth: {

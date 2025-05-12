@@ -9,7 +9,7 @@ feedbackRouter.get("/", function (req, res, next) {
 
 feedbackRouter.post("/", (req, res) => {
   const transporterFeedback = nodemailer.createTransport({
-    secure: true,
+    secure: false,
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
     auth: {

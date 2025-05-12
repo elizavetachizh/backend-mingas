@@ -8,7 +8,7 @@ maintenanceRouter.get("/", function (req, res) {
 
 maintenanceRouter.post("/", (req, res) => {
   const transporterRepair = nodemailer.createTransport({
-    secure: true,
+    secure: false,
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
     auth: {

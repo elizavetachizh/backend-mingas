@@ -9,7 +9,7 @@ questionsRouter.get("/", function (req, res) {
 
 questionsRouter.post("/", (req, res) => {
   const transporterQuestions = nodemailer.createTransport({
-    secure: true,
+    secure: false,
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
     auth: {

@@ -9,7 +9,7 @@ questionsForEntityRouter.get("/", function (req, res) {
 
 questionsForEntityRouter.post("/", (req, res) => {
   const transporterQuestionsForEntity = nodemailer.createTransport({
-    secure: true,
+    secure: false,
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
     auth: {
