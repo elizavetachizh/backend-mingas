@@ -9,8 +9,8 @@ cylindersRouter.get("/", function (req, res) {
 cylindersRouter.post("/", (req, res) => {
   const transporterQuestionsForEntity = nodemailer.createTransport({
     secure: true,
-    host: "ms2.g-cloud.by",
-    port: 465,
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,

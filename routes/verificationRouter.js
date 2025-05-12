@@ -9,8 +9,8 @@ verificationRouter.get("/", function (req, res) {
 verificationRouter.post("/", (req, res) => {
   const transporterRepair = nodemailer.createTransport({
     secure: true,
-    host: "ms2.g-cloud.by",
-    port: 465,
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
