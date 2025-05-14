@@ -8,7 +8,7 @@ cylindersRouter.get("/", function (req, res) {
 
 cylindersRouter.post("/", (req, res) => {
   const transporterQuestionsForEntity = nodemailer.createTransport({
-    secure: false,
+    secure: true,
     host: process.env.EMAIL_HOST,
     port: process.env.EMAIL_PORT,
     auth: {
@@ -23,7 +23,7 @@ cylindersRouter.post("/", (req, res) => {
   var maillist = ["kc@mingas.by", "chizhem@mingas.by"];
   const mailOptionsFormQuestionForEntity = {
     from: req.body.email, // sender address
-     to: maillist, //for site
+    to: maillist, //for site
     // to: "chizhem@mingas.by", // for me
     subject: "Заявка на заказ баллонов СУГ 50 литров", // Subject line
     text: req.body.name,
@@ -46,7 +46,7 @@ cylindersRouter.post("/", (req, res) => {
     mailOptionsFormQuestionForEntity,
     function (error, info) {
       if (error) {
-        console.log(`info:`, info);
+        console.log(`info-1:`, info);
         console.log(error);
         res.json({
           status: false,
