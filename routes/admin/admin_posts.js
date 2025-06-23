@@ -9,14 +9,30 @@ import {
   getPostsById,
   updatePost,
 } from "../../controllers/posts.js";
+import fs from "fs-extra";
+import multer from "multer";
+// Настройка загрузки файлов с помощью Multer
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = "doc/posts";
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname); // Добавляем дату к имени файла
+  },
+});
+const upload = multer({ storage });
+
 postsAdminRouter.get("/", isAdmin, getPosts);
 postsAdminRouter.get("/add-post", isAdmin, function (req, res) {
-  var link = "";
-  var content = "";
-  var image = "";
-  const text = ''
-  var date = new Date();
-  var name = "";
+  const link = "";
+  const content = "";
+  const text = "";
+  const date = new Date();
+  const name = "";
   MainPosts.find({}, { name: 1 })
     .sort({ _id: -1 })
     .limit(7)
@@ -25,14 +41,13 @@ postsAdminRouter.get("/add-post", isAdmin, function (req, res) {
         link,
         content,
         text,
-        image,
         date,
         mainPosts,
-        name
+        name,
       });
     });
 });
-postsAdminRouter.post("/add-post", createPosts);
+postsAdminRouter.post("/add-post", upload.single("file"), createPosts);
 postsAdminRouter.get("/edit-post/:id", isAdmin, getPostsById);
 postsAdminRouter.post("/edit-post/:id", updatePost);
 postsAdminRouter.get("/delete-post/:id", isAdmin, deletePost);

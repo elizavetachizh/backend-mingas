@@ -117,6 +117,7 @@ adminMainPostsRouter.post("/edit-mainpost/:id", function (req, res) {
       posts.name = name;
       posts.description = description;
       posts.type = type;
+      posts.images =  images;
       posts.save(function (err) {
         if (err) return console.log(err);
 

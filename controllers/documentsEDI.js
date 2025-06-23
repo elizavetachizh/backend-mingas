@@ -20,7 +20,8 @@ export const uploadDocument = async (req, res) => {
   var name = req.body.name;
   var date = req.body.date;
   const filePath = req.file.path; // Убедитесь, что здесь нет слешей
-
+  console.log(req.body);
+  console.log(req.file);
   var errors = req.validationErrors();
   if (errors) {
     res.render("admin/edi/add_edi", {
@@ -71,10 +72,10 @@ export const updateDocument = async (req, res) => {
       req.session.errors = errors;
       res.redirect("/edi");
     } else {
-      const price = await Edi.findByIdAndUpdate(req.params.id, req.body, {
+      const document = await Edi.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
       });
-      if (!price) return res.status(404).json({ error: "Не было найдено" });
+      if (!document) return res.status(404).json({ error: "Не было найдено" });
       alert("Документ успешно отредактирован");
       res.redirect("/admin/edi");
     }

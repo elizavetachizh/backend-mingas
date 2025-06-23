@@ -5,8 +5,8 @@ import Posts from "../../models/posts.js";
 postsRouter.get("/", function (req, res) {
   let count;
   const pageOptions = {
-    page: parseInt(req.query.page) || 0,
-    limit: parseInt(req.query.limit),
+    page: Math.max(0, req.query.page || 0),
+    limit: Math.min(100, Math.max(1, parseInt(req.query.limit) || 10)) // лимит между 1 и 100
   };
   Posts.count(function (err, c) {
     count = c;
@@ -17,6 +17,7 @@ postsRouter.get("/", function (req, res) {
     .limit(pageOptions.limit)
     .exec(function (err, doc) {
       if (err) {
+        console.log(err);
         res.status(500).json(err);
         return;
       }
