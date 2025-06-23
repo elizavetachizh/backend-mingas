@@ -44,7 +44,7 @@ export const createPosts = async (req, res) => {
     const newPost = await new Posts({
       link: textLink.trim() || `https://mingas.by/posts/${link}`,
       content: content.trim() || article.name,
-      image,
+      image:`https://mingas.by/${image}`,
       date,
       name,
     });
