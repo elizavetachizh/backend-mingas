@@ -14,8 +14,8 @@ adminMainPostsRouter.get("/", isAdmin, async (req, res) => {
     name: { $regex: req.query.search || "" },
   })
     .sort({ _id: -1 })
-    .limit(5)
-    .skip(page * 5)
+    .limit(10)
+    .skip(page * 10)
     .exec(function (err, posts) {
       if (err) {
         res.status(500).json(err);
@@ -24,7 +24,7 @@ adminMainPostsRouter.get("/", isAdmin, async (req, res) => {
       res.render("admin/admin_mainpost", {
         posts,
         count,
-        pages: [...Array(Math.ceil(+count / 5))],
+        pages: [...Array(Math.ceil(+count / 10))],
       });
     });
 });

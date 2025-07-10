@@ -10,13 +10,13 @@ export const getPosts = async (req, res) => {
       content: { $regex: req.query.search || "" },
     })
       .sort({ _id: -1 })
-      .limit(5)
-      .skip(page * 5); // Получить все записи
+      .limit(10)
+      .skip(page * 10); // Получить все записи
     const count = await Posts.countDocuments(); // Получить количество записей
     res.render("admin/admin_posts", {
       posts,
       count,
-      pages: [...Array(Math.ceil(+count / 5))],
+      pages: [...Array(Math.ceil(+count / 10))],
     }); // Передать записи и их количество в шаблон
   } catch (err) {
     res.status(500).json({ error: err.message });
