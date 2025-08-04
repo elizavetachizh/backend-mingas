@@ -25,7 +25,7 @@
         <input type="text" class="form-control"  id="name" name="name" placeholder="name">
     </div>
 
-    <label for="link">Выберете статью:</label>
+    <label for="link">Выберите статью:</label>
     <select class="form-control"  id="link" name="link">
         <% mainPosts.forEach(post => { %>
             <option value="<%= post._id %>" <%= post._id.equals(link) ? 'selected' : '' %>><%= post.name %></option>

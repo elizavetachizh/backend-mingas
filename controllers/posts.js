@@ -44,7 +44,7 @@ export const createPosts = async (req, res) => {
     const newPost = await new Posts({
       link: textLink.trim() || `https://mingas.by/posts/${link}`,
       content: content.trim() || article.name,
-      image:`https://mingas.by/${image}`,
+      image: `https://mingas.by/${image}`,
       date,
       name,
     });
@@ -71,7 +71,6 @@ export const getPostsById = async (req, res) => {
     if (!post) return res.status(404).json({ error: "Section not found" });
     console.log(post);
     res.render("admin/edit_post", {
-
       errors,
       link: post.link,
       content: post.content,

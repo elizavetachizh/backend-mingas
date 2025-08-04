@@ -18,6 +18,7 @@ managementAdminRouter.get("/add-men", isAdmin, async (req, res) => {
     fullName: "",
     position: "",
     image: "",
+    email: "",
     department: department,
     contact_phone: "",
   });

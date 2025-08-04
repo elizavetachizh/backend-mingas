@@ -21,7 +21,7 @@
               <input type="text" class="form-control" id="link" name="link" value="<%= link %>" placeholder="link">
           </div>
 
-    <label for="separation">Выберете Тип документа:</label>
+    <label for="separation">Выберите Тип документа:</label>
     <select class="form-control"  id="separation" name="separation">
         <% separations.forEach(el => { %>
             <option value="<%= el.separation %>" <%= el.separation === separation ? 'selected' : '' %> ><%= el.separation %></option>

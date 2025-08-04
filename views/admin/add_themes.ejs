@@ -5,7 +5,7 @@
         <input type="text" class="form-control" id="title" name="title" value="<%= title %>" placeholder="title">
     </div>
 
-    <h4>Выберете необходимые вопросы</h4>
+    <h4>Выберите необходимые вопросы</h4>
     <div class="form-group">
         <% arrayOfAsks.forEach(dep => { %>
             <input type="checkbox" name="question" id="question<%= dep._id %>" value="<%= dep._id %>" >

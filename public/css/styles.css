@@ -42,7 +42,7 @@ th.th-image {
   flex-direction: column;
 }
 .body-container {
-  width: 70%;
+  width: 100%;
 }
 
 td.table-for-posts, th.table-for-posts {

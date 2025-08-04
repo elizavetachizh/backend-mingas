@@ -80,7 +80,7 @@ adminUsersRouter.post("/register", function (req, res) {
 adminUsersRouter.get("/login", function (req, res) {
   if (res.locals.user) res.redirect("/admin");
   res.render("login", {
-    title: "Log in",
+    title: "Вход в систему",
   });
 });
 

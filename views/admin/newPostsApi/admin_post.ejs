@@ -1,0 +1,27 @@
+<div>
+    <h2 class="page-title">Статьи</h2>
+    <a href="/admin/new_posts/add-newpost" class="btn btn-primary">Добавить новую статью</a>
+    <table class="table table-striped sorting">
+
+    <thead>
+    <tr class="home">
+        <th></th>
+        <th>Наименование</th>
+        <th>Дата</th>
+        <th>Скачать</th>
+        <th>Удалить</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% posts.forEach(function(post){ %>
+        <tr>
+            <td>   <img class='img' id="noimage" src="<%= post.image %>"></td>
+            <td><p><%= post.content %></p></td>
+            <td><p><%= post.date %></p></td>
+            <td><a href="/admin/new_posts/edit-newpost/<%= post.id %>">Редактировать</a></td>
+            <td><a href="/admin/new_posts/delete-newpost/<%= post.id %>">Удалить</a></td>
+        </tr>
+    <% }); %>
+    </tbody>
+    </table>
+</div>

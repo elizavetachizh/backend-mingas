@@ -1,6 +1,7 @@
 <div class="div-menu"><ul class="menu nav nav-pills">
         <% if (user) { %>
             <% if (user && user.admin == 1) { %>
+                <li class="nav-item"><a href="/admin/new_posts" class="nav-link">Статьи для ленты новостей (НОВОЕ API)</a></li>
                 <li class="nav-item"><a href="/admin/admin_posts" class="nav-link">Статьи для ленты новостей</a></li>
                 <li class="nav-item"><a href="/admin/admin_corruption" class="nav-link">Ссылки коррупции</a></li>
                 <li class="nav-item"><a href="/admin/admin_departament" class="nav-link">Структурные подразделения</a></li>

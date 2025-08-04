@@ -20,9 +20,9 @@
         <input type="date" class="form-control" name="date" id="date" value="<%= date %>">
     </div>
     <div class="form-group">
-        <label for="link">Выберете статью:</label>
+        <label for="link">Выберите статью:</label>
         <select class="form-control" id="link" name="link">
-            <option>Выберете статью:</option>
+            <option>Выберите статью:</option>
             <% mainPosts.forEach(post => { %>
                 <option value="<%= post._id %>"><%= post.name %></option>
             <% }) %>

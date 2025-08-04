@@ -86,7 +86,8 @@ import usefulResourcesRouter from "./routes/GetQuery/useful_resources.js";
 
 import cors from "cors";
 import { fileURLToPath } from "url";
-
+import adminNewPostsRouter from "./routes/admin/admin_newPOSTSApi.js";
+import newPostsRouter from "./routes/GetQuery/newPostsApi.js";
 
 const app = express();
 //for site
@@ -232,6 +233,7 @@ app.use("/admin/edi", adminDocumentsEDIRouter);
 app.use("/admin/documentations", adminDocumentationRouter);
 app.use("/admin/newspapers", adminNewspapersRouter);
 app.use("/admin/useful-resources", usefulResourcesAdminRouter);
+app.use("/admin/new_posts", adminNewPostsRouter);
 
 //for user
 app.use("/admin/vacancies", vacanciesRouter);
@@ -262,6 +264,7 @@ app.use("/admin/gratitude_get", gratitudeRouter);
 app.use("/admin/certificates", documentationRouter);
 app.use("/admin/newspapers_get", newspapersRouter);
 app.use("/admin/useful_resources", usefulResourcesRouter);
+app.use("/admin/new-posts", newPostsRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
