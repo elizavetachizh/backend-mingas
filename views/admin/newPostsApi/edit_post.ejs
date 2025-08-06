@@ -1,11 +1,12 @@
+<div  style="width: 80%; margin: 0 auto">
 <h2 class="page-title">Редактирование</h2>
 <a href="/admin/new_posts" class="btn btn-primary">Назад</a>
 <br><br>
 
 <form method="post" action="/admin/new_posts/edit-newpost/<%= id %>">
     <div class="form-group">
-        <label for="name">Наименование статьи:</label>
-        <input type="text" name="name" id="name" value="<%= name %>" class="form-control"  required>
+        <label for="name">Имя (указать в случае, если на заглавной картинке нет текста):</label>
+        <input type="text" name="name" id="name" value="<%= name %>" class="form-control">
     </div>
 
     <div class="form-group">
@@ -18,11 +19,11 @@
         <input type="text" class="form-control" id="content" name="content" value="<%= content %>" placeholder="Описание">
     </div>
     <div class="form-group">
-        <label for="text-link">Ссылка на статью (указать в случае, если не это локальная статья)</label>
-        <input class="form-control" id="text-link"  type="text" name="text" value="<%= text %>">
+        <label for="link">Ссылка на статью (указать в случае, если размещается статья не УП "МИНГАЗ")</label>
+        <input class="form-control" id="link"  type="text" name="link" value="<%= link %>">
     </div>
     <div class="form-group">
-        <label for="ta">Текст статьи</label>
+        <label for="ta">Текст для статьи</label>
         <textarea type="text" class="form-control" id="ta" name="description" placeholder="description"><%= description %></textarea>
     </div>
 
@@ -40,3 +41,4 @@
         <% });%>
     <% }%>
 </form>
+</div>

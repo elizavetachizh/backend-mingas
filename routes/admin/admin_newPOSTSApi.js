@@ -1,5 +1,5 @@
 import express from "express";
-import { isAdmin } from "../../config/auth.js";
+import { isPostsUser } from "../../config/auth.js";
 import {
   createNewPost,
   deletePost,
@@ -26,8 +26,8 @@ const upload = multer({ storage });
 
 const adminNewPostsRouter = express.Router();
 
-adminNewPostsRouter.get("/", isAdmin, getNewPost);
-adminNewPostsRouter.get("/add-newpost", isAdmin, async (req, res) => {
+adminNewPostsRouter.get("/", isPostsUser, getNewPost);
+adminNewPostsRouter.get("/add-newpost", isPostsUser, async (req, res) => {
   res.render("admin/newPostsApi/add_post", {
     name: "",
     description: "",
@@ -40,12 +40,12 @@ adminNewPostsRouter.get("/add-newpost", isAdmin, async (req, res) => {
   });
 });
 adminNewPostsRouter.post("/add-newpost", upload.single("file"), createNewPost);
-adminNewPostsRouter.get("/edit-newpost/:id", isAdmin, getNewPostById);
+adminNewPostsRouter.get("/edit-newpost/:id", isPostsUser, getNewPostById);
 adminNewPostsRouter.post("/edit-newpost/:id", updateNewPost);
 
 /*
  * GET delete product
  */
-adminNewPostsRouter.get("/delete-newpost/:id", isAdmin, deletePost);
+adminNewPostsRouter.get("/delete-newpost/:id", isPostsUser, deletePost);
 
 export default adminNewPostsRouter;

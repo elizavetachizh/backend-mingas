@@ -3,9 +3,11 @@ import NewPosts from "../../models/newPosts.js";
 
 const newPostsRouter = express.Router();
 newPostsRouter.get("/", function (req, res) {
-  NewPosts.find(function (err, posts) {
-    res.send(posts);
-  });
+  NewPosts.find()
+    .sort({ _id: -1 })
+    .exec(function (err, posts) {
+      res.send(posts);
+    });
 });
 newPostsRouter.get("/:id", function (req, res) {
   console.log(req.params);

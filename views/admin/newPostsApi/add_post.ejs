@@ -1,52 +1,56 @@
-<h2 class="page-title">Добавить пост</h2>
-<br><br>
-<a href="/admin/new_posts" class="btn btn-primary">Показать все посты</a>
-<br><br>
+<div  style="width: 80%; margin: 0 auto">
 
-<form method="post" action="/admin/new_posts/add-newpost/" enctype="multipart/form-data">
+    <h2 class="page-title">Добавить пост</h2>
+    <br><br>
+    <a href="/admin/new_posts" class="btn btn-primary">Показать все посты</a>
+    <br><br>
 
-    <div class="form-group">
-        <label for="file">Заглавная картинка</label>
-        <input type="file"
-                name="file"
-                id="file"
-                class="form-control-file border" />
-    </div>
+    <form method="post" action="/admin/new_posts/add-newpost/" enctype="multipart/form-data">
 
-    <div class="form-group">
-        <label for="date">Дата добавления</label>
-        <input type="date" class="form-control" name="date" id="date" />
-    </div>
+        <div class="form-group">
+            <label for="file">Заглавная картинка</label>
+            <input type="file"
+                   name="file"
+                   id="file"
+                   class="form-control-file border" />
+        </div>
 
-    <div class="form-group">
-        <label for="name">Имя (указать в случае, если на картинке нет текста)</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="name" />
-    </div>
+        <div class="form-group">
+            <label for="date">Дата добавления (При незаполнении, проставится автоматически текущая дата)</label>
+            <input type="date" class="form-control" name="date" id="date" />
+        </div>
 
-    <div class="form-group">
-        <label for="content">Заголовок статьи</label>
-        <input type="text" class="form-control" id="content" name="content"  placeholder="Описание"/>
-    </div>
-    <div class="form-group">
-        <label for="text-link">Ссылка на статью (указать в случае, если не это локальная статья)</label>
-        <input class="form-control" id="text-link"  type="text" name="text" />
-    </div>
-    <div class="form-group">
-        <label for="ta">Текст статьи</label>
-        <textarea type="text" class="form-control" id="ta" name="description" placeholder="description"><%= description %></textarea>
-    </div>
+        <div class="form-group">
+            <label for="name">Имя (указать в случае, если на заглавной картинке нет текста)</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="name" />
+        </div>
 
-    <div class="form-group">
-        <label for="ta-images">Картинки для статьи</label>
-        <textarea type="text" class="form-control" id="ta-images" name="images" placeholder="images"><%= images %></textarea>
-    </div>
-    <button class="btn btn-default">Добавить</button>
+        <div class="form-group">
+            <label for="content">Заголовок статьи (Обязательное поле)</label>
+            <input type="text" class="form-control" id="content" name="content"  placeholder="Описание"/>
+        </div>
+        <div class="form-group">
+            <label for="link">Ссылка на статью (указать в случае, если размещается статья не УП "МИНГАЗ")</label>
+            <input class="form-control" id="link"  type="text" name="link" />
+        </div>
+        <div class="form-group">
+            <label for="ta">Текст для статьи</label>
+            <textarea type="text" class="form-control" id="ta" name="description" placeholder="description"><%= description %></textarea>
+        </div>
 
-    <% if (errors) {%>
-        <% errors.forEach(function(error) { %>
-            <div class="alert alert-danger">
-                <%= error.msg %>
-            </div>
-        <% });%>
-    <% }%>
-</form>
+        <div class="form-group">
+            <label for="ta-images">Картинки для статьи</label>
+            <textarea type="text" class="form-control" id="ta-images" name="images" placeholder="images"><%= images %></textarea>
+        </div>
+        <button class="btn btn-default">Добавить</button>
+
+        <% if (errors) {%>
+            <% errors.forEach(function(error) { %>
+                <div class="alert alert-danger">
+                    <%= error.msg %>
+                </div>
+            <% });%>
+        <% }%>
+    </form>
+</div>
+

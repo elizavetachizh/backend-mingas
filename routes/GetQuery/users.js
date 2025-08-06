@@ -11,7 +11,7 @@ import User from "../../models/user.js";
  */
 adminUsersRouter.get("/register", function (req, res) {
   res.render("register", {
-    title: "Register",
+    title: "Регистрация",
   });
 });
 
@@ -19,39 +19,36 @@ adminUsersRouter.get("/register", function (req, res) {
  * POST register
  */
 adminUsersRouter.post("/register", function (req, res) {
-  var name = req.body.name;
-  var email = req.body.email;
-  var username = req.body.username;
-  var password = req.body.password;
+  const email = req.body.email;
+  const username = req.body.username;
+  const password = req.body.password;
 
-  req.checkBody("name", "Name is required!").notEmpty();
   req.checkBody("email", "Email is required!").isEmail();
   req.checkBody("username", "Username is required!").notEmpty();
   req.checkBody("password", "Password is required!").notEmpty();
   req.checkBody("password2", "Passwords do not match!").equals(password);
 
-  var errors = req.validationErrors();
+  const errors = req.validationErrors();
 
   if (errors) {
     res.render("register", {
       errors,
       user: null,
-      title: "Register",
+      title: "Регистрация",
     });
   } else {
-    User.findOne({ username: username }, function (err, user) {
+    User.findOne({ username }, function (err, user) {
       if (err) console.log(err);
 
       if (user) {
         req.flash("danger", "Username exists, choose another!");
         res.redirect("/admin/users/register");
       } else {
-        var user = new User({
-          name,
+        const user = new User({
           email,
           username,
           password,
-          admin: 0,
+          admin: 2,
         });
         bcrypt.genSalt(10, function (err, salt) {
           bcrypt.hash(user.password, salt, function (err, hash) {

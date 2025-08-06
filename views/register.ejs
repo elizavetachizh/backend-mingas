@@ -1,36 +1,34 @@
-
-<h1><%= title %></h1>
-
-<form method="post" action="/admin/users/register">
+<div class="row mt-5 justify-content-center">
+    <div class="col-12 text-center mb-4">
+        <h1><%= title %></h1>
+    </div>
+    <div class="col-md-6 col-lg-4">
+        <form method="post" action="/admin/users/register" class="bg-light p-4  rounded shadow-sm">
 
     <div class="form-group">
-        <label>Name</label>
-        <input type="text" name="name" class="form-control" placeholder="Name">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email" class="form-control" placeholder="Email">
     </div>
 
     <div class="form-group">
-        <label>Email</label>
-        <input type="text" name="email" class="form-control" placeholder="Email">
+        <label for="username">Логин</label>
+        <input type="text" name="username" id="username" class="form-control" placeholder="Логин">
     </div>
 
     <div class="form-group">
-        <label>Username</label>
-        <input type="text" name="username" class="form-control" placeholder="Username">
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="password" class="form-control"  placeholder="Пароль">
     </div>
 
     <div class="form-group">
-        <label>Password</label>
-        <input type="password" name="password" class="form-control"  placeholder="Password">
+        <label for="password2">Повторите пароль</label>
+        <input type="password" name="password2"  id="password2" class="form-control"  placeholder="Повторите пароль">
     </div>
 
-    <div class="form-group">
-        <label>Confirm Password</label>
-        <input type="password" name="password2" class="form-control"  placeholder="Confirm Password">
-    </div>
-
-    <button type="Сохранить" class="btn btn-default">Регистрация</button>
+    <button type="submit" class="btn btn-default">Регистрация</button>
     <div><a href="/admin/users/login">Войти</a></div>
 </form>
+    </div>
 
  <%- messages('messages', locals) %>
 
@@ -41,3 +39,4 @@
                 </div>
                 <% });%>
             <% }%>
+</div>

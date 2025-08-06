@@ -1,6 +1,5 @@
 import alert from "alert";
 import NewPosts from "../models/newPosts.js";
-import mongoose from "mongoose";
 
 export const getNewPost = async (req, res) => {
   let count;
@@ -13,8 +12,8 @@ export const getNewPost = async (req, res) => {
     name: { $regex: req.query.search || "" },
   })
     .sort({ _id: -1 })
-    .limit(10)
-    .skip(page * 10)
+    .limit(5)
+    .skip(page * 5)
     .exec(function (err, posts) {
       if (err) {
         res.status(500).json(err);
@@ -23,22 +22,19 @@ export const getNewPost = async (req, res) => {
       res.render("admin/newPostsApi/admin_post", {
         posts,
         count,
-        pages: [...Array(Math.ceil(+count / 10))],
+        pages: [...Array(Math.ceil(+count / 5))],
       });
     });
 };
 
 export const createNewPost = async (req, res) => {
   const { name, description, images, link, content } = req.body;
-  const textLink = req.body.text;
-  const article =
-    mongoose.Types.ObjectId.isValid(link) &&
-    (await NewPosts.findById(link).select("name").lean());
-  const image = req.file.path
-    ? req.file.path
+  const image = req.file?.path
+    ? `https://mingas.by/${req.file.path}`
     : "https://back.mingas.by/public/images/background_new.webp";
   console.log(image);
   console.log(req.file);
+
   var errors = req.validationErrors();
   const date = req.body.date;
   if (errors) {
@@ -50,11 +46,12 @@ export const createNewPost = async (req, res) => {
       name,
       description: description || "",
       images: images || "",
-      link: textLink.trim() || ``,
-      content: content.trim() || article.name,
-      image: `https://mingas.by/${image}`,
-      date: date || new Date(),
+      link: link || "",
+      content: content || "",
+      image,
+      date: date || new Date().toISOString().split("T")[0],
     });
+    console.log(post);
     post.save(function (err) {
       if (err) {
         return console.log(err);
@@ -69,10 +66,10 @@ export const getNewPostById = async (req, res) => {
   let errors;
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
-  const textLink = req.body.text;
   const link = req.body.link;
 
   NewPosts.findById(req.params.id, function (err, posts) {
+    console.log(posts);
     if (err) {
       res.render("admin/newPostsApi/admin_post");
     } else {
@@ -82,11 +79,10 @@ export const getNewPostById = async (req, res) => {
         description: posts.description,
         images: posts.images,
         id: posts._id,
-        link: textLink ? textLink.trim() : `https://mingas.by/posts/${link}`,
+        link: link ? link.trim() : `https://mingas.by/posts/${link}`,
         content: posts.content,
         image: posts.image,
         date: posts.date,
-        text: posts.text,
       });
     }
   });
@@ -96,11 +92,9 @@ export const getNewPostById = async (req, res) => {
  * POST edit product
  */
 export const updateNewPost = async (req, res) => {
-  req.checkBody("name", "Описание должно быть заполненым").notEmpty();
-  req.checkBody("description", "Описание должно быть заполненым").notEmpty();
+  req.checkBody("description", "Описание должно быть заполненнным").notEmpty();
 
-  const { name, description, images, link, content, image, date, text } =
-    req.body;
+  const { name, description, images, link, content, image, date } = req.body;
   const id = req.params.id;
   const errors = req.validationErrors();
 
@@ -117,7 +111,6 @@ export const updateNewPost = async (req, res) => {
       posts.image = image;
       posts.date = date;
       posts.images = images;
-      posts.text = text;
       posts.save(function (err) {
         if (err) return console.log(err);
 

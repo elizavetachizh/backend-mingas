@@ -15,3 +15,15 @@ export function isAdmin(req, res, next) {
     res.redirect("/admin/users/login");
   }
 }
+
+export function isPostsUser(req, res, next) {
+  if (
+    req.isAuthenticated() &&
+    (res.locals.user.admin === 1 || res.locals.user.admin === 2)
+  ) {
+    next();
+  } else {
+    req.flash("danger", "Пожалуйста, войдите как администратор.");
+    res.redirect("/admin/users/login");
+  }
+}

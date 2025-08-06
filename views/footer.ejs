@@ -91,22 +91,115 @@
 
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- Подключаем CKEditor 4 через CDN -->
-<script src="https://cdn.ckeditor.com/4.21.0/standard-all/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/4.21.0/full-all/ckeditor.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('#ta').forEach(function (textarea) {
       if (!textarea.classList.contains('ckeditor-initialized')) {
         CKEDITOR.replace(textarea, {
-          extraPlugins: 'embed,autoembed', // Подключаем плагины
-          embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}', // Используем iFrame.ly для встраивания видео
+          embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}',
         });
+
         textarea.classList.add('ckeditor-initialized');
       }
     });
     document.querySelectorAll('#ta-images').forEach(function (textarea) {
       if (!textarea.classList.contains('ckeditor-initialized')) {
         CKEDITOR.replace(textarea, {
-          embed_provider: '//ckeditor.iframe.ly/api/oembed?url={url}&callback={callback}', // Используем iFrame.ly для встраивания видео
+          extraPlugins: 'image2',
+          removePlugins: 'image', // Удаляем старый image-плагин
+          allowedContent: true,
+          height: 400,
+          toolbar: [
+            { name: 'insert', items: ['Image'] },
+            { name: 'tools', items: ['Maximize'] },
+            { name: 'document', items: ['Source'] }
+          ],
+          image2_alignClasses: ['image-align-left', 'image-align-center', 'image-align-right'],
+          image2_disableResizer: false
+        });
+        // Включаем обработку вставки изображений
+        // Добавляем кастомную вкладку для загрузки изображений
+        CKEDITOR.on('dialogDefinition', function (ev) {
+          if (ev.data.name !== 'image2') return;
+
+          const dialogDefinition = ev.data.definition;
+
+          // Добавляем новую вкладку "Загрузить"
+          dialogDefinition.addContents({
+            id: 'localUpload',
+            label: 'Загрузить с ПК',
+            elements: [
+              {
+                type: 'html',
+                id: 'localUploadField',
+                html: '<input type="file" id="localImageInput" accept="image/*" multiple/>'
+              },
+              {
+                type: 'html',
+                id: 'uploadInfo',
+                html: '<p style="margin-top:10px;">Можно выбрать несколько изображений. Не более 5. Они будут вставлены как base64.</p>'
+              }
+            ]
+          });
+
+          // Обрабатываем загрузку
+// После открытия диалога
+          dialogDefinition.onShow = function () {
+            setTimeout(() => {
+              const input = document.getElementById('localImageInput');
+              if (!input) return;
+              console.log(input.files);
+
+              input.onchange = async function() {
+                const files = Array.from(input.files);
+                if (files.length === 0) return;
+
+                if (files.length > 5) {
+                  alert('Можно загрузить не более 5 изображений за раз.');
+                  return;
+                }
+
+                const editor = CKEDITOR.currentInstance;
+                if (!editor) return;
+
+                try {
+                  const imagesHtml = await Promise.all(files.map(file => {
+                    return new Promise((resolve, reject) => {
+                      if (!file.type.startsWith('image/')) {
+                        alert(`Файл "${file.name}" не является изображением. Пропускаем.`);
+                        return resolve('');
+                      }
+
+                      if (file.size > 2 * 1024 * 1024) {
+                        alert(`Изображение "${file.name}" превышает 2MB. Пропускаем.`);
+                        return resolve('');
+                      }
+
+                      const reader = new FileReader();
+                      reader.onload = e => resolve(
+                              `<img src="${e.target.result}" alt="${file.name}" style="max-width:80%;"/>`
+                      );
+                      reader.onerror = () => reject(`Ошибка при чтении файла "${file.name}"`);
+                      reader.readAsDataURL(file);
+                    });
+                  }));
+
+                  const htmlToInsert = imagesHtml.filter(Boolean).join('');
+                  if (htmlToInsert) {
+                    editor.insertHtml(htmlToInsert);
+                    const dialog = CKEDITOR.dialog.getCurrent();
+                    if (dialog) dialog.hide();
+                  }
+                } catch (error) {
+                  console.error('Upload error:', error);
+                } finally {
+                  input.value = '';
+                }
+              };
+
+            }, 200); // Дать время DOM отрендериться
+          };
         });
         textarea.classList.add('ckeditor-initialized');
       }
