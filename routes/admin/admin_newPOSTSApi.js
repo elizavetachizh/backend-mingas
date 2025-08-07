@@ -41,7 +41,11 @@ adminNewPostsRouter.get("/add-newpost", isPostsUser, async (req, res) => {
 });
 adminNewPostsRouter.post("/add-newpost", upload.single("file"), createNewPost);
 adminNewPostsRouter.get("/edit-newpost/:id", isPostsUser, getNewPostById);
-adminNewPostsRouter.post("/edit-newpost/:id", updateNewPost);
+adminNewPostsRouter.post(
+  "/edit-newpost/:id",
+  upload.single("file"),
+  updateNewPost
+);
 
 /*
  * GET delete product

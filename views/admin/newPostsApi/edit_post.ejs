@@ -3,7 +3,14 @@
 <a href="/admin/new_posts" class="btn btn-primary">Назад</a>
 <br><br>
 
-<form method="post" action="/admin/new_posts/edit-newpost/<%= id %>">
+<form method="post" action="/admin/new_posts/edit-newpost/<%= id %>" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="file">Заглавная картинка</label>
+        <input type="file"
+               name="file"
+               id="file"
+               class="form-control-file border" />
+    </div>
     <div class="form-group">
         <label for="name">Имя (указать в случае, если на заглавной картинке нет текста):</label>
         <input type="text" name="name" id="name" value="<%= name %>" class="form-control">
@@ -15,7 +22,7 @@
     </div>
 
     <div class="form-group">
-        <label for="content">Заголовок статьи (указать в случае, если это не локальная статья, а ссылка на нее)</label>
+        <label for="content">Заголовок статьи (Обязательное поле)</label>
         <input type="text" class="form-control" id="content" name="content" value="<%= content %>" placeholder="Описание">
     </div>
     <div class="form-group">

@@ -32,8 +32,6 @@ export const createNewPost = async (req, res) => {
   const image = req.file?.path
     ? `https://mingas.by/${req.file.path}`
     : "https://back.mingas.by/public/images/background_new.webp";
-  console.log(image);
-  console.log(req.file);
 
   var errors = req.validationErrors();
   const date = req.body.date;
@@ -94,10 +92,12 @@ export const getNewPostById = async (req, res) => {
 export const updateNewPost = async (req, res) => {
   req.checkBody("description", "Описание должно быть заполненнным").notEmpty();
 
-  const { name, description, images, link, content, image, date } = req.body;
+  const { name, description, images, link, content, date } = req.body;
   const id = req.params.id;
   const errors = req.validationErrors();
-
+  const image = req.file?.path
+    ? `https://mingas.by/${req.file.path}`
+    : "https://back.mingas.by/public/images/background_new.webp";
   if (errors) {
     req.session.errors = errors;
     res.redirect("/admin/admin_newpost/edit-newpost/" + id);
