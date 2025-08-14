@@ -11,7 +11,7 @@ import fs from "fs-extra";
 import multer from "multer";
 // Настройка загрузки файлов с помощью Multer
 const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+  destination: (req, files, cb) => {
     const dir = "doc/posts";
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
@@ -39,11 +39,15 @@ adminNewPostsRouter.get("/add-newpost", isPostsUser, async (req, res) => {
     text: "",
   });
 });
-adminNewPostsRouter.post("/add-newpost", upload.single("file"), createNewPost);
+adminNewPostsRouter.post(
+  "/add-newpost",
+  upload.array("files", 10),
+  createNewPost
+);
 adminNewPostsRouter.get("/edit-newpost/:id", isPostsUser, getNewPostById);
 adminNewPostsRouter.post(
   "/edit-newpost/:id",
-  upload.single("file"),
+  upload.array("files", 10),
   updateNewPost
 );
 

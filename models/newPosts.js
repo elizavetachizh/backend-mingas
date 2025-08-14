@@ -19,9 +19,7 @@ const newPostsSchema = mongoose.Schema({
   description: {
     type: String,
   },
-  images: {
-    type: String,
-  },
+  images: [String],
 });
 
 const NewPosts = mongoose.model("newPosts", newPostsSchema);

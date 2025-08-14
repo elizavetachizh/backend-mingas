@@ -8,11 +8,11 @@
     <form method="post" action="/admin/new_posts/add-newpost/" enctype="multipart/form-data">
 
         <div class="form-group">
-            <label for="file">Заглавная картинка</label>
+            <label for="files">Картинки для статьи (первая загруженная будет являться заглавной)</label>
             <input type="file"
-                   name="file"
-                   id="file"
-                   class="form-control-file border" />
+                   name="files"
+                   id="files"
+                   class="form-control-file border" multiple />
         </div>
 
         <div class="form-group">
@@ -38,10 +38,6 @@
             <textarea type="text" class="form-control" id="ta" name="description" placeholder="description"><%= description %></textarea>
         </div>
 
-        <div class="form-group">
-            <label for="ta-images">Картинки для статьи</label>
-            <textarea type="text" class="form-control" id="ta-images" name="images" placeholder="images"><%= images %></textarea>
-        </div>
         <button class="btn btn-default">Добавить</button>
 
         <% if (errors) {%>

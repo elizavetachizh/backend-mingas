@@ -83,15 +83,21 @@ import adminNewspapersRouter from "./routes/admin/admin_newspaper.js";
 import newspapersRouter from "./routes/GetQuery/newspapersGet.js";
 import usefulResourcesAdminRouter from "./routes/admin/admin_useful_resources.js";
 import usefulResourcesRouter from "./routes/GetQuery/useful_resources.js";
-
-import cors from "cors";
-import { fileURLToPath } from "url";
 import adminNewPostsRouter from "./routes/admin/admin_newPOSTSApi.js";
 import newPostsRouter from "./routes/GetQuery/newPostsApi.js";
+import adminEcoBoxRouter from "./routes/admin/ecobox/admin_info.js";
+import cors from "cors";
+import { fileURLToPath } from "url";
+import adminEcoBoxThemeRouter from "./routes/admin/ecobox/admin_theme.js";
+import ecoBoxThemesRouter from "./routes/GetQuery/ecobox/theme.js";
+import ecoBoxContentRouter from "./routes/GetQuery/ecobox/content.js";
+import adminBusinessTabsRouter from "./routes/admin/admin_tabs_for_business.js";
+import businessTabsRouter from "./routes/GetQuery/businessTabs.js";
 
 const app = express();
 //for site
 const port = 3000;
+
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: 4000000000 }));
 // parse application/x-www-form-urlencoded
@@ -234,6 +240,10 @@ app.use("/admin/documentations", adminDocumentationRouter);
 app.use("/admin/newspapers", adminNewspapersRouter);
 app.use("/admin/useful-resources", usefulResourcesAdminRouter);
 app.use("/admin/new_posts", adminNewPostsRouter);
+app.use("/admin/gratitude", adminGratitudeRouter);
+app.use("/admin/admin-ecobox", adminEcoBoxRouter);
+app.use("/admin/admin-ecobox-theme", adminEcoBoxThemeRouter);
+app.use("/admin/admin-business-tabs", adminBusinessTabsRouter);
 
 //for user
 app.use("/admin/vacancies", vacanciesRouter);
@@ -241,7 +251,6 @@ app.use("/admin/users", adminUsersRouter);
 app.use("/admin/upload", adminPhotosRouter);
 app.use("/admin/TV", TVRouter);
 app.use("/admin/documents_edi", documentsEDIRouter);
-app.use("/admin/gratitude", adminGratitudeRouter);
 app.use("/admin/gratitude_get", gratitudeRouter);
 app.use("/admin/posts", postsRouter);
 app.use("/admin/corruption", corruptionRouter);
@@ -265,6 +274,10 @@ app.use("/admin/certificates", documentationRouter);
 app.use("/admin/newspapers_get", newspapersRouter);
 app.use("/admin/useful_resources", usefulResourcesRouter);
 app.use("/admin/new-posts", newPostsRouter);
+app.use("/admin/ecobox-themes", ecoBoxThemesRouter);
+app.use("/admin/ecobox-content", ecoBoxContentRouter);
+app.use("/admin/business-tabs",businessTabsRouter)
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

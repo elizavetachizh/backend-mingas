@@ -1,0 +1,37 @@
+<div  style="width: 80%; margin: 0 auto">
+
+    <h2 class="page-title">Добавить пост</h2>
+    <br><br>
+    <a href="/admin/admin-business-tabs" class="btn btn-primary">Показать все посты</a>
+    <br><br>
+
+    <form method="post" action="/admin/admin-business-tabs/add-content/" enctype="multipart/form-data">
+
+        <div class="form-group">
+            <label for="name">Наименование</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="name" />
+        </div>
+        <div class="form-group">
+            <label for="link">Ссылка</label>
+            <input type="text" class="form-control" id="link" name="link"  placeholder="Ссылка"/>
+        </div>
+        <div class="form-group">
+            <label for="file">Иконка для вкладки</label>
+            <input type="file"
+                   name="file"
+                   id="file"
+                   class="form-control-file border"  />
+        </div>
+
+        <button class="btn btn-default">Добавить</button>
+
+        <% if (errors) {%>
+            <% errors.forEach(function(error) { %>
+                <div class="alert alert-danger">
+                    <%= error.msg %>
+                </div>
+            <% });%>
+        <% }%>
+    </form>
+</div>
+

@@ -28,10 +28,18 @@ export const getNewPost = async (req, res) => {
 };
 
 export const createNewPost = async (req, res) => {
-  const { name, description, images, link, content } = req.body;
-  const image = req.file?.path
-    ? `https://mingas.by/${req.file.path}`
-    : "https://back.mingas.by/public/images/background_new.webp";
+  const { name, description, link, content } = req.body;
+  console.log(req.files);
+  // Обрабатываем несколько загруженных файлов
+  let uploadedImages = [];
+  if (req.files && req.files.length > 0) {
+    uploadedImages = req.files.map((file) => `https://mingas.by/${file.path}`);
+  }
+  console.log(uploadedImages);
+  const image =
+    uploadedImages.length > 0
+      ? uploadedImages[0]
+      : "https://back.mingas.by/public/images/background_new.webp";
 
   var errors = req.validationErrors();
   const date = req.body.date;
@@ -40,10 +48,10 @@ export const createNewPost = async (req, res) => {
       errors,
     });
   } else {
-    const post = new NewPosts({
+    const post = await new NewPosts({
       name,
       description: description || "",
-      images: images || "",
+      images: uploadedImages?.length ? uploadedImages : "",
       link: link || "",
       content: content || "",
       image,
@@ -61,16 +69,14 @@ export const createNewPost = async (req, res) => {
 };
 
 export const getNewPostById = async (req, res) => {
-  let errors;
-  if (req.session.errors) errors = req.session.errors;
-  req.session.errors = null;
-  const link = req.body.link;
+  try {
+    const errors = req.session.errors || null;
+    req.session.errors = null;
+    const link = req.body.link;
 
-  NewPosts.findById(req.params.id, function (err, posts) {
-    console.log(posts);
-    if (err) {
-      res.render("admin/newPostsApi/admin_post");
-    } else {
+    await NewPosts.findById(req.params.id, function (err, posts) {
+      console.log(posts);
+
       res.render("admin/newPostsApi/edit_post", {
         errors,
         name: posts.name,
@@ -82,8 +88,10 @@ export const getNewPostById = async (req, res) => {
         image: posts.image,
         date: posts.date,
       });
-    }
-  });
+    });
+  } catch (err) {
+    alert(err);
+  }
 };
 
 /*
@@ -92,25 +100,30 @@ export const getNewPostById = async (req, res) => {
 export const updateNewPost = async (req, res) => {
   req.checkBody("description", "Описание должно быть заполненнным").notEmpty();
 
-  const { name, description, images, link, content, date } = req.body;
+  const { name, description, link, content, date } = req.body;
   const id = req.params.id;
   const errors = req.validationErrors();
-  const image = req.file?.path
-    ? `https://mingas.by/${req.file.path}`
-    : "https://back.mingas.by/public/images/background_new.webp";
+  let uploadedImages = [];
+  if (req.files && req.files.length > 0) {
+    uploadedImages = req.files.map((file) => `https://mingas.by/${file.path}`);
+  }
+  const image =
+    uploadedImages.length > 0
+      ? uploadedImages[0]
+      : "https://back.mingas.by/public/images/background_new.webp";
   if (errors) {
     req.session.errors = errors;
     res.redirect("/admin/admin_newpost/edit-newpost/" + id);
   } else {
-    NewPosts.findById(id, function (err, posts) {
+    await NewPosts.findById(id, function (err, posts) {
       if (err) return console.log(err);
       posts.name = name;
       posts.description = description;
-      posts.link = link;
+      posts.link = link || "";
       posts.content = content;
       posts.image = image;
       posts.date = date;
-      posts.images = images;
+      posts.images = uploadedImages?.length ? uploadedImages : posts.images;
       posts.save(function (err) {
         if (err) return console.log(err);
 

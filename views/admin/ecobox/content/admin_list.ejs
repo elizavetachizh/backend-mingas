@@ -1,0 +1,25 @@
+<div style="width: 80%; margin: 0 auto">
+    <h2 class="page-title">Информация для вкладок ECOBOX</h2>
+    <a href="/admin/admin-ecobox/add-content" class="btn btn-primary">Добавить новое</a>
+    <table class="table table-striped sorting">
+
+    <thead>
+    <tr class="home">
+        <th>Наименование</th>
+        <th>Вкладка</th>
+        <th>Скачать</th>
+        <th>Удалить</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% content.forEach(function(item){ %>
+        <tr>
+            <td><p><%= item.name %></p></td>
+            <td><p><%= item.theme.title %></p></td>
+            <td><a href="/admin/admin-ecobox/edit-content/<%= item.id %>">Редактировать</a></td>
+            <td><a href="/admin/admin-ecobox/delete-content/<%= item.id %>">Удалить</a></td>
+        </tr>
+    <% }); %>
+    </tbody>
+    </table>
+</div>

@@ -15,7 +15,7 @@
     <tbody>
     <% posts.forEach(function(post){ %>
         <tr>
-            <td>   <img class='img' id="noimage" src="<%= post.image %>"></td>
+            <td> <img class='img' id="noimage" src="<%= post.image %>"></td>
             <td><p><%= post.content %></p></td>
             <td><p><%= post.date %></p></td>
             <td><a href="/admin/new_posts/edit-newpost/<%= post.id %>">Редактировать</a></td>

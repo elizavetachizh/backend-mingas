@@ -1,7 +1,19 @@
-<div class="div-menu"><ul class="menu nav nav-pills">
+<div class="div-menu">
+    <ul class="menu nav nav-pills">
         <% if (user) { %>
             <% if (user && user.admin == 1) { %>
                 <li class="nav-item"><a href="/admin/new_posts" class="nav-link">Статьи для ленты новостей (НОВОЕ API)</a></li>
+                <li>
+                    <ul class="menu nav nav-pills"><p>ECOBOX</p>
+                    <li class="nav-item">
+                        <a href="/admin/admin-ecobox-theme" class="nav-link">Вкладки ECOBOX</a>
+                    </li>
+                        <li class="nav-item">
+                            <a href="/admin/admin-ecobox" class="nav-link">Информация ля вкладок ECOBOX</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item"><a href="/admin/admin-business-tabs" class="nav-link">Вкладки страницы "Для бизнеса"</a></li>
                 <li class="nav-item"><a href="/admin/admin_posts" class="nav-link">Статьи для ленты новостей</a></li>
                 <li class="nav-item"><a href="/admin/admin_corruption" class="nav-link">Ссылки коррупции</a></li>
                 <li class="nav-item"><a href="/admin/admin_departament" class="nav-link">Структурные подразделения</a></li>
@@ -36,4 +48,5 @@
         <% } else {%>
             <p></p>
         <% } %>
-    </ul></div>
+    </ul>
+</div>
