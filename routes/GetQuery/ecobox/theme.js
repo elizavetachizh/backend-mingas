@@ -3,10 +3,8 @@ import ThemeOfEcoBoxModel from "../../../models/ecobox/themes/index.js";
 
 const ecoBoxThemesRouter = express.Router();
 ecoBoxThemesRouter.get("/", async function (req, res) {
-  ThemeOfEcoBoxModel.find()
-    .sort({ _id: -1 })
-    .exec(function (err, prices) {
-      res.send(prices);
-    });
+  ThemeOfEcoBoxModel.find(function (err, content) {
+    res.send(content);
+  });
 });
 export default ecoBoxThemesRouter;
