@@ -93,6 +93,7 @@ import ecoBoxThemesRouter from "./routes/GetQuery/ecobox/theme.js";
 import ecoBoxContentRouter from "./routes/GetQuery/ecobox/content.js";
 import adminBusinessTabsRouter from "./routes/admin/admin_tabs_for_business.js";
 import businessTabsRouter from "./routes/GetQuery/businessTabs.js";
+import exoBoxFormRouter from "./routes/ecoBoxForm.js";
 
 const app = express();
 //for site
@@ -210,7 +211,7 @@ app.use("/verification", verificationRouter);
 app.use("/admin", adminRouter);
 app.use("/submit-survey", newFeedback);
 app.use("/welding", weldingRouter);
-
+app.use("/ecobox-form", exoBoxFormRouter);
 //admin
 app.use("/admin/admin_posts", postsAdminRouter);
 app.use("/admin/admin_corruption", corruptionAdminRouter);
@@ -276,7 +277,7 @@ app.use("/admin/useful_resources", usefulResourcesRouter);
 app.use("/admin/new-posts", newPostsRouter);
 app.use("/admin/ecobox-themes", ecoBoxThemesRouter);
 app.use("/admin/ecobox-content", ecoBoxContentRouter);
-app.use("/admin/business-tabs",businessTabsRouter)
+app.use("/admin/business-tabs", businessTabsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
