@@ -5,7 +5,8 @@
 
     <thead>
     <tr class="home">
-        <th></th>
+        <th>Ссылка на пост</th>
+        <th>Картинка</th>
         <th>Наименование</th>
         <th>Дата</th>
         <th>Скачать</th>
@@ -15,6 +16,12 @@
     <tbody>
     <% posts.forEach(function(post){ %>
         <tr>
+            <td>  <% if (post.link === "") { %>
+                    <p>https://mingas.by/posts/<%= post.id %></p>
+                <% } else {%>
+                    <p><%= post.link %></p>
+                <% }%>
+            </td>
             <td> <img class='img' id="noimage" src="<%= post.image %>"></td>
             <td><p><%= post.content %></p></td>
             <td><p><%= post.date %></p></td>

@@ -2,7 +2,7 @@
 <a href="/admin/admin_article" class="btn btn-primary">Назад ко всем статьям</a>
 <br><br>
 
-<form method="post" action="/admin/admin_article/edit-article/<%= id %>" >
+<form method="post" action="/admin/admin_article/edit-article/<%= id %>" enctype="multipart/form-data" >
 
     <div class="form-group">
         <label for="ta">Контент</label>
@@ -10,10 +10,13 @@
     </div>
 
     <div class="form-group">
-        <label for="img">Картинка</label>
-        <input value="<%= image %>" type="text"  class="form-control" name="image" id="img">
+        <label for="file">Заменить картинку</label>
+        <input type="file"
+               name="file"
+               id="file"
+               class="form-control-file border"  />
     </div>
-
+    <img style="width: 400px" alt="<%= image %>" src="<%= image %>" />
             <div class="form-group">
                   <label for="button">Кнопка</label>
                   <input type="text" class="form-control" id="button" name="button" value="<%= button %>" placeholder="button">

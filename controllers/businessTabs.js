@@ -23,7 +23,6 @@ export const createContent = async (req, res) => {
   const errors = req.validationErrors();
 
   if (errors) {
-    console.log(errors);
     res.render("admin/businessTabs/add_info", {
       errors,
     });
@@ -34,8 +33,6 @@ export const createContent = async (req, res) => {
       link: link || "",
       image,
     });
-
-    console.log(content);
     content.save();
     req.flash("success", "Пост добавлен");
     res.redirect("/admin/admin-business-tabs");
@@ -49,7 +46,6 @@ export const getContentById = async (req, res) => {
   if (req.session.errors) errors = req.session.errors;
   req.session.errors = null;
   BusinessTabsModel.findById(req.params.id, function (err, content) {
-    console.log(content);
     if (err) {
       res.render("admin/businessTabs/admin_list");
     } else {
