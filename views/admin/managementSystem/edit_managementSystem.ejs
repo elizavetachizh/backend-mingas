@@ -1,0 +1,33 @@
+<h2 class="page-title">Редактирование</h2>
+<a href="/admin/managementSystem" class="btn btn-primary">Назад</a>
+<br><br>
+
+<form method="post" action="/admin/managementSystem/edit-managementSystem/<%= id %>" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="input-files">Файл</label>
+        <input
+                type="file"
+                name="file"
+                id="input-files"
+                class="form-control-file border"
+        />
+        <% if (file) { %>
+            <p>Текущий файл: <%= file %></p>
+        <% } %>
+    </div>
+    <div class="form-group">
+        <label for="name">Имя:</label>
+        <input type="text" name="name" id="name" value="<%= name %>" class="form-control"  required>
+    </div>
+
+    <button class="btn btn-default">Сохранить</button>
+
+    <% if (errors) {%>
+        <% errors.forEach(function(error) { %>
+            <div class="alert alert-danger">
+                <%= error.msg %>
+            </div>
+        <% });%>
+    <% }%>
+</form>
+

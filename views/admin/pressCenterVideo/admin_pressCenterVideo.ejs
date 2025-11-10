@@ -1,0 +1,29 @@
+<h2 class="page-title">Видео пресс-центра</h2>
+<a href="/admin/admin_pressCenterVideo/add-info" class="btn btn-primary">Добавить новую ссылку</a>
+<br><br>
+<% if (count > 0) { %>
+    <table class="table table-striped sorting">
+
+        <thead>
+        <tr class="home">
+            <th>Название</th>
+            <th>Ссылка</th>
+            <th>Редактировать</th>
+            <th>Удалить</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% videos.forEach(function(el){ %>
+            <tr>
+                <td><%= el.name %></td>
+                <td><%= el.link %></td>
+                <td><a href="/admin/admin_pressCenterVideo/edit-info/<%= el._id %>">Редактировать</a></td>
+                <td><a class="confirmDeletion" href="/admin/admin_pressCenterVideo/delete-info/<%= el._id %>">Удалить</a></td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+<% } else {%>
+    <h3 class="text-center">Нет ни одной созданной записи</h3>
+<% }%>
+

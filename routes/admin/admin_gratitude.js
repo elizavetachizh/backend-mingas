@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
     if (!fs.existsSync(dir)){
       fs.mkdirSync(dir, { recursive: true });
     }
-    cb(null, dir);
+    cb(null, dir); 
   },
   filename: (req, file, cb) => {
     cb(null, file.originalname); // Добавляем дату к имени файла

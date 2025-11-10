@@ -1,0 +1,30 @@
+<div>
+    <a href="/admin/managementSystem/upload" class="btn btn-primary">Загрузить новый файл</a>
+    <br><br>
+
+    <% if (count > 0) { %>
+    <table class="table table-striped sorting">
+        <thead>
+        <tr class="home">
+            <th>Документ</th>
+            <th>Файл</th>
+            <th>Редактировать</th>
+            <th>Удалить</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% files.forEach(function(element){ %>
+            <tr>
+                <td><p><%= element.name %></p></td>
+                <td><p><%= element.file %></p></td>
+                <td><a href="/admin/managementSystem/edit-managementSystem/<%= element.id %>">Отредактировать</a></td>
+                <td><a href="/admin/managementSystem/delete/<%= element.id %>">удалить</a></td>
+            </tr>
+        <% }); %>
+        </tbody>
+    </table>
+    <% } else {%>
+        <h3 class="text-center">Нет ни одного файла</h3>
+    <% }%>
+</div>
+
